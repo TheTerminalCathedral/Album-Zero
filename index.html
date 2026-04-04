@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#050805" />
+    <title>The Terminal Cathedral</title>
+    <meta
+      name="description"
+      content="A terminal-style threshold encounter with The Registrar."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="terminal-shell">
+      <header class="terminal-header" aria-label="System header">
+        <div class="header-copy">
+          <p class="eyebrow">The Terminal Cathedral</p>
+          <h1>Registrar Intake Terminal</h1>
+          <div class="intro-box" aria-label="Page introduction">
+            <p>This is the public entry page for The Terminal Cathedral.</p>
+            <p>Explore the album, the visual companion, and the full passage of the record.</p>
+          </div>
+        </div>
+        <div class="status-block" aria-label="System status">
+          <p>Channel: Threshold Intake</p>
+          <p>Access: Public Entry</p>
+        </div>
+      </header>
+
+      <section class="dialogue-panel" aria-labelledby="dialogue-heading">
+        <div class="panel-heading">
+          <p class="eyebrow">Active Exchange</p>
+          <h2 id="dialogue-heading">Registrar Console</h2>
+        </div>
+
+        <div class="message-block">
+          <p class="speaker-label" id="speakerLabel">Registrar</p>
+          <p class="dialogue-text" id="dialogueText"></p>
+        </div>
+
+        <div class="option-block">
+          <p class="option-heading">Available Responses</p>
+          <div id="optionsContainer" class="options-container"></div>
+        </div>
+      </section>
+    </main>
+
+    <noscript>This page requires JavaScript to render the branching dialogue.</noscript>
+
+    <script src="dialogue-data.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

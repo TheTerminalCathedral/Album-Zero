@@ -1,0 +1,308 @@
+:root {
+  --bg: #050805;
+  --panel: #081108;
+  --border: rgba(94, 255, 128, 0.25);
+  --text: #8bff9a;
+  --text-dim: #63c970;
+  --text-soft: #4d8b54;
+  --accent-yellow: #d6c55a;
+  --glow: rgba(91, 255, 124, 0.12);
+  --font-stack: "Courier New", Courier, monospace;
+  --shell-width: 58rem;
+  --page-pad-x: clamp(0.8rem, 4vw, 1.5rem);
+  --page-pad-y: clamp(0.9rem, 3vh, 1.75rem);
+  --section-pad: clamp(0.95rem, 3.8vw, 1.3rem);
+  --section-gap: 0.85rem;
+  --copy-size: 0.98rem;
+  --copy-measure: 34ch;
+  --button-min-height: 3.35rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background:
+    radial-gradient(circle at top, rgba(41, 92, 49, 0.12), transparent 38%),
+    linear-gradient(180deg, #040604 0%, #020302 100%);
+  color: var(--text);
+  font-family: var(--font-stack);
+}
+
+body {
+  min-height: 100dvh;
+}
+
+.terminal-shell {
+  width: min(100%, var(--shell-width));
+  margin: 0 auto;
+  padding:
+    max(var(--page-pad-y), env(safe-area-inset-top))
+    max(var(--page-pad-x), env(safe-area-inset-right))
+    calc(max(var(--page-pad-y), env(safe-area-inset-bottom)) + 0.75rem)
+    max(var(--page-pad-x), env(safe-area-inset-left));
+  display: grid;
+  gap: var(--section-gap);
+}
+
+.terminal-header,
+.dialogue-panel {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(5, 12, 5, 0.94), rgba(4, 8, 4, 0.98));
+  box-shadow: 0 0 0 1px rgba(68, 156, 82, 0.08), 0 0 24px var(--glow);
+}
+
+.terminal-header {
+  display: grid;
+  gap: 0.85rem;
+  padding: var(--section-pad);
+}
+
+.header-copy {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.dialogue-panel {
+  padding: var(--section-pad);
+}
+
+.boot-log {
+  padding-inline: var(--section-pad);
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.boot-log p,
+.status-block p,
+.speaker-label,
+.dialogue-text,
+.option-heading,
+.options-container button {
+  margin: 0;
+}
+
+.boot-log p + p,
+.status-block p + p {
+  margin-top: 0.35rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-size: clamp(1.05rem, 4.4vw, 1.4rem);
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+h1 {
+  color: var(--accent-yellow);
+}
+
+.intro-box {
+  max-width: 36ch;
+  color: var(--text-dim);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.intro-box p {
+  margin: 0;
+}
+
+.intro-box p + p {
+  margin-top: 0.3rem;
+}
+
+.status-block {
+  width: 100%;
+  text-align: left;
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(93, 255, 126, 0.14);
+}
+
+.panel-heading {
+  margin-bottom: 1rem;
+}
+
+.message-block {
+  min-height: 7.5rem;
+  padding: 1rem;
+  border: 1px solid rgba(93, 255, 126, 0.15);
+  background: rgba(5, 10, 5, 0.72);
+}
+
+.speaker-label {
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.dialogue-text {
+  font-size: var(--copy-size);
+  line-height: 1.7;
+  max-width: var(--copy-measure);
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.dialogue-text.is-rendering::after {
+  content: "";
+  display: inline-block;
+  width: 0.65ch;
+  height: 1em;
+  margin-left: 0.2rem;
+  vertical-align: -0.14em;
+  background: var(--text);
+  animation: blink 1s steps(1, end) infinite;
+}
+
+.option-block {
+  margin-top: 1rem;
+}
+
+.option-block[hidden] {
+  display: none;
+}
+
+.option-heading {
+  margin-bottom: 0.75rem;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+.options-container {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.options-container button {
+  appearance: none;
+  display: grid;
+  gap: 0.3rem;
+  width: 100%;
+  min-height: var(--button-min-height);
+  border: 1px solid rgba(93, 255, 126, 0.2);
+  background: rgba(7, 15, 7, 0.9);
+  color: var(--text);
+  padding: 0.95rem 1rem;
+  font: inherit;
+  font-size: 0.96rem;
+  line-height: 1.45;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  overflow-wrap: anywhere;
+  transition: background-color 120ms ease, border-color 120ms ease, transform 120ms ease;
+}
+
+.options-container button:hover,
+.options-container button:focus-visible {
+  background: rgba(12, 24, 12, 0.98);
+  border-color: rgba(116, 255, 144, 0.45);
+  outline: none;
+}
+
+.options-container button:active {
+  transform: translateY(1px);
+}
+
+.options-container button.external-option::after {
+  content: "opens in new tab";
+  display: block;
+  margin-top: 0.1rem;
+  color: var(--text-soft);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.65ch;
+  height: 1em;
+  margin-left: 0.2rem;
+  vertical-align: -0.14em;
+  background: var(--text);
+  animation: blink 1s steps(1, end) infinite;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 700px) {
+  .terminal-shell {
+    padding-top: max(1.5rem, env(safe-area-inset-top));
+    padding-bottom: calc(max(2rem, env(safe-area-inset-bottom)) + 1rem);
+  }
+
+  .terminal-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 1.25rem;
+  }
+
+  .intro-box {
+    max-width: 42ch;
+  }
+
+  .status-block {
+    width: auto;
+    text-align: right;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .panel-heading {
+    margin-bottom: 1.25rem;
+  }
+
+  .message-block {
+    min-height: 8.5rem;
+    padding: 1.15rem;
+  }
+
+  .dialogue-text {
+    max-width: 56ch;
+    font-size: 1rem;
+  }
+
+  .option-block {
+    margin-top: 1.2rem;
+  }
+
+  .options-container {
+    gap: 0.75rem;
+  }
+}
