@@ -1,4 +1,9 @@
 (function () {
+  const welcomeScreen = document.getElementById("welcomeScreen");
+  const terminalShell = document.getElementById("terminalShell");
+  const dialoguePanel = document.getElementById("dialoguePanel");
+  const albumEntryButton = document.getElementById("albumEntryButton");
+  const enterTerminalButton = document.getElementById("enterTerminalButton");
   const dialogueText = document.getElementById("dialogueText");
   const speakerLabel = document.getElementById("speakerLabel");
   const optionBlock = document.querySelector(".option-block");
@@ -11,9 +16,24 @@
 
   let currentNodeId = "start";
   let activeRenderToken = 0;
+  let hasEnteredTerminal = false;
 
   function getNode(nodeId) {
     return dialogueTree[nodeId];
+  }
+
+  function getFirstExternalUrl(nodeId) {
+    const node = getNode(nodeId);
+
+    if (!node || !Array.isArray(node.options)) {
+      return null;
+    }
+
+    const externalOption = node.options.find(function (option) {
+      return Boolean(option.externalUrl);
+    });
+
+    return externalOption ? externalOption.externalUrl : null;
   }
 
   function getRevealDuration(text) {
@@ -93,6 +113,26 @@
     });
   }
 
+  function enterTerminal() {
+    if (!welcomeScreen || !terminalShell) {
+      return;
+    }
+
+    welcomeScreen.hidden = true;
+    terminalShell.hidden = false;
+
+    if (!hasEnteredTerminal) {
+      hasEnteredTerminal = true;
+      renderNode(currentNodeId);
+    }
+
+    window.requestAnimationFrame(function () {
+      if (dialoguePanel) {
+        dialoguePanel.focus();
+      }
+    });
+  }
+
   function renderNode(nodeId) {
     const node = getNode(nodeId);
     const renderToken = ++activeRenderToken;
@@ -127,5 +167,17 @@
     });
   }
 
-  renderNode(currentNodeId);
+  if (albumEntryButton) {
+    const albumUrl = getFirstExternalUrl("album_route");
+
+    if (albumUrl) {
+      albumEntryButton.href = albumUrl;
+    }
+  }
+
+  if (enterTerminalButton) {
+    enterTerminalButton.addEventListener("click", enterTerminal);
+  } else {
+    renderNode(currentNodeId);
+  }
 })();

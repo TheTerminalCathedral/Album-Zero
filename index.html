@@ -10,41 +10,63 @@
     <title>The Terminal Cathedral</title>
     <meta
       name="description"
-      content="A terminal-style threshold encounter with The Registrar."
+      content="A public entry point into the world of The Terminal Cathedral."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="terminal-shell">
-      <header class="terminal-header" aria-label="System header">
-        <div class="header-copy">
-          <p class="eyebrow">The Terminal Cathedral</p>
-          <h1>Registrar Intake Terminal</h1>
-          <div class="intro-box" aria-label="Page introduction">
-            <p>This is the public entry page for The Terminal Cathedral.</p>
-            <p>Explore the album, the visual companion, and the full passage of the record.</p>
+    <main class="site-shell">
+      <section
+        class="view-shell welcome-shell"
+        id="welcomeScreen"
+        aria-labelledby="welcomeTitle"
+      >
+        <div class="welcome-panel">
+          <h1 id="welcomeTitle">The Terminal Cathedral</h1>
+          <div class="welcome-copy">
+            <p>A public entry point into the world of The Terminal Cathedral.</p>
+            <p>
+              You can go straight to the album, or enter the Registrar Terminal
+              to explore the story, visual companion, and track-by-track
+              passage.
+            </p>
+          </div>
+          <div class="welcome-actions" aria-label="Entry options">
+            <a class="welcome-action" id="albumEntryButton" href="#">
+              Take me to the album
+            </a>
+            <button
+              class="welcome-action"
+              id="enterTerminalButton"
+              type="button"
+            >
+              Take me to the Registrar Terminal
+            </button>
           </div>
         </div>
-        <div class="status-block" aria-label="System status">
-          <p>Channel: Threshold Intake</p>
-          <p>Access: Public Entry</p>
-        </div>
-      </header>
+      </section>
 
-      <section class="dialogue-panel" aria-labelledby="dialogue-heading">
-        <div class="panel-heading">
-          <p class="eyebrow">Active Exchange</p>
-          <h2 id="dialogue-heading">Registrar Console</h2>
-        </div>
+      <section
+        class="view-shell terminal-shell"
+        id="terminalShell"
+        aria-labelledby="dialogue-heading"
+        hidden
+      >
+        <div class="dialogue-panel" id="dialoguePanel" tabindex="-1">
+          <div class="panel-heading">
+            <p class="eyebrow">Active Exchange</p>
+            <h2 id="dialogue-heading">Registrar Console</h2>
+          </div>
 
-        <div class="message-block">
-          <p class="speaker-label" id="speakerLabel">Registrar</p>
-          <p class="dialogue-text" id="dialogueText"></p>
-        </div>
+          <div class="message-block">
+            <p class="speaker-label" id="speakerLabel">Registrar</p>
+            <p class="dialogue-text" id="dialogueText"></p>
+          </div>
 
-        <div class="option-block">
-          <p class="option-heading">Available Responses</p>
-          <div id="optionsContainer" class="options-container"></div>
+          <div class="option-block">
+            <p class="option-heading">Available Responses</p>
+            <div id="optionsContainer" class="options-container"></div>
+          </div>
         </div>
       </section>
     </main>

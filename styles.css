@@ -22,6 +22,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
 }
@@ -41,7 +45,11 @@ body {
   min-height: 100dvh;
 }
 
-.terminal-shell {
+.site-shell {
+  min-height: 100dvh;
+}
+
+.view-shell {
   width: min(100%, var(--shell-width));
   margin: 0 auto;
   padding:
@@ -49,51 +57,36 @@ body {
     max(var(--page-pad-x), env(safe-area-inset-right))
     calc(max(var(--page-pad-y), env(safe-area-inset-bottom)) + 0.75rem)
     max(var(--page-pad-x), env(safe-area-inset-left));
-  display: grid;
-  gap: var(--section-gap);
 }
 
-.terminal-header,
+.welcome-shell {
+  display: grid;
+  align-items: center;
+  min-height: 100dvh;
+}
+
+.terminal-shell {
+  display: grid;
+}
+
+.welcome-panel,
 .dialogue-panel {
   border: 1px solid var(--border);
   background: linear-gradient(180deg, rgba(5, 12, 5, 0.94), rgba(4, 8, 4, 0.98));
   box-shadow: 0 0 0 1px rgba(68, 156, 82, 0.08), 0 0 24px var(--glow);
 }
 
-.terminal-header {
+.welcome-panel {
   display: grid;
-  gap: 0.85rem;
+  gap: 1rem;
   padding: var(--section-pad);
-}
-
-.header-copy {
-  display: grid;
-  gap: 0.65rem;
+  min-height: min(26rem, calc(100dvh - (var(--page-pad-y) * 2)));
+  align-content: center;
 }
 
 .dialogue-panel {
   padding: var(--section-pad);
-}
-
-.boot-log {
-  padding-inline: var(--section-pad);
-  color: var(--text-dim);
-  font-size: 0.82rem;
-  line-height: 1.5;
-}
-
-.boot-log p,
-.status-block p,
-.speaker-label,
-.dialogue-text,
-.option-heading,
-.options-container button {
-  margin: 0;
-}
-
-.boot-log p + p,
-.status-block p + p {
-  margin-top: 0.35rem;
+  outline: none;
 }
 
 .eyebrow {
@@ -116,28 +109,31 @@ h1 {
   color: var(--accent-yellow);
 }
 
-.intro-box {
-  max-width: 36ch;
-  color: var(--text-dim);
-  font-size: 0.84rem;
-  line-height: 1.55;
-}
-
-.intro-box p {
+.welcome-copy,
+.speaker-label,
+.dialogue-text,
+.option-heading,
+.options-container button {
   margin: 0;
 }
 
-.intro-box p + p {
-  margin-top: 0.3rem;
+.welcome-copy {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 44ch;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.7;
 }
 
-.status-block {
-  width: 100%;
-  text-align: left;
-  color: var(--text-dim);
-  font-size: 0.82rem;
-  padding-top: 0.7rem;
-  border-top: 1px solid rgba(93, 255, 126, 0.14);
+.welcome-copy p {
+  margin: 0;
+}
+
+.welcome-actions {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
 }
 
 .panel-heading {
@@ -197,6 +193,7 @@ h1 {
   gap: 0.75rem;
 }
 
+.welcome-action,
 .options-container button {
   appearance: none;
   display: grid;
@@ -211,13 +208,17 @@ h1 {
   font-size: 0.96rem;
   line-height: 1.45;
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   overflow-wrap: anywhere;
   transition: background-color 120ms ease, border-color 120ms ease, transform 120ms ease;
+  align-items: center;
 }
 
+.welcome-action:hover,
+.welcome-action:focus-visible,
 .options-container button:hover,
 .options-container button:focus-visible {
   background: rgba(12, 24, 12, 0.98);
@@ -225,6 +226,7 @@ h1 {
   outline: none;
 }
 
+.welcome-action:active,
 .options-container button:active {
   transform: translateY(1px);
 }
@@ -262,26 +264,18 @@ h1 {
 }
 
 @media (min-width: 700px) {
-  .terminal-shell {
+  .view-shell {
     padding-top: max(1.5rem, env(safe-area-inset-top));
     padding-bottom: calc(max(2rem, env(safe-area-inset-bottom)) + 1rem);
   }
 
-  .terminal-header {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: start;
-    gap: 1.25rem;
+  .welcome-shell {
+    align-items: center;
   }
 
-  .intro-box {
-    max-width: 42ch;
-  }
-
-  .status-block {
-    width: auto;
-    text-align: right;
-    padding-top: 0;
-    border-top: 0;
+  .welcome-panel {
+    max-width: 42rem;
+    min-height: min(27rem, calc(100dvh - 4rem));
   }
 
   .panel-heading {
