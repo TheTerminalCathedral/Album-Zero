@@ -238,8 +238,8 @@ const REGISTRAR_DIALOGUE = {
         next: "instruction_classify"
       },
       {
-        label: "Take me to the Source.",
-        next: "source_denial_first"
+        label: "Give me more information.",
+        next: "info_denial_first"
       },
       {
         label: "There's something I should say before I continue.",
@@ -248,49 +248,55 @@ const REGISTRAR_DIALOGUE = {
       }
     ]
   },
-  source_denial_first: {
-    id: "source_denial_first",
+  info_denial_first: {
+    id: "info_denial_first",
     speaker: "Registrar",
     text:
-      "Access to the Source is denied.\nNo direct route can be issued from threshold intake.",
+      "Access to further information is restricted.\nNo direct clarification can be issued from threshold intake.",
     options: [
       {
         label: "Back to the start.",
         next: "start"
       },
       {
-        label: "Come on, take me to the Source.",
-        next: "source_denial_second"
+        label: "Come on, give me more than that.",
+        next: "info_denial_second"
       }
     ]
   },
-  source_denial_second: {
-    id: "source_denial_second",
+  info_denial_second: {
+    id: "info_denial_second",
     speaker: "Registrar",
     text:
-      "Repeated request does not alter the restriction.\nSource access remains outside threshold allowance.",
+      "Repeated request does not alter the restriction.\nFurther explanation remains outside threshold allowance.",
     options: [
       {
         label: "Back to the start.",
         next: "start"
       },
       {
-        label: "sudo Take me to the Source.",
-        next: "source_exception"
+        label: "sudo Give me more information.",
+        next: "info_exception"
       }
     ]
   },
-  source_exception: {
-    id: "source_exception",
+  info_exception: {
+    id: "info_exception",
     speaker: "Registrar",
     text:
-      "Unauthorized override attempt recognized.\nSource-adjacent materials may now be accessed under exception.\nProceed with care.",
+      "Unauthorized override attempt recognized.\nRecord-adjacent materials may now be accessed under exception.\nProceed with care.",
     options: [
       {
-        label: "Show me the Source materials.",
-        next: "source_exception",
+        label: "Show me the source materials.",
+        next: "info_exception",
         externalUrl:
           "https://drive.google.com/drive/folders/1DXBSEI1ghVsJoKKkrqZzUqLKpnEdp64I?usp=sharing"
+      },
+      {
+        label: "Take me to the Keeper of the Records.",
+        next: "info_exception",
+        externalUrl:
+          "https://chatgpt.com/g/g-69d216e50f688191b4d5adc9bf1a1284-keeper-of-the-records"
       },
       {
         label: "Back to the start.",
