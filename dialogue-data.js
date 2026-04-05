@@ -357,7 +357,7 @@ const REGISTRAR_DIALOGUE = {
         label: "Show me the visual companion.",
         next: "visual_classify",
         externalUrl:
-          "https://drive.google.com/file/d/1APZ1-TNpIqW5hrp1q3GhbtxvO4M9NCgx/view?usp=drivesdk"
+          "https://drive.google.com/file/d/1Q38GRSkDKs3J9ZijVmetWMLpMay-t41M/view?usp=drivesdk"
       },
       {
         label: "Back to the start.",
@@ -375,7 +375,7 @@ const REGISTRAR_DIALOGUE = {
         label: "Show me the visual companion.",
         next: "visual_route",
         externalUrl:
-          "https://drive.google.com/file/d/1APZ1-TNpIqW5hrp1q3GhbtxvO4M9NCgx/view?usp=drivesdk"
+          "https://drive.google.com/file/d/1Q38GRSkDKs3J9ZijVmetWMLpMay-t41M/view?usp=drivesdk"
       },
       {
         label: "Back to the start.",
