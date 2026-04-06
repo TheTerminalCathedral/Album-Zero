@@ -4,12 +4,15 @@
   const dialoguePanel = document.getElementById("dialoguePanel");
   const albumEntryButton = document.getElementById("albumEntryButton");
   const enterTerminalButton = document.getElementById("enterTerminalButton");
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
   const dialogueText = document.getElementById("dialogueText");
   const speakerLabel = document.getElementById("speakerLabel");
   const optionBlock = document.querySelector(".option-block");
   const optionsContainer = document.getElementById("optionsContainer");
 
   const dialogueTree = window.REGISTRAR_DIALOGUE || REGISTRAR_DIALOGUE;
+  const WELCOME_THEME_COLOR = "#0d0f10";
+  const TERMINAL_THEME_COLOR = "#07090d";
   const REVEAL_MIN_DURATION_MS = 180;
   const REVEAL_MAX_DURATION_MS = 720;
   const REVEAL_CHARACTERS_PER_SECOND = 180;
@@ -45,6 +48,17 @@
       REVEAL_MAX_DURATION_MS,
       Math.max(REVEAL_MIN_DURATION_MS, computedDuration)
     );
+  }
+
+  function applyVisualTone(isTerminalActive) {
+    document.body.classList.toggle("is-terminal-active", isTerminalActive);
+
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute(
+        "content",
+        isTerminalActive ? TERMINAL_THEME_COLOR : WELCOME_THEME_COLOR
+      );
+    }
   }
 
   function setOptionsReady(isReady) {
@@ -120,6 +134,7 @@
 
     welcomeScreen.hidden = true;
     terminalShell.hidden = false;
+    applyVisualTone(true);
 
     if (!hasEnteredTerminal) {
       hasEnteredTerminal = true;
@@ -176,8 +191,10 @@
   }
 
   if (enterTerminalButton) {
+    applyVisualTone(false);
     enterTerminalButton.addEventListener("click", enterTerminal);
   } else {
+    applyVisualTone(true);
     renderNode(currentNodeId);
   }
 })();
