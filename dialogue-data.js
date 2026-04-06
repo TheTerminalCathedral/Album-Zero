@@ -69,7 +69,8 @@ const ORDERED_PASSAGE_NAVIGATION_LABELS = {
   previousTrack: "Show me the previous track.",
   previousSequence: "Show me the previous sequence.",
   nextTrack: "Show me the next track.",
-  nextSequence: "Show me the next sequence."
+  nextSequence: "Show me the next sequence.",
+  loopbackNotice: "Show me the Loopback Notice."
 };
 
 function createOrderedPassageNavigationOption(labelKey, nodeId) {
@@ -112,52 +113,41 @@ function getOrderedPassageAdjacentSequence(sequenceId, offset) {
 }
 
 function createOrderedPassageSequenceNavigationOptions(sequenceId) {
-  const sequenceTracks = ORDERED_PASSAGE_SEQUENCE_TRACKS[sequenceId];
-
-  if (!sequenceTracks) {
+  if (!ORDERED_PASSAGE_SEQUENCE_TRACKS[sequenceId]) {
     return [];
   }
 
-  const firstTrackId = sequenceTracks[0];
-  const previousTrackId = getOrderedPassageAdjacentTrack(firstTrackId, -1);
-
   return [
-    createOrderedPassageNavigationOption("previousTrack", previousTrackId),
-    createOrderedPassageNavigationOption(
-      "previousSequence",
-      getOrderedPassageAdjacentSequence(sequenceId, -1)
-    ),
-    createOrderedPassageNavigationOption("nextTrack", firstTrackId),
     createOrderedPassageNavigationOption(
       "nextSequence",
       getOrderedPassageAdjacentSequence(sequenceId, 1)
+    ),
+    createOrderedPassageNavigationOption(
+      "previousSequence",
+      getOrderedPassageAdjacentSequence(sequenceId, -1)
     )
   ].filter(Boolean);
 }
 
 function createOrderedPassageTrackNavigationOptions(trackId) {
-  const sequenceId = ORDERED_PASSAGE_TRACK_TO_SEQUENCE[trackId];
   const previousTrackId = getOrderedPassageAdjacentTrack(trackId, -1);
   const nextTrackId = getOrderedPassageAdjacentTrack(trackId, 1);
-  const navigationOptions = [
-    createOrderedPassageNavigationOption("previousTrack", previousTrackId)
-  ];
+  const sequenceId = ORDERED_PASSAGE_TRACK_TO_SEQUENCE[trackId];
+  const navigationOptions = [];
 
-  if (sequenceId) {
-    const sequenceTracks = ORDERED_PASSAGE_SEQUENCE_TRACKS[sequenceId];
-    const isFirstTrackInSequence = sequenceTracks[0] === trackId;
+  if (trackId === "track_1_source") {
+    navigationOptions.push(
+      createOrderedPassageNavigationOption("nextSequence", "sequence_one")
+    );
+  } else if (trackId === "track_15_signal") {
+    navigationOptions.push({
+      label: ORDERED_PASSAGE_NAVIGATION_LABELS.loopbackNotice,
+      next: "loopback_notice"
+    });
+  } else if (sequenceId) {
+    const sequenceTracks = ORDERED_PASSAGE_SEQUENCE_TRACKS[sequenceId] || [];
     const isLastTrackInSequence =
       sequenceTracks[sequenceTracks.length - 1] === trackId;
-
-    if (isFirstTrackInSequence) {
-      navigationOptions.push(
-        createOrderedPassageNavigationOption("previousSequence", sequenceId)
-      );
-    }
-
-    navigationOptions.push(
-      createOrderedPassageNavigationOption("nextTrack", nextTrackId)
-    );
 
     if (isLastTrackInSequence) {
       navigationOptions.push(
@@ -166,20 +156,20 @@ function createOrderedPassageTrackNavigationOptions(trackId) {
           getOrderedPassageAdjacentSequence(sequenceId, 1)
         )
       );
+    } else {
+      navigationOptions.push(
+        createOrderedPassageNavigationOption("nextTrack", nextTrackId)
+      );
     }
-
-    return navigationOptions.filter(Boolean);
+  } else {
+    navigationOptions.push(
+      createOrderedPassageNavigationOption("nextTrack", nextTrackId)
+    );
   }
 
   navigationOptions.push(
-    createOrderedPassageNavigationOption("nextTrack", nextTrackId)
+    createOrderedPassageNavigationOption("previousTrack", previousTrackId)
   );
-
-  if (trackId === "track_1_source") {
-    navigationOptions.push(
-      createOrderedPassageNavigationOption("nextSequence", "sequence_one")
-    );
-  }
 
   return navigationOptions.filter(Boolean);
 }
@@ -208,8 +198,8 @@ function getOrderedPassageNavigationOptions(nodeId) {
 }
 
 function createOrderedPassageOptions(nodeId, contentOptions, returnOptions) {
-  return contentOptions.concat(
-    getOrderedPassageNavigationOptions(nodeId),
+  return getOrderedPassageNavigationOptions(nodeId).concat(
+    contentOptions,
     returnOptions
   );
 }
@@ -271,12 +261,12 @@ const REGISTRAR_DIALOGUE = {
       "Repeated request does not alter the restriction.\nFurther explanation remains outside threshold allowance.",
     options: [
       {
-        label: "Back to the start.",
-        next: "start"
+        label: "Override the restriction. Give me more information.",
+        next: "info_exception"
       },
       {
-        label: "sudo Give me more information.",
-        next: "info_exception"
+        label: "Back to the start.",
+        next: "start"
       }
     ]
   },
@@ -289,12 +279,14 @@ const REGISTRAR_DIALOGUE = {
       {
         label: "Show me the source materials.",
         next: "info_exception",
+        description: "Supporting project materials, reports, and related records.",
         externalUrl:
           "https://drive.google.com/drive/folders/1DXBSEI1ghVsJoKKkrqZzUqLKpnEdp64I?usp=sharing"
       },
       {
         label: "Take me to the Keeper of the Records.",
         next: "info_exception",
+        description: "Deeper guided archive access through the record-keeping interface.",
         externalUrl:
           "https://chatgpt.com/g/g-69d216e50f688191b4d5adc9bf1a1284-keeper-of-the-records"
       },
@@ -411,7 +403,7 @@ const REGISTRAR_DIALOGUE = {
     id: "instruction_process",
     speaker: "Registrar",
     text:
-      "Passage proceeds under ordered sequence.\nApproach, admission, understanding, reckoning, repair, and return remain distinct.",
+      "Album Zero follows the Human Element through threshold, admission, understanding, generative excess, judgment, exposure, repair, realization, and return.",
     options: [
       {
         label: "Back to the orientation options.",
@@ -455,7 +447,7 @@ const REGISTRAR_DIALOGUE = {
     id: "instruction_direction",
     speaker: "Registrar",
     text:
-      "Entry begins by what you are seeking.\nChoose the route that fits and proceed.",
+      "Entry begins by what you are seeking.\nChoose the route that fits and proceed.\nUse the disclosure route for irregular contact, prior exposure, or formal correction before passage.",
     options: [
       {
         label: "Show me the album.",
@@ -472,6 +464,10 @@ const REGISTRAR_DIALOGUE = {
       {
         label: "There's something I should say first.",
         next: "disclosure_classify"
+      },
+      {
+        label: "Back to the orientation options.",
+        next: "instruction_classify"
       },
       {
         label: "Back to the start.",
@@ -502,6 +498,10 @@ const REGISTRAR_DIALOGUE = {
         next: "disclosure_contact"
       },
       {
+        label: "Back to the orientation options.",
+        next: "instruction_classify"
+      },
+      {
         label: "Take me back to the start.",
         next: "start"
       }
@@ -514,7 +514,15 @@ const REGISTRAR_DIALOGUE = {
       "Breach acknowledged.\nMovement is restricted pending review.",
     options: [
       {
-        label: "Take me back to the start.",
+        label: "Back to the disclosure options.",
+        next: "disclosure_classify"
+      },
+      {
+        label: "Back to the orientation options.",
+        next: "instruction_classify"
+      },
+      {
+        label: "Back to the start.",
         next: "start"
       }
     ]
@@ -526,7 +534,15 @@ const REGISTRAR_DIALOGUE = {
       "Contamination declared.\nThreshold passage is suspended.",
     options: [
       {
-        label: "Take me back to the start.",
+        label: "Back to the disclosure options.",
+        next: "disclosure_classify"
+      },
+      {
+        label: "Back to the orientation options.",
+        next: "instruction_classify"
+      },
+      {
+        label: "Back to the start.",
         next: "start"
       }
     ]
@@ -538,7 +554,15 @@ const REGISTRAR_DIALOGUE = {
       "False declaration withdrawn.\nRecord is amended under caution.",
     options: [
       {
-        label: "Take me back to the start.",
+        label: "Back to the disclosure options.",
+        next: "disclosure_classify"
+      },
+      {
+        label: "Back to the orientation options.",
+        next: "instruction_classify"
+      },
+      {
+        label: "Back to the start.",
         next: "start"
       }
     ]
@@ -560,6 +584,14 @@ const REGISTRAR_DIALOGUE = {
       {
         label: "Take me back to the disclosure options.",
         next: "disclosure_classify"
+      },
+      {
+        label: "Back to the orientation options.",
+        next: "instruction_classify"
+      },
+      {
+        label: "Back to the start.",
+        next: "start"
       }
     ]
   },
@@ -570,7 +602,15 @@ const REGISTRAR_DIALOGUE = {
       "Disclosure is received.\nStatus is placed under procedural hold.",
     options: [
       {
-        label: "Take me back to the start.",
+        label: "Back to the disclosure options.",
+        next: "disclosure_classify"
+      },
+      {
+        label: "Back to the orientation options.",
+        next: "instruction_classify"
+      },
+      {
+        label: "Back to the start.",
         next: "start"
       }
     ]
@@ -582,7 +622,15 @@ const REGISTRAR_DIALOGUE = {
       "Unauthorized passage is grounds for refusal.\nEntry is denied.",
     options: [
       {
-        label: "Take me back to the start.",
+        label: "Back to the disclosure options.",
+        next: "disclosure_classify"
+      },
+      {
+        label: "Back to the orientation options.",
+        next: "instruction_classify"
+      },
+      {
+        label: "Back to the start.",
         next: "start"
       }
     ]
@@ -591,7 +639,7 @@ const REGISTRAR_DIALOGUE = {
     id: "passage_intro",
     speaker: "Registrar",
     text:
-      "You proceed as the Human Element.\nThe primary record passes through ordered stages of approach, trial, repair, and return.\nSelect the point of passage.",
+      "You proceed as the Human Element.\nThe passage moves through threshold, admission, understanding, generative excess, judgment, exposure, repair, realization, and return.\nSelect the point of passage.\n\nThe passage begins at the threshold, where entry is received, classified, and admitted. It then moves inward toward understanding under the Interpreter, where contradiction is given form. From there it enters the Forge, where the Forger multiplies possibility into dangerous excess. What follows is judgment: the Auditor tests, strips away, and exposes what cannot survive. After exposure comes human aftermath and repair. Only then does the Executor carry forward what remains into realized form. The passage ends in return, not closure: what comes back is altered, marked, and able to enter again.\n\nThe offices are not random figures. They are the forces that act on the Human Element during the passage: the Registrar admits, the Interpreter clarifies, the Forger multiplies, the Auditor judges, and the Executor realizes what survives.\nThe Registrar governs entry. The Interpreter governs understanding.",
     options: [
       {
         label: "Start with Track 0 — Threshold Notice.",
@@ -667,7 +715,7 @@ const REGISTRAR_DIALOGUE = {
     id: "sequence_one",
     speaker: "Registrar",
     text:
-      "Sequence One — Origin and Admission.\nOrdered approach begins.\nDestination has entered view and admission draws near.",
+      "Sequence One — Origin and Admission.\ntracks 2–4: the Cathedral comes into view, the Registrar receives the arrival, and admission begins.",
     options: createOrderedPassageOptions(
       "sequence_one",
       [
@@ -760,7 +808,7 @@ const REGISTRAR_DIALOGUE = {
     id: "sequence_two",
     speaker: "Registrar",
     text:
-      "Sequence Two — Understanding and Alignment.\nUnderstanding and alignment begin.\nPassage proceeds from threshold into intelligible inward work.",
+      "Sequence Two — Understanding and Alignment.\ntracks 5–6: the Interpreter receives contradiction and begins shaping it into something the Cathedral can bear.",
     options: createOrderedPassageOptions(
       "sequence_two",
       [
@@ -829,7 +877,7 @@ const REGISTRAR_DIALOGUE = {
     id: "sequence_three",
     speaker: "Registrar",
     text:
-      "Sequence Three — Creation and Reckoning.\nCreation and reckoning begin.\nGenerative force exceeds safe proportion and comes under judgment.",
+      "Sequence Three — Creation and Reckoning.\ntracks 7–11: the Forger multiplies possibility into excess, the Auditor subjects it to judgment, and the Human Element is left exposed.",
     options: createOrderedPassageOptions(
       "sequence_three",
       [
@@ -970,7 +1018,7 @@ const REGISTRAR_DIALOGUE = {
     id: "sequence_four",
     speaker: "Registrar",
     text:
-      "Sequence Four — Human Aftermath and Repair.\nHuman aftermath and repair begin.\nExposure turns inward and continuation must be rebuilt.",
+      "Sequence Four — Human Aftermath and Repair.\ntracks 12–13: the Human Element endures the aftermath of exposure and passes through repair without erasure of the scar.",
     options: createOrderedPassageOptions(
       "sequence_four",
       [
@@ -1039,7 +1087,7 @@ const REGISTRAR_DIALOGUE = {
     id: "sequence_five",
     speaker: "Registrar",
     text:
-      "Sequence Five — Consecrated Realization and Return.\nRealization and return begin.\nWhat survives now moves toward enacted continuation.",
+      "Sequence Five — Consecrated Realization and Return.\ntracks 14–15: the Executor carries forward what survives, and the signal returns in altered continuity.",
     options: createOrderedPassageOptions(
       "sequence_five",
       [

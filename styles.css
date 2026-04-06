@@ -460,6 +460,18 @@ h2 {
     0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
+.option-label {
+  display: block;
+}
+
+.option-description {
+  display: block;
+  color: var(--terminal-text-soft);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+}
+
 .options-container button::before {
   border-color: rgba(110, 128, 152, 0.08);
 }
@@ -510,7 +522,7 @@ h2 {
 .options-container button.external-option::after {
   content: "opens in new tab";
   display: block;
-  margin-top: 0.1rem;
+  margin-top: 0.15rem;
   color: var(--terminal-text-soft);
   font-size: 0.69rem;
   letter-spacing: 0.12em;

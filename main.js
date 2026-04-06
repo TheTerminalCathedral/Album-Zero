@@ -101,13 +101,26 @@
 
   function createOptionButton(option) {
     const button = document.createElement("button");
+    const accessibleParts = [option.label];
     button.type = "button";
-    button.textContent = option.label;
+    if (option.description) {
+      const label = document.createElement("span");
+      const description = document.createElement("span");
+      label.className = "option-label";
+      label.textContent = option.label;
+      description.className = "option-description";
+      description.textContent = option.description;
+      button.append(label, description);
+      accessibleParts.push(option.description);
+    } else {
+      button.textContent = option.label;
+    }
     if (option.externalUrl) {
       button.classList.add("external-option");
       button.setAttribute("data-external-url", option.externalUrl);
-      button.setAttribute("aria-label", option.label + " (opens in a new tab)");
+      accessibleParts.push("opens in a new tab");
     }
+    button.setAttribute("aria-label", accessibleParts.join(". "));
     button.addEventListener("click", function () {
       if (option.externalUrl) {
         window.open(option.externalUrl, "_blank", "noopener,noreferrer");
