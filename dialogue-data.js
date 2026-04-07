@@ -261,7 +261,7 @@ const REGISTRAR_DIALOGUE = {
       "Repeated request does not alter the restriction.\nFurther explanation remains outside threshold allowance.",
     options: [
       {
-        label: "Override the restriction. Give me more information.",
+        label: "sudo Give me more information.",
         next: "info_exception"
       },
       {
