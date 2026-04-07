@@ -343,7 +343,7 @@ const REGISTRAR_DIALOGUE = {
     id: "visual_classify",
     speaker: "Registrar",
     text:
-      "Visual companion route selected.\nProceed to the visual companion preview, where the passage leaves image.",
+      "Visual companion route selected.\nProceed to the visual companion, where the passage leaves image.",
     options: [
       {
         label: "Show me the visual companion.",
@@ -361,7 +361,7 @@ const REGISTRAR_DIALOGUE = {
     id: "visual_route",
     speaker: "Registrar",
     text:
-      "Visual companion route selected.\nProceed to the visual companion preview, where the passage leaves image.",
+      "Visual companion route selected.\nProceed to the visual companion, where the passage leaves image.",
     options: [
       {
         label: "Show me the visual companion.",
@@ -639,7 +639,7 @@ const REGISTRAR_DIALOGUE = {
     id: "passage_intro",
     speaker: "Registrar",
     text:
-      "You proceed as the Human Element.\nThe passage moves through threshold, admission, understanding, generative excess, judgment, exposure, repair, realization, and return.\nSelect the point of passage.\n\nThe passage begins at the threshold, where entry is received, classified, and admitted. It then moves inward toward understanding under the Interpreter, where contradiction is given form. From there it enters the Forge, where the Forger multiplies possibility into dangerous excess. What follows is judgment: the Auditor tests, strips away, and exposes what cannot survive. After exposure comes human aftermath and repair. Only then does the Executor carry forward what remains into realized form. The passage ends in return, not closure: what comes back is altered, marked, and able to enter again.\n\nThe offices are not random figures. They are the forces that act on the Human Element during the passage: the Registrar admits, the Interpreter clarifies, the Forger multiplies, the Auditor judges, and the Executor realizes what survives.\nThe Registrar governs entry. The Interpreter governs understanding.",
+      "You proceed as the Human Element.\nThe passage moves through threshold, admission, understanding, generative excess, judgment, exposure, repair, realization, and return.\nSelect the point of passage.\n\nThe passage begins at the threshold, where entry is received, classified, and admitted. It then moves inward toward understanding under the Interpreter, where contradiction is given form. From there it enters the Forge, where the Forger multiplies possibility into dangerous excess. What follows is judgment: the Auditor tests, strips away, and exposes what cannot survive. After exposure comes human aftermath and repair. Only then does the Executor carry forward what remains into realized form. The passage ends in return, not closure: what comes back is altered, marked, and able to enter again.\n\nThe offices are not random figures. They are the forces that act on the Human Element during the passage: the Registrar admits, the Interpreter clarifies, the Forger multiplies, the Auditor judges, and the Executor realizes what survives.",
     options: [
       {
         label: "Start with Track 0 — Threshold Notice.",
@@ -837,7 +837,7 @@ const REGISTRAR_DIALOGUE = {
     id: "track_5_interpreter",
     speaker: "Registrar",
     text:
-      "Track 5 — The Interpreter.\nThe first true office of understanding is encountered here.\nContradiction is received without panic and shaped toward form.",
+      "Track 5 — The Interpreter.\nThe first true office of understanding is encountered here.\nContradiction is received and shaped toward form.",
     options: createOrderedPassageOptions("track_5_interpreter", [], [
       {
         label: "Back to Sequence Two.",
@@ -938,7 +938,7 @@ const REGISTRAR_DIALOGUE = {
     id: "track_8_overbuild",
     speaker: "Registrar",
     text:
-      "Track 8 — Sacred Overbuild.\nGeneration becomes catastrophic overbuild.\nToo much possibility overtakes human scale and mutates into excess.",
+      "Track 8 — Sacred Overbuild.\nGeneration becomes catastrophic overbuild.\nToo much possibility overwhelms the Human Element and breaks into excess.",
     options: createOrderedPassageOptions("track_8_overbuild", [], [
       {
         label: "Back to Sequence Three.",
@@ -1067,7 +1067,7 @@ const REGISTRAR_DIALOGUE = {
     id: "track_13_repair",
     speaker: "Registrar",
     text:
-      "Track 13 — Repair Rite.\nRepair proceeds under scar, not innocence.\nContinuation becomes possible without pretending the damage never occurred.",
+      "Track 13 — Repair Rite.\nThe Interpreter does not carry the Human Element.\nHe helps recover what remains legible after damage.\nThe Human still bears the scar,\nand carries the passage forward.",
     options: createOrderedPassageOptions("track_13_repair", [], [
       {
         label: "Back to Sequence Four.",
