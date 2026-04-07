@@ -274,7 +274,7 @@ const REGISTRAR_DIALOGUE = {
     id: "info_exception",
     speaker: "Registrar",
     text:
-      "[override recognized]\nSource-adjacent materials may now be accessed under exception.\nContinuation is permitted under exception.",
+      "[override recognized]\nSource-adjacent materials may now be accessed under exception.\nContinuation is permitted.",
     options: [
       {
         label: "Show me the source materials.",
