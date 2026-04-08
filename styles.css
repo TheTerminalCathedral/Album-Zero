@@ -9,21 +9,23 @@
   --copy-measure: 34ch;
   --button-min-height: 3.35rem;
 
-  --welcome-bg-top: #11100f;
-  --welcome-bg-mid: #0b0c0d;
-  --welcome-bg-bottom: #060708;
-  --welcome-halo: rgba(184, 154, 99, 0.08);
-  --welcome-haze: rgba(70, 77, 68, 0.11);
+  --welcome-bg-top: #10151c;
+  --welcome-bg-mid: #090c12;
+  --welcome-bg-bottom: #05070b;
+  --welcome-halo: rgba(144, 171, 205, 0.1);
+  --welcome-haze: rgba(63, 74, 91, 0.14);
   --welcome-panel-bg: rgba(18, 20, 22, 0.9);
-  --welcome-panel-edge: rgba(58, 52, 42, 0.8);
-  --welcome-panel-inner: rgba(122, 109, 79, 0.11);
-  --welcome-frame: rgba(118, 104, 73, 0.12);
-  --welcome-text-strong: #b89a63;
-  --welcome-text: #d7d2c8;
-  --welcome-text-dim: #c2bcae;
-  --welcome-text-soft: #8f8b82;
-  --welcome-button-text: #d7cfbe;
-  --welcome-button-secondary: #c8c3b7;
+  --welcome-panel-edge: rgba(47, 57, 73, 0.86);
+  --welcome-panel-inner: rgba(104, 121, 147, 0.12);
+  --welcome-frame: rgba(88, 103, 126, 0.13);
+  --welcome-text-strong: #eef5ff;
+  --welcome-text: #c8d2df;
+  --welcome-text-dim: #aeb9c7;
+  --welcome-text-soft: #8793a2;
+  --welcome-text-human: #beb9b0;
+  --welcome-text-route: #bcc8d6;
+  --welcome-button-text: #d6e2ee;
+  --welcome-button-secondary: #aeb9c5;
 
   --terminal-bg-top: #111722;
   --terminal-bg-mid: #090c12;
@@ -87,13 +89,13 @@ body::after {
 
 body::before {
   background:
-    linear-gradient(90deg, rgba(184, 154, 99, 0.04), transparent 10%, transparent 90%, rgba(184, 154, 99, 0.04)),
+    linear-gradient(90deg, rgba(126, 149, 181, 0.045), transparent 10%, transparent 90%, rgba(126, 149, 181, 0.045)),
     radial-gradient(circle at center, transparent 54%, rgba(0, 0, 0, 0.34) 100%);
 }
 
 body::after {
   background:
-    radial-gradient(circle at top, rgba(255, 245, 220, 0.035), transparent 24%),
+    radial-gradient(circle at top, rgba(226, 236, 255, 0.038), transparent 24%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 22%, transparent 78%, rgba(0, 0, 0, 0.2));
   opacity: 0.7;
 }
@@ -129,7 +131,7 @@ body.is-terminal-active::after {
   position: fixed;
   inset: clamp(0.45rem, 1.8vw, 1rem);
   border: 1px solid var(--welcome-frame);
-  box-shadow: inset 0 0 0 1px rgba(70, 67, 58, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(65, 78, 98, 0.1);
   pointer-events: none;
 }
 
@@ -198,17 +200,17 @@ body.is-terminal-active .site-shell::before {
   padding: clamp(1.2rem, 5vw, 1.8rem);
   border: 1px solid var(--welcome-panel-edge);
   background:
-    linear-gradient(180deg, rgba(19, 20, 22, 0.95), rgba(10, 12, 13, 0.985)),
-    radial-gradient(circle at top center, rgba(184, 154, 99, 0.09), transparent 34%),
-    linear-gradient(90deg, rgba(94, 86, 69, 0.06), transparent 18%, transparent 82%, rgba(94, 86, 69, 0.06));
+    linear-gradient(180deg, rgba(17, 20, 25, 0.96), rgba(9, 12, 17, 0.988)),
+    radial-gradient(circle at top center, rgba(150, 176, 210, 0.1), transparent 34%),
+    linear-gradient(90deg, rgba(79, 92, 114, 0.08), transparent 18%, transparent 82%, rgba(79, 92, 114, 0.08));
 }
 
 .welcome-panel::before {
-  border: 1px solid rgba(122, 109, 79, 0.12);
+  border: 1px solid rgba(102, 119, 144, 0.12);
 }
 
 .welcome-panel::after {
-  background: linear-gradient(90deg, transparent, rgba(184, 154, 99, 0.28), transparent);
+  background: linear-gradient(90deg, transparent, rgba(179, 199, 227, 0.2), transparent);
 }
 
 .dialogue-panel {
@@ -257,10 +259,10 @@ h2 {
 
 h1 {
   color: var(--welcome-text-strong);
-  font-size: clamp(1.55rem, 7vw, 2.15rem);
+  font-size: clamp(1.7rem, 7vw, 2.3rem);
   line-height: 1.18;
-  letter-spacing: 0.05em;
-  text-shadow: 0 0 12px rgba(184, 154, 99, 0.07);
+  letter-spacing: 0.055em;
+  text-shadow: 0 0 14px rgba(205, 223, 255, 0.11);
 }
 
 h2 {
@@ -279,23 +281,35 @@ h2 {
 
 .welcome-copy {
   display: grid;
-  gap: 0.75rem;
-  max-width: 40ch;
-  color: var(--welcome-text-dim);
-  font-size: clamp(0.99rem, 3.7vw, 1.04rem);
-  line-height: 1.78;
+  gap: 0.82rem;
+  max-width: 44ch;
+  font-size: clamp(0.99rem, 3.7vw, 1.05rem);
+  line-height: 1.8;
 }
 
 .welcome-copy p {
   margin: 0;
 }
 
+.welcome-copy-main {
+  color: var(--welcome-text-dim);
+}
+
+.welcome-copy-human {
+  color: var(--welcome-text-human);
+}
+
 .welcome-leadin {
   margin: -0.15rem 0 0;
   color: var(--welcome-text-soft);
-  font-size: 0.86rem;
-  line-height: 1.6;
-  letter-spacing: 0.05em;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  max-width: 44ch;
+}
+
+.welcome-route {
+  color: var(--welcome-text-route);
 }
 
 .welcome-actions {
@@ -410,40 +424,40 @@ h2 {
 
 .welcome-action {
   min-height: 3.15rem;
-  border: 1px solid rgba(81, 72, 56, 0.82);
+  border: 1px solid rgba(57, 68, 84, 0.88);
   background:
-    linear-gradient(180deg, rgba(21, 21, 20, 0.95), rgba(12, 12, 11, 0.985)),
-    linear-gradient(90deg, rgba(184, 154, 99, 0.06), transparent 1rem);
+    linear-gradient(180deg, rgba(18, 22, 28, 0.95), rgba(10, 13, 18, 0.987)),
+    linear-gradient(90deg, rgba(123, 145, 175, 0.07), transparent 1rem);
   color: var(--welcome-button-text);
   font-size: clamp(0.87rem, 3.25vw, 0.95rem);
   line-height: 1.35;
   white-space: nowrap;
   box-shadow:
-    inset 1px 0 0 rgba(184, 154, 99, 0.18),
-    inset 0 1px 0 rgba(255, 243, 214, 0.03),
+    inset 1px 0 0 rgba(128, 150, 180, 0.16),
+    inset 0 1px 0 rgba(233, 240, 255, 0.03),
     0 12px 24px rgba(0, 0, 0, 0.18);
 }
 
 .welcome-action::before {
-  border-color: rgba(126, 110, 79, 0.1);
+  border-color: rgba(110, 127, 151, 0.1);
 }
 
 .welcome-action-primary {
-  border-color: rgba(113, 94, 59, 0.96);
+  border-color: rgba(114, 132, 160, 0.96);
   background:
-    linear-gradient(180deg, rgba(24, 23, 20, 0.96), rgba(14, 13, 11, 0.99)),
-    linear-gradient(90deg, rgba(184, 154, 99, 0.13), transparent 1rem);
+    linear-gradient(180deg, rgba(20, 24, 31, 0.97), rgba(11, 15, 21, 0.992)),
+    linear-gradient(90deg, rgba(170, 194, 225, 0.15), transparent 1rem);
   box-shadow:
-    inset 1px 0 0 rgba(184, 154, 99, 0.34),
-    inset 0 1px 0 rgba(255, 244, 219, 0.04),
+    inset 1px 0 0 rgba(170, 194, 225, 0.3),
+    inset 0 1px 0 rgba(239, 245, 255, 0.045),
     0 14px 28px rgba(0, 0, 0, 0.2);
 }
 
 .welcome-action-secondary {
-  border-color: rgba(70, 67, 58, 0.92);
+  border-color: rgba(49, 58, 72, 0.92);
   background:
-    linear-gradient(180deg, rgba(18, 19, 19, 0.94), rgba(11, 12, 13, 0.985)),
-    linear-gradient(90deg, rgba(112, 104, 87, 0.05), transparent 0.9rem);
+    linear-gradient(180deg, rgba(16, 19, 24, 0.94), rgba(10, 12, 16, 0.986)),
+    linear-gradient(90deg, rgba(102, 116, 136, 0.05), transparent 0.9rem);
   color: var(--welcome-button-secondary);
 }
 
@@ -478,21 +492,21 @@ h2 {
 
 .welcome-action:hover,
 .welcome-action:focus-visible {
-  border-color: rgba(145, 122, 79, 0.98);
+  border-color: rgba(138, 160, 190, 0.98);
   background:
-    linear-gradient(180deg, rgba(28, 26, 22, 0.97), rgba(16, 15, 13, 0.99)),
-    linear-gradient(90deg, rgba(184, 154, 99, 0.12), transparent 1rem);
-  color: #e4dcc8;
+    linear-gradient(180deg, rgba(23, 27, 35, 0.97), rgba(13, 17, 23, 0.99)),
+    linear-gradient(90deg, rgba(162, 186, 216, 0.12), transparent 1rem);
+  color: #e2ebf5;
   box-shadow:
-    inset 1px 0 0 rgba(184, 154, 99, 0.3),
-    inset 0 1px 0 rgba(255, 245, 223, 0.04),
+    inset 1px 0 0 rgba(162, 186, 216, 0.28),
+    inset 0 1px 0 rgba(240, 246, 255, 0.04),
     0 16px 30px rgba(0, 0, 0, 0.22);
   outline: none;
 }
 
 .welcome-action:hover::before,
 .welcome-action:focus-visible::before {
-  border-color: rgba(171, 147, 102, 0.12);
+  border-color: rgba(153, 176, 204, 0.12);
 }
 
 .options-container button:hover,
