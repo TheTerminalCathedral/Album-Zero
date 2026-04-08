@@ -296,7 +296,8 @@ h2 {
 }
 
 .welcome-copy-human {
-  color: var(--welcome-text-human);
+  color: #c7c1b7;
+  text-shadow: 0 0 10px rgba(232, 224, 209, 0.045);
 }
 
 .welcome-leadin {
@@ -309,7 +310,8 @@ h2 {
 }
 
 .welcome-route {
-  color: var(--welcome-text-route);
+  color: #c7d2df;
+  line-height: 1.78;
 }
 
 .welcome-actions {
@@ -443,14 +445,15 @@ h2 {
 }
 
 .welcome-action-primary {
-  border-color: rgba(114, 132, 160, 0.96);
+  border-color: rgba(138, 158, 188, 0.98);
   background:
     linear-gradient(180deg, rgba(20, 24, 31, 0.97), rgba(11, 15, 21, 0.992)),
-    linear-gradient(90deg, rgba(170, 194, 225, 0.15), transparent 1rem);
+    linear-gradient(90deg, rgba(170, 194, 225, 0.18), transparent 1rem);
+  color: #e4edf7;
   box-shadow:
-    inset 1px 0 0 rgba(170, 194, 225, 0.3),
-    inset 0 1px 0 rgba(239, 245, 255, 0.045),
-    0 14px 28px rgba(0, 0, 0, 0.2);
+    inset 1px 0 0 rgba(184, 207, 236, 0.34),
+    inset 0 1px 0 rgba(239, 245, 255, 0.05),
+    0 15px 29px rgba(0, 0, 0, 0.22);
 }
 
 .welcome-action-secondary {
@@ -459,6 +462,10 @@ h2 {
     linear-gradient(180deg, rgba(16, 19, 24, 0.94), rgba(10, 12, 16, 0.986)),
     linear-gradient(90deg, rgba(102, 116, 136, 0.05), transparent 0.9rem);
   color: var(--welcome-button-secondary);
+  box-shadow:
+    inset 1px 0 0 rgba(112, 127, 148, 0.12),
+    inset 0 1px 0 rgba(233, 240, 255, 0.022),
+    0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .options-container button {
