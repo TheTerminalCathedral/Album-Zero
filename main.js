@@ -9,6 +9,7 @@
   const speakerLabel = document.getElementById("speakerLabel");
   const optionBlock = document.querySelector(".option-block");
   const optionsContainer = document.getElementById("optionsContainer");
+  const analytics = window.TerminalCathedralAnalytics;
 
   const dialogueTree = window.REGISTRAR_DIALOGUE || REGISTRAR_DIALOGUE;
   const WELCOME_THEME_COLOR = "#0d0f10";
@@ -201,11 +202,31 @@
     if (albumUrl) {
       albumEntryButton.href = albumUrl;
     }
+
+    albumEntryButton.addEventListener("click", function () {
+      if (!analytics) {
+        return;
+      }
+
+      analytics.trackEvent("album_zero_click", {
+        destination: albumEntryButton.href || albumUrl || "",
+        button_id: "albumEntryButton"
+      });
+    });
   }
 
   if (enterTerminalButton) {
     applyVisualTone(false);
-    enterTerminalButton.addEventListener("click", enterTerminal);
+    enterTerminalButton.addEventListener("click", function () {
+      if (analytics) {
+        analytics.trackEvent("registrar_terminal_click", {
+          destination: "registrar_terminal",
+          button_id: "enterTerminalButton"
+        });
+      }
+
+      enterTerminal();
+    });
   } else {
     applyVisualTone(true);
     renderNode(currentNodeId);
