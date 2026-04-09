@@ -108,7 +108,14 @@
         timestamp: new Date().toISOString(),
         event_name: eventName,
         destination: "",
-        button_id: ""
+        button_id: "",
+        node_id: "",
+        node_type: "",
+        source_node_id: "",
+        target_node_id: "",
+        option_label: "",
+        option_kind: "",
+        depth_marker: ""
       },
       getBasePayload(),
       eventDetails || {}

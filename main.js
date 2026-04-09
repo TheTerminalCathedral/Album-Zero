@@ -21,6 +21,18 @@
   let currentNodeId = "start";
   let activeRenderToken = 0;
   let hasEnteredTerminal = false;
+  const trackedNodeViews = new Set();
+  const trackedPassageDepthMarkers = new Set();
+  const PASSAGE_DEPTH_MARKERS = new Set([
+    "passage_intro",
+    "sequence_one",
+    "sequence_two",
+    "sequence_three",
+    "sequence_four",
+    "sequence_five",
+    "track_15_signal",
+    "loopback_notice"
+  ]);
 
   function getNode(nodeId) {
     return dialogueTree[nodeId];
@@ -49,6 +61,175 @@
       REVEAL_MAX_DURATION_MS,
       Math.max(REVEAL_MIN_DURATION_MS, computedDuration)
     );
+  }
+
+  function getNodeType(nodeId) {
+    if (nodeId === "start") {
+      return "start";
+    }
+
+    if (nodeId === "passage_intro") {
+      return "passage";
+    }
+
+    if (nodeId === "loopback_notice") {
+      return "loopback";
+    }
+
+    if (nodeId.indexOf("instruction_") === 0) {
+      return "orientation";
+    }
+
+    if (nodeId.indexOf("album_") === 0) {
+      return "album";
+    }
+
+    if (nodeId.indexOf("visual_") === 0) {
+      return "visual";
+    }
+
+    if (nodeId.indexOf("sequence_") === 0) {
+      return "sequence";
+    }
+
+    if (nodeId.indexOf("track_") === 0) {
+      return "track";
+    }
+
+    if (nodeId.indexOf("disclosure_") === 0) {
+      return "disclosure";
+    }
+
+    if (nodeId.indexOf("info_") === 0) {
+      return "info";
+    }
+
+    return "";
+  }
+
+  function isBackNavigation(sourceNodeId, targetNodeId) {
+    const sourceNodeType = getNodeType(sourceNodeId);
+
+    if (targetNodeId === "start" && sourceNodeId !== "start") {
+      return true;
+    }
+
+    if (
+      targetNodeId === "passage_intro" &&
+      ["track", "sequence", "loopback"].includes(sourceNodeType)
+    ) {
+      return true;
+    }
+
+    if (
+      targetNodeId === "instruction_classify" &&
+      ["orientation", "disclosure"].includes(sourceNodeType)
+    ) {
+      return true;
+    }
+
+    if (
+      targetNodeId === "disclosure_classify" &&
+      sourceNodeType === "disclosure"
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  function getOptionKind(option, sourceNodeId) {
+    if (option.externalUrl) {
+      return "external";
+    }
+
+    const sourceNodeType = getNodeType(sourceNodeId);
+    const targetNodeType = getNodeType(option.next || "");
+
+    if (isBackNavigation(sourceNodeId, option.next || "")) {
+      return "back";
+    }
+
+    if (
+      targetNodeType === "track" &&
+      ["passage", "sequence", "track", "loopback"].includes(sourceNodeType)
+    ) {
+      return "track_nav";
+    }
+
+    if (
+      targetNodeType === "sequence" &&
+      ["passage", "sequence", "track", "loopback"].includes(sourceNodeType)
+    ) {
+      return "sequence_nav";
+    }
+
+    return "route";
+  }
+
+  function getTerminalEventDetails(nodeId) {
+    return {
+      node_id: nodeId,
+      node_type: getNodeType(nodeId)
+    };
+  }
+
+  function trackTerminalNodeView(nodeId) {
+    if (!analytics || trackedNodeViews.has(nodeId)) {
+      return;
+    }
+
+    trackedNodeViews.add(nodeId);
+    analytics.trackEvent(
+      "terminal_node_view",
+      getTerminalEventDetails(nodeId)
+    );
+  }
+
+  function trackPassageDepthReached(nodeId) {
+    if (
+      !analytics ||
+      !PASSAGE_DEPTH_MARKERS.has(nodeId) ||
+      trackedPassageDepthMarkers.has(nodeId)
+    ) {
+      return;
+    }
+
+    trackedPassageDepthMarkers.add(nodeId);
+    analytics.trackEvent("passage_depth_reached", Object.assign(
+      getTerminalEventDetails(nodeId),
+      { depth_marker: nodeId }
+    ));
+  }
+
+  function trackTerminalOption(option, sourceNodeId) {
+    if (!analytics) {
+      return;
+    }
+
+    const targetNodeId = option.next || "";
+    const optionKind = getOptionKind(option, sourceNodeId);
+    const eventDetails = Object.assign(
+      getTerminalEventDetails(sourceNodeId),
+      {
+        source_node_id: sourceNodeId,
+        target_node_id: targetNodeId,
+        option_label: option.label || "",
+        option_kind: optionKind
+      }
+    );
+
+    if (option.externalUrl) {
+      analytics.trackEvent("terminal_outbound_click", Object.assign(
+        eventDetails,
+        { destination: option.externalUrl }
+      ));
+      return;
+    }
+
+    if (targetNodeId && targetNodeId !== sourceNodeId) {
+      analytics.trackEvent("terminal_route_select", eventDetails);
+    }
   }
 
   function applyVisualTone(isTerminalActive) {
@@ -123,11 +304,14 @@
     }
     button.setAttribute("aria-label", accessibleParts.join(". "));
     button.addEventListener("click", function () {
+      const sourceNodeId = currentNodeId;
+      trackTerminalOption(option, sourceNodeId);
+
       if (option.externalUrl) {
         window.open(option.externalUrl, "_blank", "noopener,noreferrer");
       }
 
-      if (option.next && option.next !== currentNodeId) {
+      if (option.next && option.next !== sourceNodeId) {
         renderNode(option.next);
       }
     });
@@ -193,6 +377,8 @@
       const optionButtons = getVisibleOptions(node.options).map(createOptionButton);
       optionsContainer.replaceChildren(...optionButtons);
       setOptionsReady(true);
+      trackTerminalNodeView(node.id);
+      trackPassageDepthReached(node.id);
     });
   }
 
