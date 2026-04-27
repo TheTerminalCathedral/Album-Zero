@@ -417,4 +417,18 @@
     applyVisualTone(true);
     renderNode(currentNodeId);
   }
+
+  window.addEventListener("pagehide", function () {
+    if (!analytics || typeof analytics.getVisibleTimeMs !== "function") {
+      return;
+    }
+
+    const timeMs = analytics.getVisibleTimeMs();
+    if (timeMs > 0) {
+      analytics.trackEvent("session_end", Object.assign(
+        getTerminalEventDetails(currentNodeId),
+        { total_time_ms: timeMs }
+      ));
+    }
+  });
 })();

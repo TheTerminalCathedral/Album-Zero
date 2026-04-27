@@ -103,6 +103,10 @@
   }
 
   function trackEvent(eventName, eventDetails) {
+    if (window.navigator && window.navigator.webdriver) {
+      return undefined;
+    }
+
     const payload = Object.assign(
       {
         timestamp: new Date().toISOString(),
@@ -115,7 +119,9 @@
         target_node_id: "",
         option_label: "",
         option_kind: "",
-        depth_marker: ""
+        depth_marker: "",
+        total_time_ms: "",
+        error_message: ""
       },
       getBasePayload(),
       eventDetails || {}
@@ -205,6 +211,10 @@
     getEventLog: function () {
       return eventLog.slice();
     },
+    getVisibleTimeMs: function () {
+      updateVisibleTime();
+      return visibleTimeMs;
+    },
     isCollectorConfigured: isCollectorConfigured,
     trackEvent: trackEvent
   };
@@ -214,4 +224,12 @@
   trackEvent("landing_page_view");
   scheduleEngagementCheck();
   document.addEventListener("visibilitychange", handleVisibilityChange);
+
+  window.addEventListener("error", function (event) {
+    if (window.TerminalCathedralAnalytics) {
+      window.TerminalCathedralAnalytics.trackEvent("js_error", {
+        error_message: event.message || "Unknown error"
+      });
+    }
+  });
 })();
