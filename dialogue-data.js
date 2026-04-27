@@ -349,7 +349,7 @@ const REGISTRAR_DIALOGUE = {
         label: "Show me the visual companion.",
         next: "visual_classify",
         externalUrl:
-          "https://drive.google.com/file/d/1Q38GRSkDKs3J9ZijVmetWMLpMay-t41M/view?usp=drive_link"
+          "https://drive.google.com/file/d/1NZ5XlsjbmeYp02UHFX8ljuF6njeNaOde/view?usp=drive_link"
       },
       {
         label: "Back to the start.",
@@ -367,7 +367,7 @@ const REGISTRAR_DIALOGUE = {
         label: "Show me the visual companion.",
         next: "visual_route",
         externalUrl:
-          "https://drive.google.com/file/d/1Q38GRSkDKs3J9ZijVmetWMLpMay-t41M/view?usp=drive_link"
+          "https://drive.google.com/file/d/1NZ5XlsjbmeYp02UHFX8ljuF6njeNaOde/view?usp=drive_link"
       },
       {
         label: "Back to the start.",
