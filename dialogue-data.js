@@ -427,10 +427,10 @@ const REGISTRAR_DIALOGUE = {
     id: "visual_classify",
     speaker: "Registrar",
     text:
-      "Visual companion route selected.\nProceed to the visual companion, where the passage leaves image.",
+      "Album Zero visual companion route selected.\nProceed to the first visual companion, where the passage leaves image.",
     options: [
       {
-        label: "Show me the visual companion.",
+        label: "Show me the Album Zero visual companion.",
         next: "visual_classify",
         externalUrl:
           "https://drive.google.com/file/d/1NZ5XlsjbmeYp02UHFX8ljuF6njeNaOde/view?usp=drive_link"

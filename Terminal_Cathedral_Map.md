@@ -166,11 +166,11 @@ Proceed to Album Zero, the first public record of passage.
 
 ## Node: visual_classify
 **Displayed text:**
-Visual companion route selected.
-Proceed to the visual companion, where the passage leaves image.
+Album Zero visual companion route selected.
+Proceed to the first visual companion, where the passage leaves image.
 
 **Options:**
-1. Show me the visual companion.
+1. Show me the Album Zero visual companion.
    - *Leads to:* `visual_classify`
    - *External Link:* https://drive.google.com/file/d/1NZ5XlsjbmeYp02UHFX8ljuF6njeNaOde/view?usp=drive_link (opens in new tab)
 2. Back to the start.
