@@ -304,7 +304,7 @@ const REGISTRAR_DIALOGUE = {
     id: "album_select",
     speaker: "Registrar",
     text:
-      "Primary record requested.\nTwo public album records are now available.\nState which passage you require.",
+      "Album records requested.\nTwo public album records are now available.\nState which passage you require.",
     options: [
       {
         label: "Show me Album Zero.",
@@ -427,7 +427,7 @@ const REGISTRAR_DIALOGUE = {
     id: "album_route",
     speaker: "Registrar",
     text:
-      "Routing granted.\nProceed to Album Zero, the primary public record of passage.",
+      "Routing granted.\nProceed to Album Zero, the first public record of passage.",
     options: [
       {
         label: "Show me Album Zero.",
@@ -761,7 +761,7 @@ const REGISTRAR_DIALOGUE = {
     id: "passage_intro",
     speaker: "Registrar",
     text:
-      "You proceed as the Human Element.\nThe passage moves through threshold, admission, understanding, generative excess, judgment, exposure, repair, realization, and return.\nSelect the point of passage.\n\nThe passage begins at the threshold, where entry is received, classified, and admitted. It then moves inward toward understanding under the Interpreter, where contradiction is given form. From there it enters the Forge, where the Forger multiplies possibility into dangerous excess. What follows is judgment: the Auditor tests, strips away, and exposes what cannot survive. After exposure comes human aftermath and repair. Only then does the Executor carry forward what remains into realized form. The passage ends in return, not closure: what comes back is altered, marked, and able to enter again.\n\nThe offices are not random figures. They are the forces that act on the Human Element during the passage: the Registrar admits, the Interpreter clarifies, the Forger multiplies, the Auditor judges, and the Executor realizes what survives.",
+      "You proceed as the Human Element.\n\nAlbum Zero is the first passage.\nIt moves through threshold, admission, understanding, generative excess, judgment, exposure, repair, realization, and return.\n\nSelect the point of the first passage.\n\nThe passage begins at the threshold, where entry is received, classified, and admitted. It then moves inward toward understanding under the Interpreter, where contradiction is given form. From there it enters the Forge, where the Forger multiplies possibility into dangerous excess. What follows is judgment: the Auditor tests, strips away, and exposes what cannot survive. After exposure comes human aftermath and repair. Only then does the Executor carry forward what remains into realized form. The passage ends in return, not closure: what comes back is altered, marked, and able to enter again.\n\nThe offices are not random figures. They are the forces that act on the Human Element during the passage: the Registrar admits, the Interpreter clarifies, the Forger multiplies, the Auditor judges, and the Executor realizes what survives.",
     options: [
       {
         label: "Start with Track 0 — Threshold Notice.",
