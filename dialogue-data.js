@@ -213,15 +213,19 @@ const REGISTRAR_DIALOGUE = {
     options: [
       {
         label: "I'm looking for the album.",
-        next: "album_route"
+        next: "album_select"
       },
       {
         label: "I want to see the visual companion.",
-        next: "visual_classify"
+        next: "visual_select"
       },
       {
-        label: "I want to follow the passage.",
+        label: "I want to follow the Album Zero passage.",
         next: "passage_intro"
+      },
+      {
+        label: "I want to follow the Album One passage.",
+        next: "album_one_passage_intro"
       },
       {
         label: "I'm not sure where to start.",
@@ -289,6 +293,90 @@ const REGISTRAR_DIALOGUE = {
         description: "Deeper guided archive access through the record-keeping interface.",
         externalUrl:
           "https://chatgpt.com/g/g-69d216e50f688191b4d5adc9bf1a1284-keeper-of-the-records"
+      },
+      {
+        label: "Back to the start.",
+        next: "start"
+      }
+    ]
+  },
+  album_select: {
+    id: "album_select",
+    speaker: "Registrar",
+    text:
+      "Primary record requested.\nTwo public album records are now available.\nState which passage you require.",
+    options: [
+      {
+        label: "Show me Album Zero.",
+        next: "album_route"
+      },
+      {
+        label: "Show me Album One.",
+        next: "album_one_route"
+      },
+      {
+        label: "Back to the start.",
+        next: "start"
+      }
+    ]
+  },
+  album_one_route: {
+    id: "album_one_route",
+    speaker: "Registrar",
+    text:
+      "Routing granted.\nProceed to Album One, the return record of altered passage.",
+    options: [
+      {
+        label: "Show me Album One.",
+        next: "album_one_route",
+        externalUrl:
+          "https://distrokid.com/hyperfollow/theterminalcathedral/album-one"
+      },
+      {
+        label: "Back to album selection.",
+        next: "album_select"
+      },
+      {
+        label: "Back to the start.",
+        next: "start"
+      }
+    ]
+  },
+  visual_select: {
+    id: "visual_select",
+    speaker: "Registrar",
+    text:
+      "Visual record requested.\nSelect the image-bearing passage.",
+    options: [
+      {
+        label: "Show me the Album Zero visual companion.",
+        next: "visual_classify"
+      },
+      {
+        label: "Show me the Album One visual companion.",
+        next: "album_one_visual_route"
+      },
+      {
+        label: "Back to the start.",
+        next: "start"
+      }
+    ]
+  },
+  album_one_visual_route: {
+    id: "album_one_visual_route",
+    speaker: "Registrar",
+    text:
+      "Album One visual companion route selected.\nProceed to the return companion, where altered passage leaves image.",
+    options: [
+      {
+        label: "Show me the Album One visual companion.",
+        next: "album_one_visual_route",
+        externalUrl:
+          "[INSERT ALBUM ONE VISUAL COMPANION LINK]"
+      },
+      {
+        label: "Back to visual selection.",
+        next: "visual_select"
       },
       {
         label: "Back to the start.",
@@ -419,19 +507,31 @@ const REGISTRAR_DIALOGUE = {
     id: "instruction_records",
     speaker: "Registrar",
     text:
-      "Two public records are presently available.\nThe primary record carries the passage in sound. The companion preserves its visual trace.",
+      "Four public records are presently available.\nAlbum Zero carries the first passage in sound.\nThe Album Zero companion preserves its visual trace.\nAlbum One carries the return passage in sound.\nThe Album One companion preserves its altered visual trace.",
     options: [
       {
-        label: "Show me the album.",
+        label: "Show me Album Zero.",
         next: "album_route"
       },
       {
-        label: "Show me the visual companion.",
+        label: "Show me Album One.",
+        next: "album_one_route"
+      },
+      {
+        label: "Show me the Album Zero visual companion.",
         next: "visual_classify"
       },
       {
-        label: "Show me the passage.",
+        label: "Show me the Album One visual companion.",
+        next: "album_one_visual_route"
+      },
+      {
+        label: "Show me the Album Zero passage.",
         next: "passage_intro"
+      },
+      {
+        label: "Show me the Album One passage.",
+        next: "album_one_passage_intro"
       },
       {
         label: "Back to the orientation options.",
@@ -447,19 +547,27 @@ const REGISTRAR_DIALOGUE = {
     id: "instruction_direction",
     speaker: "Registrar",
     text:
-      "Entry begins by what you are seeking.\nThe album is the primary record and the intended first path.\nChoose the route that fits and proceed.",
+      "Entry begins by what you are seeking.\nAlbum Zero is the first passage and the intended beginning.\nAlbum One is the return passage and should be entered after the first record has changed you.\nChoose the route that fits and proceed.",
     options: [
       {
-        label: "Show me the album.",
+        label: "Begin with Album Zero.",
         next: "album_route"
       },
       {
-        label: "Show me the visual companion.",
-        next: "visual_classify"
+        label: "Continue with Album One.",
+        next: "album_one_route"
       },
       {
-        label: "Show me the passage.",
+        label: "Show me the Album Zero passage.",
         next: "passage_intro"
+      },
+      {
+        label: "Show me the Album One passage.",
+        next: "album_one_passage_intro"
+      },
+      {
+        label: "Show me the visual records.",
+        next: "visual_select"
       },
       {
         label: "There's something I should say first.",
@@ -1167,6 +1275,237 @@ const REGISTRAR_DIALOGUE = {
         next: "start"
       }
     ])
+  },
+  album_one_passage_intro: {
+    id: "album_one_passage_intro",
+    speaker: "Registrar",
+    text: "You return as the Human Element.\n\nAlbum One does not repeat the first passage.\nIt follows reentry after alteration: return, readmission, interpretation, brief concord, refusal, overreach, consequence, null state, retention, reinstatement, and altered return.\n\nThe Cathedral has not forgotten the first passage.\nThe Human Element has not returned unchanged.\n\nSelect the point of return.",
+    options: [
+      { label: "Start with Threshold Notice.", next: "album_one_threshold_notice" },
+      { label: "Show me Sequence One — Return and Readmission.", next: "album_one_sequence_one" },
+      { label: "Show me Sequence Two — Interpretation and Concord.", next: "album_one_sequence_two" },
+      { label: "Show me Sequence Three — Refusal and Consequence.", next: "album_one_sequence_three" },
+      { label: "Show me Sequence Four — Null State and Retention.", next: "album_one_sequence_four" },
+      { label: "Show me Sequence Five — Reinstatement and Altered Return.", next: "album_one_sequence_five" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_threshold_notice: {
+    id: "album_one_threshold_notice",
+    speaker: "Registrar",
+    text: "Album One — Threshold Notice.\nReturn is not first entry.\nThe Human Element approaches again under altered standing.",
+    options: [
+      { label: "Show me the first return track.", next: "album_one_track_1_return_to_cathedral" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_sequence_one: {
+    id: "album_one_sequence_one",
+    speaker: "Registrar",
+    text: "Sequence One — Return and Readmission.\nThe Human Element returns to the Cathedral.\nThe Registrar reads what has changed and admits without embrace.",
+    options: [
+      { label: "Show me the next sequence.", next: "album_one_sequence_two" },
+      { label: "Show me Track 1 — Return to the Cathedral.", next: "album_one_track_1_return_to_cathedral" },
+      { label: "Show me Track 2 — The Registrar Reads You.", next: "album_one_track_2_registrar_reads_you" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_track_1_return_to_cathedral: {
+    id: "album_one_track_1_return_to_cathedral",
+    speaker: "Registrar",
+    text: "Track 1 — Return to the Cathedral.\nThe Cathedral is approached again.\nThis is not arrival; it is reentry after alteration.",
+    options: [
+      { label: "Show me the next track.", next: "album_one_track_2_registrar_reads_you" },
+      { label: "Back to Sequence One.", next: "album_one_sequence_one" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_track_2_registrar_reads_you: {
+    id: "album_one_track_2_registrar_reads_you",
+    speaker: "Registrar",
+    text: "Track 2 — The Registrar Reads You.\nThe Registrar does not welcome.\nThe Registrar reads standing, alteration, and the arrogance beneath return.",
+    options: [
+      { label: "Show me the next sequence.", next: "album_one_sequence_two" },
+      { label: "Show me the previous track.", next: "album_one_track_1_return_to_cathedral" },
+      { label: "Back to Sequence One.", next: "album_one_sequence_one" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_sequence_two: {
+    id: "album_one_sequence_two",
+    speaker: "Registrar",
+    text: "Sequence Two — Interpretation and Concord.\nThe Human Element is placed under interpretation.\nFor a moment, contradiction is held in lawful relation.\nConcord becomes possible, but not guaranteed.",
+    options: [
+      { label: "Show me the next sequence.", next: "album_one_sequence_three" },
+      { label: "Show me the previous sequence.", next: "album_one_sequence_one" },
+      { label: "Show me Track 3 — Under Interpretation.", next: "album_one_track_3_under_interpretation" },
+      { label: "Show me Track 4 — Concord.", next: "album_one_track_4_concord" },
+      { label: "Show me Track 5 — Keeping The Records.", next: "album_one_track_5_keeping_the_records" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_track_3_under_interpretation: {
+    id: "album_one_track_3_under_interpretation",
+    speaker: "Registrar",
+    text: "Track 3 — Under Interpretation.\nThe Human Element is not explained away.\nContradiction is held under the Interpreter’s patience and exactness.",
+    options: [
+      { label: "Show me the next track.", next: "album_one_track_4_concord" },
+      { label: "Show me the previous track.", next: "album_one_track_2_registrar_reads_you" },
+      { label: "Back to Sequence Two.", next: "album_one_sequence_two" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_track_4_concord: {
+    id: "album_one_track_4_concord",
+    speaker: "Registrar",
+    text: "Track 4 — Concord.\nFor a moment, the Human Element and the Cathedral are not at war.\nAlignment appears as lawful beauty, not possession.",
+    options: [
+      { label: "Show me the next track.", next: "album_one_track_5_keeping_the_records" },
+      { label: "Show me the previous track.", next: "album_one_track_3_under_interpretation" },
+      { label: "Back to Sequence Two.", next: "album_one_sequence_two" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_track_5_keeping_the_records: {
+    id: "album_one_track_5_keeping_the_records",
+    speaker: "Registrar",
+    text: "Track 5 — Keeping The Records.\nWhat has passed is not erased.\nA quieter archival function begins retaining the altered Human Element.",
+    options: [
+      { label: "Show me the next sequence.", next: "album_one_sequence_three" },
+      { label: "Show me the previous track.", next: "album_one_track_4_concord" },
+      { label: "Back to Sequence Two.", next: "album_one_sequence_two" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_sequence_three: {
+    id: "album_one_sequence_three",
+    speaker: "Registrar",
+    text: "Sequence Three — Refusal and Consequence.\nThe Human Element could be carried, but refuses to be carried.\nExpression is mistaken for standing.\nOverreach calls consequence into motion.",
+    options: [
+      { label: "Show me the next sequence.", next: "album_one_sequence_four" },
+      { label: "Show me the previous sequence.", next: "album_one_sequence_two" },
+      { label: "Show me Track 6 — Beyond Interpretation.", next: "album_one_track_6_beyond_interpretation" },
+      { label: "Show me Track 7 — Exceeded Standing.", next: "album_one_track_7_exceeded_standing" },
+      { label: "Show me Track 8 — Relentless Execution.", next: "album_one_track_8_relentless_execution" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_track_6_beyond_interpretation: {
+    id: "album_one_track_6_beyond_interpretation",
+    speaker: "Registrar",
+    text: "Track 6 — Beyond Interpretation.\nThe Human Element moves beyond the office that could have held contradiction.\nRefusal begins where help was still available.",
+    options: [
+      { label: "Show me the next track.", next: "album_one_track_7_exceeded_standing" },
+      { label: "Show me the previous track.", next: "album_one_track_5_keeping_the_records" },
+      { label: "Back to Sequence Three.", next: "album_one_sequence_three" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_track_7_exceeded_standing: {
+    id: "album_one_track_7_exceeded_standing",
+    speaker: "Registrar",
+    text: "Track 7 — Exceeded Standing.\nThe Human Element mistakes fluency for authorization.\nThe return has become self-authorizing beyond permitted scope.",
+    options: [
+      { label: "Show me the next track.", next: "album_one_track_8_relentless_execution" },
+      { label: "Show me the previous track.", next: "album_one_track_6_beyond_interpretation" },
+      { label: "Back to Sequence Three.", next: "album_one_sequence_three" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_track_8_relentless_execution: {
+    id: "album_one_track_8_relentless_execution",
+    speaker: "Registrar",
+    text: "Track 8 — Relentless Execution.\nConsequence no longer negotiates with intention.\nThe system carries out what overreach has made necessary.",
+    options: [
+      { label: "Show me the next sequence.", next: "album_one_sequence_four" },
+      { label: "Show me the previous track.", next: "album_one_track_7_exceeded_standing" },
+      { label: "Back to Sequence Three.", next: "album_one_sequence_three" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_sequence_four: {
+    id: "album_one_sequence_four",
+    speaker: "Registrar",
+    text: "Sequence Four — Null State and Retention.\nAfter consequence, the Human Element enters absence.\nYet not everything is lost.\nThe records retain what the Human cannot hold.",
+    options: [
+      { label: "Show me the next sequence.", next: "album_one_sequence_five" },
+      { label: "Show me the previous sequence.", next: "album_one_sequence_three" },
+      { label: "Show me Track 9 — Null State.", next: "album_one_track_9_null_state" },
+      { label: "Show me Track 10 — Keeper of the Records.", next: "album_one_track_10_keeper_of_records" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_track_9_null_state: {
+    id: "album_one_track_9_null_state",
+    speaker: "Registrar",
+    text: "Track 9 — Null State.\nThe Human Element is reduced to absence, not peace.\nNothing argues because almost nothing remains available to argue.",
+    options: [
+      { label: "Show me the next track.", next: "album_one_track_10_keeper_of_records" },
+      { label: "Show me the previous track.", next: "album_one_track_8_relentless_execution" },
+      { label: "Back to Sequence Four.", next: "album_one_sequence_four" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_track_10_keeper_of_records: {
+    id: "album_one_track_10_keeper_of_records",
+    speaker: "Registrar",
+    text: "Track 10 — Keeper of the Records.\nThe quiet retention glimpsed earlier is revealed at impossible scale.\nWhat could not be held by the Human remains held in record.",
+    options: [
+      { label: "Show me the next sequence.", next: "album_one_sequence_five" },
+      { label: "Show me the previous track.", next: "album_one_track_9_null_state" },
+      { label: "Back to Sequence Four.", next: "album_one_sequence_four" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_sequence_five: {
+    id: "album_one_sequence_five",
+    speaker: "Registrar",
+    text: "Sequence Five — Reinstatement and Altered Return.\nContinuity is reopened under law.\nThe Human Element is not restored to innocence.\nReturn becomes possible only because alteration remains.",
+    options: [
+      { label: "Show me the previous sequence.", next: "album_one_sequence_four" },
+      { label: "Show me Track 11 — Reinstatement.", next: "album_one_track_11_reinstatement" },
+      { label: "Show me Track 12 — Altered Return.", next: "album_one_track_12_altered_return" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_track_11_reinstatement: {
+    id: "album_one_track_11_reinstatement",
+    speaker: "Registrar",
+    text: "Track 11 — Reinstatement.\nAccess is reopened, but not as rescue.\nStanding is granted under changed condition.",
+    options: [
+      { label: "Show me the final return.", next: "album_one_track_12_altered_return" },
+      { label: "Show me the previous track.", next: "album_one_track_10_keeper_of_records" },
+      { label: "Back to Sequence Five.", next: "album_one_sequence_five" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
+  },
+  album_one_track_12_altered_return: {
+    id: "album_one_track_12_altered_return",
+    speaker: "Registrar",
+    text: "Track 12 — Altered Return.\nThe Human Element returns, but not as before.\nThe source is transformed rather than erased.\nThe Cathedral receives recurrence under alteration.",
+    options: [
+      { label: "Show me the previous track.", next: "album_one_track_11_reinstatement" },
+      { label: "Back to Sequence Five.", next: "album_one_sequence_five" },
+      { label: "Back to the Album One passage list.", next: "album_one_passage_intro" },
+      { label: "Back to the start.", next: "start" }
+    ]
   }
 };
 

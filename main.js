@@ -3,6 +3,7 @@
   const terminalShell = document.getElementById("terminalShell");
   const dialoguePanel = document.getElementById("dialoguePanel");
   const albumEntryButton = document.getElementById("albumEntryButton");
+  const albumOneEntryButton = document.getElementById("albumOneEntryButton");
   const enterTerminalButton = document.getElementById("enterTerminalButton");
   const themeColorMeta = document.querySelector('meta[name="theme-color"]');
   const dialogueText = document.getElementById("dialogueText");
@@ -397,6 +398,19 @@
       analytics.trackEvent("album_zero_click", {
         destination: albumEntryButton.href || albumUrl || "",
         button_id: "albumEntryButton"
+      });
+    });
+  }
+
+  if (albumOneEntryButton) {
+    albumOneEntryButton.addEventListener("click", function () {
+      if (!analytics) {
+        return;
+      }
+
+      analytics.trackEvent("album_one_click", {
+        destination: albumOneEntryButton.href || "",
+        button_id: "albumOneEntryButton"
       });
     });
   }
