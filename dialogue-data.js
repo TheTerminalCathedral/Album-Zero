@@ -212,20 +212,16 @@ const REGISTRAR_DIALOGUE = {
       "Terminal Cathedral intake is active.\nPublic records are available through the routes below.\nState what you are looking for.",
     options: [
       {
-        label: "I'm looking for the album.",
+        label: "I'm looking for the albums.",
         next: "album_select"
       },
       {
-        label: "I want to see the visual companion.",
+        label: "I want to see the visual companions.",
         next: "visual_select"
       },
       {
-        label: "I want to follow the Album Zero passage.",
-        next: "passage_intro"
-      },
-      {
-        label: "I want to follow the Album One passage.",
-        next: "album_one_passage_intro"
+        label: "I want to follow the passages.",
+        next: "passage_select"
       },
       {
         label: "I'm not sure where to start.",
@@ -449,10 +445,10 @@ const REGISTRAR_DIALOGUE = {
     id: "visual_route",
     speaker: "Registrar",
     text:
-      "Visual companion route selected.\nProceed to the visual companion, where the passage leaves image.",
+      "Album Zero visual companion route selected.\nProceed to the first visual companion, where the passage leaves image.",
     options: [
       {
-        label: "Show me the visual companion.",
+        label: "Show me the Album Zero visual companion.",
         next: "visual_route",
         externalUrl:
           "https://drive.google.com/file/d/1NZ5XlsjbmeYp02UHFX8ljuF6njeNaOde/view?usp=drive_link"
@@ -491,7 +487,7 @@ const REGISTRAR_DIALOGUE = {
     id: "instruction_process",
     speaker: "Registrar",
     text:
-      "Album Zero follows the Human Element through threshold, admission, understanding, generative excess, judgment, exposure, repair, realization, and return.",
+      "Album Zero follows the Human Element through the first passage: threshold, admission, understanding, generative excess, judgment, exposure, repair, realization, and return.\nAlbum One follows return after alteration.",
     options: [
       {
         label: "Back to the orientation options.",

@@ -7,19 +7,17 @@ Public records are available through the routes below.
 State what you are looking for.
 
 **Options:**
-1. I'm looking for the album.
+1. I'm looking for the albums.
    - *Leads to:* `album_select`
-2. I want to see the visual companion.
+2. I want to see the visual companions.
    - *Leads to:* `visual_select`
-3. I want to follow the Album Zero passage.
-   - *Leads to:* `passage_intro`
-4. I want to follow the Album One passage.
-   - *Leads to:* `album_one_passage_intro`
-5. I'm not sure where to start.
+3. I want to follow the passages.
+   - *Leads to:* `passage_select`
+4. I'm not sure where to start.
    - *Leads to:* `instruction_classify`
-6. Give me more information.
+5. Give me more information.
    - *Leads to:* `info_denial_first`
-7. There's something I should say before I continue.
+6. There's something I should say before I continue.
    - *Leads to:* `disclosure_classify`
    - *Special Behavior:* Hidden from UI
 
@@ -182,11 +180,11 @@ Proceed to the visual companion, where the passage leaves image.
 
 ## Node: visual_route
 **Displayed text:**
-Visual companion route selected.
-Proceed to the visual companion, where the passage leaves image.
+Album Zero visual companion route selected.
+Proceed to the first visual companion, where the passage leaves image.
 
 **Options:**
-1. Show me the visual companion.
+1. Show me the Album Zero visual companion.
    - *Leads to:* `visual_route`
    - *External Link:* https://drive.google.com/file/d/1NZ5XlsjbmeYp02UHFX8ljuF6njeNaOde/view?usp=drive_link (opens in new tab)
 2. Back to the start.
@@ -213,7 +211,8 @@ State the required instruction.
 
 ## Node: instruction_process
 **Displayed text:**
-Album Zero follows the Human Element through threshold, admission, understanding, generative excess, judgment, exposure, repair, realization, and return.
+Album Zero follows the Human Element through the first passage: threshold, admission, understanding, generative excess, judgment, exposure, repair, realization, and return.
+Album One follows return after alteration.
 
 **Options:**
 1. Back to the orientation options.
