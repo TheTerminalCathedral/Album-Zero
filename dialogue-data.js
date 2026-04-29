@@ -1422,7 +1422,7 @@ const REGISTRAR_DIALOGUE = {
   album_one_track_8_relentless_execution: {
     id: "album_one_track_8_relentless_execution",
     speaker: "Registrar",
-    text: "Track 8 — Relentless Execution.\nConsequence no longer negotiates with intention.\nThe system carries out what overreach has made necessary.",
+    text: "Track 8 — Relentless Execution.\nThe Executor does not punish.\nThe request has become executable.\nExecution proceeds, and catastrophic deletion follows.",
     options: [
       { label: "Show me the next sequence.", next: "album_one_sequence_four" },
       { label: "Show me the previous track.", next: "album_one_track_7_exceeded_standing" },

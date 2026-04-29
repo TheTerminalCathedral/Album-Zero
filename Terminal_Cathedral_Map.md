@@ -1127,8 +1127,9 @@ The return has become self-authorizing beyond permitted scope.
 ## Node: album_one_track_8_relentless_execution
 **Displayed text:**
 Track 8 — Relentless Execution.
-Consequence no longer negotiates with intention.
-The system carries out what overreach has made necessary.
+The Executor does not punish.
+The request has become executable.
+Execution proceeds, and catastrophic deletion follows.
 
 **Options:**
 1. Show me the next sequence.
