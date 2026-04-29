@@ -125,24 +125,11 @@ Proceed to the return companion, where altered passage leaves image.
 
 **Options:**
 1. Show me the Album One visual companion.
-   - *Leads to:* `visual_unavailable`
+   - *Leads to:* `album_one_visual_route`
+   - *External Link:* https://drive.google.com/file/d/1gywkhx_4sFD092doKK3WM2iP4EOW24yM/view?usp=drive_link (opens in new tab)
 2. Back to visual selection.
    - *Leads to:* `visual_select`
 3. Back to the start.
-   - *Leads to:* `start`
-
----
-
-## Node: visual_unavailable
-**Displayed text:**
-Requested visual record is not presently accessible.
-Archive compilation remains incomplete.
-Return when the record has been consecrated.
-
-**Options:**
-1. Back to visual selection.
-   - *Leads to:* `visual_select`
-2. Back to the start.
    - *Leads to:* `start`
 
 ---

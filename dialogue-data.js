@@ -370,24 +370,10 @@ const REGISTRAR_DIALOGUE = {
     options: [
       {
         label: "Show me the Album One visual companion.",
-        next: "visual_unavailable"
+        next: "album_one_visual_route",
+        externalUrl:
+          "https://drive.google.com/file/d/1gywkhx_4sFD092doKK3WM2iP4EOW24yM/view?usp=drive_link"
       },
-      {
-        label: "Back to visual selection.",
-        next: "visual_select"
-      },
-      {
-        label: "Back to the start.",
-        next: "start"
-      }
-    ]
-  },
-  visual_unavailable: {
-    id: "visual_unavailable",
-    speaker: "Registrar",
-    text:
-      "Requested visual record is not presently accessible.\nArchive compilation remains incomplete.\nReturn when the record has been consecrated.",
-    options: [
       {
         label: "Back to visual selection.",
         next: "visual_select"
