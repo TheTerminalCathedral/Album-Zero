@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Stage 3C: noindex until the PENDING fields below are confirmed by the site owner (release blocker). -->
+    <!-- Stage 3C/3D: noindex until the PENDING fields below are confirmed by the site owner (release blocker). -->
     <meta name="robots" content="noindex" />
     <title>Privacy details · The Terminal Cathedral</title>
-    <meta name="description" content="What the optional visitor statistics on The Terminal Cathedral record, and how to switch them off." />
+    <meta name="description" content="What the optional visitor statistics on The Terminal Cathedral count, and how to switch them off." />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../hub/hub.css" />
     <style>
@@ -22,73 +22,80 @@
       .eyebrow { color: var(--terminal-text-soft); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; margin: 0; }
     </style>
   </head>
-  <!-- Stage 3C, privacy details (literal, not in-universe). Every statement here is taken from the site's own code
-       (analytics.js, hub/hub.js, main.js) unless it is marked PENDING: those depend on the Google Apps Script collector
-       and its storage, which the site owner has to confirm. This page itself loads no statistics script. -->
+  <!-- Stage 3D, privacy details (literal, not in-universe), rewritten for the aggregate-counter model. Every statement is
+       taken from the site's own code (analytics.js, hub/hub.js) and the proposed collector (Stage 3D), or is the site
+       owner's own statement where marked so in the Stage 3D report. PENDING marks what the site owner has to confirm.
+       This page itself loads no statistics script. -->
   <body class="is-terminal-active hub">
     <main class="privacy-page">
       <p class="eyebrow">The Terminal Cathedral · Privacy details</p>
       <h1>What gets recorded?</h1>
 
-      <p>This website has an optional visitor-statistics script. It only runs if you choose
-        <strong>YES · ALLOW STATS</strong> in the Registrar's observation request. If you choose
-        <strong>NO · THANKS</strong>, or make no choice, nothing is recorded or sent, and the website works exactly the same.</p>
+      <p>This website has a small, optional statistics script. Dan built it himself, because he is curious about how the
+        site is used. It only runs if you choose <strong>YES · ALLOW STATS</strong> in the Registrar's observation request.
+        If you choose <strong>NO · THANKS</strong>, or make no choice, nothing is counted or sent, and the website works
+        exactly the same. Without a YES given on the homepage, nothing is counted anywhere on the site.</p>
 
       <h2>Who runs it, and why</h2>
-      <p>The site and its statistics script are made and run by Dan Almer Jensen, as a personal project. The statistics
-        show which pages people visit, which records they open, which links they follow and how long they stay.
-        They are not used for advertising. No advertising network and no commercial analytics product is used; the script
-        sends its messages to a Google service the site owner set up (see "Where the messages go").</p>
-      <p>Contact about the data: <span class="pending">PENDING: contact method to be confirmed by the site owner</span></p>
+      <p>The site and its statistics script are made and run by Dan Almer Jensen, as a personal project. The statistics are
+        just for his own curiosity. They are not used for advertising or marketing. The site does not use Google Analytics,
+        advertising trackers or any other analytics product.</p>
+      <p>Contact about the statistics: <span class="pending">PENDING: contact method to be confirmed by the site owner</span></p>
 
-      <h2>What is recorded, if you choose YES</h2>
-      <p>One short message is sent when:</p>
+      <h2>What is counted, if you choose YES</h2>
+      <p>The script counts things, it does not keep a record of you. Each time one of these happens, the site sends one tiny
+        message that names only <em>what</em> happened, for example "Music opened":</p>
       <ul>
-        <li>a page opens, and when you leave it (with how long the page was visible);</li>
-        <li>you have stayed on a page for 10 seconds;</li>
-        <li>you choose a section, open or close a record, choose a dialogue option in the original Registrar console, or follow a link;</li>
-        <li>a script error occurs on the page (this can include errors caused by browser extensions).</li>
+        <li>the homepage or the original Registrar console is viewed, and whether it stayed open for at least 10 seconds;</li>
+        <li>a section is opened (Electronics, AI, Software, Music, The Lab, The Human), or a record inside one is expanded;</li>
+        <li>one of the site's links is followed (for example AI-Madpakken on GitHub, Album Zero or Album One), or the original
+          Registrar console is entered;</li>
+        <li>in the original console: the terminal is entered, one of its links is followed, a part of the album passage is
+          reached, or a choice leads to its "Routing error";</li>
+        <li>a script error happens on the page (only that it happened, not the error text);</li>
+        <li>when you leave a page: roughly how long it was visible on screen after you chose YES, as one of six ranges (under 10 seconds, 10–30 seconds,
+          30–60 seconds, 1–3 minutes, 3–10 minutes, over 10 minutes).</li>
       </ul>
-      <p>Each message contains:</p>
-      <ul>
-        <li>the page's address, path and title (including any extra parameters in the address you arrived with, such as <code>utm_source</code>);</li>
-        <li>the address of the page you came from, as your browser reports it (for links from other websites usually only the website's name);</li>
-        <li>what you chose: the section, record, dialogue step, option label or link (and the address of an external link);</li>
-        <li>the time, and for "leaving the page" the visible time in milliseconds;</li>
-        <li>your device type, only as "desktop", "tablet" or "mobile", worked out in your browser;</li>
-        <li>a random visit number (see below);</li>
-        <li>the error message, if a script error occurred.</li>
-      </ul>
-      <p>The messages do not contain your name, an email address, an account, or your browser's identification string.</p>
+      <p>The message contains nothing else: no visit or session number, no page address, no address of the page you came
+        from, no time, no device or browser details, and nothing you typed. The site does not create any identifier for you,
+        and nothing connects one message to another, or the homepage to the original console.</p>
 
-      <h2>The visit number</h2>
-      <p>When statistics are allowed, the page creates a random visit number so the messages from one visit belong together.
-        If you go from the homepage into the original Registrar console, the number is passed along once in that page's
-        address and removed again straight away, so both pages count as one visit. The number is not stored on your device,
-        and a new one is made when you come back or reload a page. It is never created if you choose NO or make no choice.</p>
+      <h2>Where the counts are kept</h2>
+      <p>The messages go to a small Google Apps Script that Dan wrote, running on Google's servers
+        (<code>script.google.com</code>). It adds one to a daily total in a spreadsheet, with three columns: date, what
+        happened, and how many times that day. It does not save the messages themselves or a list of visits.
+        Google's Apps Script does keep its own technical log of when the script ran (time, duration, success or failure),
+        visible only in Dan's account; it holds none of the message content. The date is
+        set by the script, not by your browser. The spreadsheet is in Dan's own Google Drive, and only Dan has access
+        to it.</p>
+      <p>Google provides the service the script and the spreadsheet run on. To deliver each message, Google's servers
+        necessarily receive your IP address, your browser's standard request details and the website's address. The
+        messages are sent without cookies, so a Google account you are signed in to is not attached to them. Dan's
+        script does not receive or store these, but Google handles them as described in Google's own privacy policy.</p>
 
-      <h2>What is stored on your device</h2>
-      <p>Only your choice: one entry in your browser's local storage for this website, named <code>tc_observation</code>,
-        with the value <code>granted</code> or <code>denied</code>. It contains no identifier and no date. It lets both parts of the site
-        follow your choice and keeps the question from appearing again. If your browser does not allow local storage,
-        nothing is stored: statistics stay off, a YES applies only to the page you are on, and the question is asked again next time.</p>
-
-      <h2>Where the messages go</h2>
-      <p>If you choose YES, the messages are sent to a Google Apps Script web app on Google's servers
-        (<code>script.google.com</code>), which the site owner set up to collect the results
-        <span class="pending">PENDING: where the results are stored (which spreadsheet service) and who can access them, to be confirmed by the site owner</span>.
-        As with any request over the internet, Google's servers receive your IP address and browser details in order to
-        deliver each message; Google's own privacy policy describes how Google handles these.</p>
+      <h2>Are the counts anonymous?</h2>
+      <p>The spreadsheet only holds daily totals, with no identifiers, so it does not show who did what. One honest
+        limitation: this is a small website, so on a quiet day a total can be just 1. Someone who already knows you visited
+        that day could then guess that the 1 was you.</p>
+      <p>Earlier versions of the website recorded more detail (one row per event, with a temporary visit number).
+        <span class="pending">PENDING: what happens to those earlier records, to be confirmed by the site owner</span></p>
 
       <h2>How long it is kept</h2>
       <p><span class="pending">PENDING: retention period to be confirmed by the site owner</span></p>
+
+      <h2>What is stored on your device</h2>
+      <p>Only your choice: one entry in your browser's local storage for this website, named <code>tc_observation</code>,
+        with the value <code>granted</code> or <code>denied</code>. It contains no identifier and no date. It lets both parts of
+        the site follow your choice and keeps the question from appearing again. No cookies are used. If your browser does
+        not allow local storage, nothing is stored: statistics stay off, a YES applies only to the page you are on, and the
+        question is asked again next time.</p>
 
       <h2>Changing your mind</h2>
       <p>Use <strong>OBSERVATION PREFERENCES</strong> at the bottom of the homepage to switch statistics on or off at any time.
         Switching off stops all further messages immediately, on the homepage and in the original Registrar console.
         Clearing this website's data in your browser also removes your choice, and the question will be asked again.</p>
-      <p>Requests about data that has already been collected:
-        <span class="pending">PENDING: how to request access or deletion, to be confirmed by the site owner</span>.
+      <p>Questions or requests about the statistics:
+        <span class="pending">PENDING: how to send a question or request, to be confirmed by the site owner</span>.
         You can also complain to Datatilsynet, the Danish Data Protection Agency.</p>
 
       <p><a href="../">Back to the terminal</a></p>

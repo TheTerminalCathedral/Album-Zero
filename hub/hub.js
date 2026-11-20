@@ -44,6 +44,8 @@
  *   - Focus stays where the visitor put it (sidebar button or record toggle).
  *
  * Analytics (HUMAN decisions 2A–2G): the two existing event names, through analytics.js only.
+ * Stage 3D: analytics.js maps them to fixed daily-counter metrics and sends only the metric code
+ * (record collapses, node ids and link addresses are not sent).
  *   hub_destination_select  a deliberate selection:
  *                             sidebar button    option_kind "gateway",         button_id "gateway_<area>"
  *                             record opened     option_kind "record_expand",   button_id "toggle_<area>_<item>"
@@ -774,24 +776,13 @@
         node_id: currentRoute,
         option_kind: "record_link"
       });
-      // Stage 3A/3B visit continuity: carry this page's random visit_id to the original console in its address
-      // (?tc_visit=…); analytics.js there adopts it and removes it again. Nothing is stored on the device; the
-      // console's own code is untouched. Plain same-tab activation only: the link itself is never modified, so a
-      // later "open in new tab" or "copy link" never carries the id (Stage 3B review finding).
-      var visitId = analytics && typeof analytics.getBasePayload === "function" ? analytics.getBasePayload().visit_id : "";
-      if (visitId) {
-        var target = new URL(link.getAttribute("href"), window.location.href);
-        target.searchParams.set("tc_visit", visitId);
-        event.preventDefault();
-        window.location.assign(target.href);
-      }
+      // Stage 3D: no visit id exists any more, so nothing is carried into the console: the link is followed as is.
     });
   });
 
   // Stage 3A visit duration: the homepage reports session_end on page exit exactly as the original console
-  // (main.js) does: same event name, same total_time_ms (visible time from analytics.js), sent once per pagehide
-  // when any time was visible. node_id is the homepage view open at exit ("start" on the start record, as for the
-  // homepage's other events).
+  // (main.js) does. Stage 3D: analytics.js turns it into one coarse duration bucket for the day's counter (once
+  // per showing of the page); the exact time and the open view are not sent.
   window.addEventListener("pagehide", function () {
     if (!analytics || typeof analytics.getVisibleTimeMs !== "function") {
       return;
@@ -878,6 +869,11 @@
   (function () {
     var panel = document.getElementById("observation");
     if (!panel || !analytics || typeof analytics.getConsent !== "function") {
+      return;
+    }
+    // Stage 3D fallback: while statistics are switched off (no aggregate collector configured in analytics.js)
+    // there is nothing to agree to, so neither the panel nor OBSERVATION PREFERENCES is shown.
+    if (typeof analytics.isAvailable !== "function" || !analytics.isAvailable()) {
       return;
     }
     var registrar = panel.querySelector(".observation-registrar");
