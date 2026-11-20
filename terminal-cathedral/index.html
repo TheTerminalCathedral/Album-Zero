@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0d0f10" />
+    <title>The Terminal Cathedral</title>
+    <meta
+      name="description"
+      content="A public entry point into the world of The Terminal Cathedral."
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="site-shell">
+      <section
+        class="view-shell welcome-shell"
+        id="welcomeScreen"
+        aria-labelledby="welcomeTitle"
+      >
+        <div class="welcome-panel">
+          <h1 id="welcomeTitle">The Terminal Cathedral</h1>
+          <div class="welcome-copy">
+            <p class="welcome-copy-main">
+              A synthwave concept-album cycle and terminal-style site built as one
+              thing.
+            </p>
+            <p class="welcome-copy-main">
+              Album Zero opens the machine-world: threshold, admission, interpretation, excess, judgment, repair, and return.
+            </p>
+            <p class="welcome-copy-main">
+              Album One follows the Human Element back through the Cathedral after the first passage has changed him.
+            </p>
+            <p class="welcome-copy-main">
+              It started as a real engineering workflow, then turned into a
+              fictional machine-world with its own logic and voices.
+            </p>
+            <p class="welcome-copy-human">
+              It was a fun thing to make, and I hope someone enjoys spending
+              time with it.
+            </p>
+          </div>
+          <p class="welcome-leadin welcome-route">
+            Begin with Album Zero, continue with Album One, or enter the terminal to explore the world
+            behind the albums.
+          </p>
+          <div class="welcome-actions" aria-label="Entry options">
+            <a
+              class="welcome-action welcome-action-primary"
+              id="albumEntryButton"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Begin with Album Zero
+            </a>
+            <a
+              class="welcome-action welcome-action-primary"
+              id="albumOneEntryButton"
+              href="https://distrokid.com/hyperfollow/theterminalcathedral/album-one"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Continue with Album One
+            </a>
+            <button
+              class="welcome-action welcome-action-secondary"
+              id="enterTerminalButton"
+              type="button"
+            >
+              Enter the Terminal
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="view-shell terminal-shell"
+        id="terminalShell"
+        aria-labelledby="dialogue-heading"
+        hidden
+      >
+        <div class="dialogue-panel" id="dialoguePanel" tabindex="-1">
+          <div class="panel-heading">
+            <p class="eyebrow">Active Exchange</p>
+            <h2 id="dialogue-heading">Registrar Console</h2>
+          </div>
+
+          <div class="message-block">
+            <p class="speaker-label" id="speakerLabel">Registrar</p>
+            <p class="dialogue-text" id="dialogueText"></p>
+          </div>
+
+          <div class="option-block">
+            <p class="option-heading">Available Responses</p>
+            <div id="optionsContainer" class="options-container"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <noscript>This page requires JavaScript to render the branching dialogue.</noscript>
+
+    <script src="../dialogue-data.js"></script>
+    <script src="../analytics.js"></script>
+    <script src="../main.js"></script>
+  </body>
+</html>
