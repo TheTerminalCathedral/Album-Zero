@@ -1,0 +1,1540 @@
+/*
+ * Cathedral Hub — PROTOTYPE styles (Stage 2A; content 2B; in-place navigation 2C; full-width Registrar and six routes 2D).
+ * Loaded after the original styles.css and reuses its tokens, panels, buttons and type.
+ * Adds only what the hub needs: header, directory, record panels, option links,
+ * focus visibility and reduced motion.
+ */
+
+.hub .hub-shell {
+  display: grid;
+  gap: 1rem;
+}
+
+/* ---- accessibility helpers ---- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 10;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--terminal-focus);
+  background: #0b0f15;
+  color: var(--terminal-focus);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.hub a:focus-visible,
+.hub [tabindex="-1"]:focus-visible {
+  outline: 2px solid var(--terminal-focus);
+  outline-offset: 3px;
+}
+
+.hub h2[tabindex="-1"]:focus {
+  outline: none;
+}
+
+/* ---- header ---- */
+.hub-header {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.6rem 0 0.2rem;
+}
+
+.hub-status {
+  color: var(--terminal-text-soft);
+}
+
+.hub-status-sep {
+  color: var(--terminal-brass-trace);
+}
+
+.hub-cursor {
+  width: 0.55ch;
+  height: 0.9em;
+}
+
+.hub-title {
+  color: var(--welcome-text-strong);
+}
+
+.hub-tagline {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--terminal-text-dim);
+  line-height: 1.7;
+  font-size: clamp(0.92rem, 3.4vw, 1rem);
+}
+
+/* ---- gateway: five primary routes, all visible at once ---- */
+.hub-gateway {
+  outline: none;
+}
+
+.hub-gateway .message-block {
+  min-height: 5.6rem;
+}
+
+.gateway-routes {
+  margin-top: 1rem;
+}
+
+.gateway-list {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gateway-route {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "index label"
+    "index note";
+  column-gap: 0.85rem;
+  row-gap: 0.15rem;
+  align-items: center;
+  align-content: center; /* keep label and note together when rows stretch */
+  min-height: 4.1rem;
+  height: 100%;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid rgba(45, 56, 72, 0.96);
+  background:
+    linear-gradient(180deg, rgba(14, 18, 24, 0.95), rgba(10, 13, 18, 0.985)),
+    linear-gradient(90deg, rgba(85, 103, 128, 0.08), transparent 1rem);
+  color: var(--terminal-button-text);
+  text-decoration: none;
+  box-shadow:
+    inset 1px 0 0 rgba(92, 111, 138, 0.22),
+    inset 0 1px 0 rgba(214, 231, 255, 0.025),
+    0 12px 24px rgba(0, 0, 0, 0.2);
+  transition: border-color 120ms ease, color 120ms ease, background-color 120ms ease, transform 120ms ease;
+}
+
+.gateway-route::before {
+  content: "";
+  position: absolute;
+  inset: 0.3rem;
+  border: 1px solid rgba(110, 128, 152, 0.08);
+  pointer-events: none;
+}
+
+.gateway-index {
+  grid-area: index;
+  align-self: start;
+  padding-top: 0.15rem;
+  color: var(--terminal-brass-trace);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+
+.gateway-label {
+  grid-area: label;
+  color: var(--terminal-text-strong);
+  font-size: 1.02rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gateway-note {
+  grid-area: note;
+  color: var(--terminal-text-soft);
+  font-size: 0.76rem;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+}
+
+.gateway-route:hover,
+.gateway-route:focus-visible {
+  border-color: rgba(138, 160, 190, 0.98);
+  color: var(--terminal-focus);
+  box-shadow:
+    inset 1px 0 0 rgba(162, 186, 216, 0.3),
+    0 0 0 1px rgba(138, 160, 190, 0.18),
+    0 0 22px rgba(120, 150, 190, 0.12),
+    0 12px 24px rgba(0, 0, 0, 0.2);
+  background:
+    linear-gradient(180deg, rgba(18, 23, 31, 0.97), rgba(11, 15, 21, 0.99)),
+    linear-gradient(90deg, rgba(122, 147, 180, 0.14), transparent 1rem);
+}
+
+.gateway-route:hover .gateway-index,
+.gateway-route:focus-visible .gateway-index {
+  color: #b8945c;
+}
+
+.gateway-route[aria-current="page"] {
+  border-color: rgba(138, 111, 70, 0.85);
+  background:
+    linear-gradient(180deg, rgba(24, 22, 19, 0.96), rgba(12, 13, 16, 0.99)),
+    linear-gradient(90deg, rgba(138, 111, 70, 0.16), transparent 1.2rem);
+  box-shadow:
+    inset 3px 0 0 var(--terminal-brass-trace),
+    0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.gateway-route[aria-current="page"] .gateway-index {
+  color: #b8945c;
+}
+
+.record-return {
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+.record-return a {
+  color: var(--terminal-text-dim);
+}
+
+.record-interim {
+  color: var(--terminal-text-dim);
+  border-left: 2px solid var(--terminal-brass-trace);
+  padding-left: 0.75rem;
+}
+
+/* ---- record panels ---- */
+.record {
+  position: relative;
+  display: grid;
+  gap: 0.9rem;
+  padding: var(--section-pad);
+  border: 1px solid var(--terminal-panel-edge);
+  background:
+    linear-gradient(180deg, rgba(15, 20, 27, 0.94), rgba(9, 12, 17, 0.98));
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.38);
+  outline: none;
+}
+
+.record .eyebrow {
+  margin: 0;
+  color: var(--terminal-brass-trace);
+}
+
+.record h2 {
+  margin-top: -0.35rem;
+}
+
+.record-copy {
+  display: grid;
+  gap: 0.7rem;
+  max-width: 60ch;
+  color: var(--terminal-text);
+  line-height: 1.75;
+  font-size: var(--copy-size);
+}
+
+.record-copy p {
+  margin: 0;
+}
+
+.record-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.record-list li::marker {
+  color: var(--terminal-text-soft);
+}
+
+.record-empty {
+  color: var(--terminal-text-soft);
+  font-style: italic;
+}
+
+.record-entries {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.record-entry {
+  white-space: normal;
+  gap: 0.2rem;
+}
+
+.record-entry-label {
+  display: block;
+}
+
+.record-entry-note {
+  display: block;
+  color: var(--terminal-text-soft);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+}
+
+.record-featured {
+  border-color: rgba(138, 111, 70, 0.55);
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(217, 205, 184, 0.06);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+/* ---- Stage 2B: destination content ---- */
+.hub [hidden] {
+  display: none !important;
+}
+
+.record-lede {
+  color: var(--terminal-text-strong);
+}
+
+.record-subhead {
+  margin: 0;
+  color: var(--terminal-text-soft);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.project-grid,
+.album-grid {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.project-card {
+  display: grid;
+  gap: 0.65rem;
+  align-content: start;
+  padding: clamp(0.85rem, 3vw, 1.1rem);
+  border: 1px solid var(--terminal-panel-edge);
+  background: rgba(13, 18, 24, 0.72);
+  color: var(--terminal-text);
+  line-height: 1.7;
+  font-size: var(--copy-size);
+}
+
+.project-card p {
+  margin: 0;
+  max-width: 62ch;
+}
+
+.project-card h3,
+.project-card h4,
+.music-project h3 {
+  margin: 0;
+  color: var(--terminal-text-strong);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+}
+
+.project-card-feature {
+  border-color: rgba(138, 111, 70, 0.5);
+  box-shadow: inset 3px 0 0 var(--terminal-brass-trace);
+}
+
+.project-kind {
+  color: var(--terminal-text-soft);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.project-card > .record-entry,
+.project-card .record-entries {
+  margin-top: 0.2rem;
+}
+
+.hsm-list {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.hsm-row {
+  display: grid;
+  grid-template-columns: 5.2rem minmax(0, 1fr);
+  gap: 0.6rem;
+  align-items: baseline;
+}
+
+.hsm-row dt {
+  color: var(--terminal-brass-trace);
+  letter-spacing: 0.12em;
+  font-size: 0.82rem;
+}
+
+.hsm-row dd {
+  margin: 0;
+}
+
+/* Music: two visually distinct projects */
+.music-project {
+  display: grid;
+  gap: 0.8rem;
+  padding: clamp(0.85rem, 3vw, 1.15rem);
+  border: 1px solid var(--terminal-panel-edge);
+}
+
+.music-project > .project-kind {
+  margin: 0;
+}
+
+.music-project h3 {
+  margin-top: -0.35rem;
+  font-size: 1.2rem;
+}
+
+.music-project-cathedral {
+  border-color: rgba(138, 111, 70, 0.5);
+  background:
+    linear-gradient(180deg, rgba(28, 24, 18, 0.35), rgba(9, 12, 17, 0.6));
+}
+
+.music-project-workshop {
+  border-style: dashed;
+  border-color: rgba(98, 116, 140, 0.7);
+  background: rgba(12, 16, 22, 0.55);
+}
+
+.album-card {
+  background: rgba(9, 12, 17, 0.82);
+}
+
+.record-pending {
+  margin: 0;
+  padding: 0.6rem 0.75rem;
+  border: 1px dashed rgba(138, 111, 70, 0.6);
+  color: var(--terminal-text-dim);
+  font-size: 0.84rem;
+}
+
+.profile-list {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 700px) {
+  .album-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .profile-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .profile-list .record-entry {
+    height: 100%;
+  }
+}
+
+/* ---- footer ---- */
+.hub-footer {
+  padding: 0.4rem 0 0.8rem;
+  color: var(--terminal-text-soft);
+  font-size: 0.78rem;
+}
+
+.hub-footer p {
+  margin: 0;
+}
+
+.hub-footer a {
+  color: var(--terminal-text-dim);
+}
+
+/* ---- entrance: a short power-on, motion-safe ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .hub-js .hub-header,
+  .hub-js .hub-gateway {
+    animation: hub-power-on 520ms ease-out both;
+  }
+
+  .hub-js .hub-gateway {
+    animation-delay: 90ms;
+  }
+}
+
+@keyframes hub-power-on {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: brightness(1.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hub .cursor,
+  .hub .dialogue-text.is-rendering::after {
+    animation: none;
+  }
+
+  .gateway-route,
+  .hub .welcome-action {
+    transition: none;
+  }
+}
+
+/* ---- Registrar panel: fixed height, sized to the longest Registrar line ---- */
+.dialogue-stack {
+  display: grid;
+}
+
+.dialogue-stack > * {
+  grid-area: 1 / 1;
+}
+
+.dialogue-sizer {
+  visibility: hidden;
+}
+
+/* ---- Stage 2D layout: full-width Registrar Console (top), six-route sidebar (left), record (right) ---- */
+.hub-console .message-block {
+  min-height: 0;
+}
+
+.hub-console .dialogue-text {
+  margin: 0;
+}
+
+.hub-layout {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+}
+
+.hub-sidebar {
+  position: relative;
+  padding: 0.9rem;
+  border: 1px solid var(--terminal-panel-edge);
+  background:
+    linear-gradient(180deg, rgba(15, 20, 27, 0.96), rgba(9, 12, 17, 0.985));
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.38);
+}
+
+.hub-sidebar.gateway-routes {
+  margin-top: 0;
+}
+
+.hub-sidebar .option-heading {
+  margin: 0 0 0.6rem;
+}
+
+.records {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  min-width: 0;
+  overflow-anchor: none; /* never let the browser re-anchor the viewport while records swap */
+  outline: none;
+}
+
+/* a record that fits in the window stays in view inside the display (hub.js sets the class) */
+.hub-js .record.is-pinned {
+  position: sticky;
+  top: 1rem;
+}
+
+.hsm-quote {
+  margin: 0;
+  padding: 0.55rem 0.8rem;
+  border-left: 2px solid var(--terminal-brass-trace);
+  color: var(--terminal-text-strong);
+}
+
+.hsm-quote p {
+  margin: 0;
+}
+
+/* six routes: one component; every row as tall as the tallest */
+.gateway-list {
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 0.5rem;
+}
+
+.gateway-route {
+  column-gap: 0.75rem;
+  min-height: 0;
+  padding: 0.6rem 0.8rem 0.65rem;
+  row-gap: 0.1rem;
+}
+
+.gateway-label {
+  font-size: 0.9rem;
+  letter-spacing: 0.07em;
+}
+
+.gateway-note {
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+@media (min-width: 760px) {
+  .hub .hub-shell {
+    --shell-width: 74rem;
+    gap: 1.1rem;
+  }
+
+  /* Registrar Console: heading on the left (over the sidebar column), message across the rest */
+  .hub-console {
+    display: grid;
+    grid-template-columns: minmax(13.5rem, 16rem) minmax(0, 1fr);
+    gap: 1.1rem;
+    align-items: center;
+    padding: 1rem 1.1rem;
+  }
+
+  .hub-console .panel-heading {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .hub-console .panel-heading h2 {
+    font-size: 1.15rem;
+  }
+
+  .hub-console .message-block {
+    padding: 0.8rem 1rem;
+  }
+
+  .hub-console .speaker-label {
+    margin-bottom: 0.4rem;
+  }
+
+  .hub-console .dialogue-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .hub-layout {
+    grid-template-columns: minmax(13.5rem, 16rem) minmax(0, 1fr);
+    gap: 1.1rem;
+  }
+
+  .record-entries {
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  }
+}
+
+/* The sidebar stays put while a long record is scrolled, where the window is tall enough to hold it. */
+@media (min-width: 760px) and (min-height: 640px) {
+  .hub-sidebar {
+    position: sticky;
+    top: 1rem;
+  }
+}
+
+/* ---- phones: console, then the six routes as a 2 x 3 grid of equal buttons, then the record ---- */
+@media (max-width: 759px) {
+  .hub .hub-shell {
+    gap: 0.7rem;
+  }
+
+  .hub-layout {
+    gap: 0.7rem;
+  }
+
+  .hub-header {
+    gap: 0.35rem;
+    padding-top: 0.2rem;
+  }
+
+  .hub-title {
+    font-size: clamp(1.35rem, 6.6vw, 1.7rem);
+  }
+
+  .hub-console {
+    padding: 0.8rem;
+  }
+
+  .hub-console .panel-heading {
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .hub-console .panel-heading h2 {
+    font-size: 1rem;
+  }
+
+  .hub-console .message-block {
+    padding: 0.7rem 0.8rem;
+  }
+
+  .hub-console .speaker-label {
+    margin-bottom: 0.4rem;
+  }
+
+  .hub-console .dialogue-text {
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .hub-sidebar {
+    padding: 0.7rem;
+  }
+
+  .hub-sidebar .option-heading {
+    margin-bottom: 0.5rem;
+  }
+
+  .gateway-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  .gateway-route {
+    grid-template-areas: "index label";
+    column-gap: 0.55rem;
+    min-height: 2.75rem; /* 44 px touch target */
+    padding: 0.6rem 0.65rem;
+  }
+
+  .gateway-note {
+    display: none; /* the label is the accessible name; notes need the desktop width */
+  }
+
+  .gateway-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* ---- Stage 2E: typewriter reveal (hub.js). The record keeps its full text in the layout; ---- */
+/* ---- unrevealed characters are only drawn transparent, so nothing moves while they appear. ---- */
+.tw-rest {
+  color: transparent;
+  text-shadow: none;
+  -webkit-text-fill-color: transparent;
+}
+
+.tw-current .tw-shown {
+  position: relative; /* anchor for the cursor; adds no width */
+}
+
+.tw-current .tw-shown::after {
+  content: "";
+  position: absolute;
+  right: -0.62ch;
+  bottom: 0.12em;
+  width: 0.55ch;
+  height: 0.95em;
+  background: currentColor;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.tw-skip {
+  position: absolute; /* out of the flow: showing or removing it never moves the record */
+  top: 0.7rem;
+  right: 0.75rem;
+  z-index: 2;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid rgba(98, 116, 140, 0.7);
+  background: rgba(9, 12, 17, 0.92);
+  color: var(--terminal-text-dim);
+  font: inherit;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.tw-skip:hover,
+.tw-skip:focus-visible {
+  border-color: rgba(138, 160, 190, 0.98);
+  color: var(--terminal-focus);
+  outline: none;
+}
+
+.tw-typing {
+  cursor: default;
+}
+
+/* ---- Stage 2F/2G: Registrar first, then the content ---- */
+/* Reserve the scrollbar's room even on views that fit the window, so moving between a short view
+   and a long one never shifts the page sideways. */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* a step of the reveal that is waiting its turn: laid out at its final size, in the accessibility
+   tree, but not drawn and not clickable (a click falls through to the display and skips) */
+.tw-pending {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- Stage 2G: compact, expandable records (one component for every destination) ---- */
+.rec-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.rec-item {
+  position: relative;
+  display: grid;
+  gap: 0;
+  padding: 0;
+  border: 1px solid var(--terminal-panel-edge);
+  background: rgba(13, 18, 24, 0.72);
+  box-shadow: inset 3px 0 0 var(--terminal-brass-trace);
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+/* the two Music projects stay visually distinct */
+.rec-item.music-project-cathedral {
+  border-color: rgba(138, 111, 70, 0.5);
+}
+
+.rec-item.music-project-workshop {
+  border-style: dashed;
+  border-color: rgba(98, 116, 140, 0.7);
+  box-shadow: inset 3px 0 0 rgba(98, 116, 140, 0.85);
+}
+
+/* informational records (not projects) carry a quieter steel edge instead of brass */
+.rec-item.rec-kind-info {
+  box-shadow: inset 3px 0 0 rgba(98, 116, 140, 0.85);
+}
+
+.rec-item:hover,
+.rec-item:focus-within {
+  border-color: rgba(138, 160, 190, 0.9);
+}
+
+.rec-item .rec-heading {
+  margin: 0;
+  font-size: inherit;
+  letter-spacing: normal;
+}
+
+.rec-toggle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "line state"
+    "sub  state";
+  align-items: center;
+  column-gap: 0.8rem;
+  row-gap: 0.15rem;
+  width: 100%;
+  min-height: 2.75rem; /* 44 px touch target */
+  margin: 0;
+  padding: 0.7rem 0.9rem 0.7rem 1.05rem;
+  border: 0;
+  background: transparent;
+  color: var(--terminal-text-strong);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.rec-toggle:focus-visible {
+  outline: 1px solid var(--terminal-focus);
+  outline-offset: -3px;
+}
+
+.rec-line {
+  grid-area: line;
+  font-size: 0.84rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.rec-id {
+  color: var(--terminal-brass-trace);
+}
+
+.rec-sep {
+  color: var(--terminal-text-soft);
+}
+
+.rec-sub {
+  grid-area: sub;
+  color: var(--terminal-text-soft);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.rec-state {
+  grid-area: state;
+  color: var(--terminal-text-dim);
+  font-size: 0.84rem;
+  letter-spacing: 0.04em;
+}
+
+.rec-state::before {
+  content: "[+]";
+}
+
+.rec-toggle[aria-expanded="true"] .rec-state::before {
+  content: "[\2212]";
+}
+
+.rec-toggle:hover .rec-state,
+.rec-toggle:focus-visible .rec-state {
+  color: var(--terminal-focus);
+}
+
+.rec-body {
+  position: relative; /* anchor for the Skip button while it types */
+}
+
+.rec-body-inner {
+  display: grid;
+  gap: 0.7rem;
+  padding: 0.2rem 1.05rem 1rem;
+  border-top: 1px solid rgba(66, 79, 98, 0.34);
+  padding-top: 0.85rem;
+  color: var(--terminal-text);
+  line-height: 1.7;
+  font-size: var(--copy-size);
+}
+
+.rec-body-inner p {
+  margin: 0;
+  max-width: 62ch;
+}
+
+.rec-body-inner > .record-entry,
+.rec-body-inner .record-entries,
+.rec-body-inner .profile-list {
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 759px) {
+  .rec-toggle {
+    padding: 0.65rem 0.75rem 0.65rem 0.9rem;
+  }
+
+  .rec-line {
+    font-size: 0.78rem;
+    letter-spacing: 0.07em;
+  }
+
+  .rec-body-inner {
+    padding: 0.75rem 0.85rem 0.9rem 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rec-item {
+    transition: none;
+  }
+}
+
+/* ---- Stage 2H: external access terminal, personal archive, damaged archives ---- */
+:root {
+  --archive-red: #e0695c;          /* warning text and marks: 5.6:1 on the panel background */
+  --archive-red-edge: rgba(214, 92, 78, 0.78);
+  --archive-red-wash: rgba(214, 92, 78, 0.075);
+  --archive-amber: #c08a3e;
+  --archive-amber-edge: rgba(192, 138, 62, 0.55);
+}
+
+/* the owner of the archive being inspected (not the visitor) */
+.hub-sidebar .session-owner {
+  margin: -0.35rem 0 0.7rem;
+  color: var(--terminal-text-soft);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* homepage: the recovered session, restrained */
+.session-log {
+  display: grid;
+  gap: 0.45rem;
+  color: var(--terminal-text);
+  font-size: var(--copy-size);
+  line-height: 1.6;
+}
+
+.session-line {
+  margin: 0;
+}
+
+.session-line-progress {
+  color: var(--terminal-text-dim);
+}
+
+.session-line-done {
+  color: var(--terminal-text-strong);
+}
+
+.session-status {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0.25rem 0;
+  padding: 0.6rem 0.8rem;
+  border-left: 2px solid var(--terminal-brass-trace);
+  background: rgba(17, 23, 31, 0.6);
+}
+
+.session-row,
+.archive-row {
+  display: grid;
+  grid-template-columns: minmax(0, 13.5rem) minmax(0, 1fr);
+  gap: 0.6rem;
+  align-items: baseline;
+}
+
+.session-row dt,
+.archive-row dt,
+.access-mode dt {
+  color: var(--terminal-text-soft);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+
+.session-row dd,
+.archive-row dd,
+.access-mode dd {
+  margin: 0;
+  color: var(--terminal-text-strong);
+  letter-spacing: 0.06em;
+}
+
+.session-value-online {
+  color: #9fd3b0 !important;
+}
+
+.session-value-restricted {
+  color: var(--archive-amber) !important;
+}
+
+/* in-universe access classification inside a project record (AI Madpakken, The Terminal Cathedral) */
+.access-class {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 0.35rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid rgba(138, 111, 70, 0.45);
+  border-left-width: 3px;
+  background: rgba(138, 111, 70, 0.06);
+}
+
+.access-class.access-auditory {
+  border-color: rgba(98, 116, 140, 0.6);
+  background: rgba(98, 116, 140, 0.07);
+}
+
+.access-class-title {
+  color: var(--terminal-brass-trace);
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.access-auditory .access-class-title {
+  color: #93a6bf;
+}
+
+.access-mode {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.6rem;
+  margin: 0;
+}
+
+/* ---- damaged archives (Electronics, Software): readable, controlled, decorative only ---- */
+.rec-item.rec-kind-damaged {
+  border-style: dashed;
+  border-color: var(--archive-amber-edge);
+  box-shadow: inset 3px 0 0 var(--archive-red-edge);
+}
+
+/* the unstable border: a broken top edge, drawn over the real border (decoration only) */
+.rec-item.rec-kind-damaged::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 18%;
+  width: 34%;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--archive-red-edge) 0 7px, transparent 7px 11px, var(--archive-red-edge) 11px 13px, transparent 13px 22px);
+  pointer-events: none;
+  animation: archive-edge 2.4s steps(1, end) 2;
+}
+
+.rec-item.damaged-software::before {
+  left: auto;
+  right: 12%;
+  width: 26%;
+}
+
+.rec-item.rec-kind-damaged:hover,
+.rec-item.rec-kind-damaged:focus-within {
+  border-color: rgba(214, 150, 92, 0.85);
+}
+
+/* a faint, static chromatic offset on the title: damaged, never unreadable */
+.rec-kind-damaged .rec-title {
+  text-shadow: 1px 0 0 rgba(214, 92, 78, 0.45), -1px 0 0 rgba(98, 150, 190, 0.35);
+}
+
+.rec-kind-damaged .rec-sub {
+  color: var(--archive-red);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.rec-flag,
+.archive-alert-mark {
+  display: inline-block;
+  min-width: 1.15em;
+  margin-right: 0.3em;
+  border: 1px solid currentColor;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+}
+
+/* the red system warning: red, and also framed, marked "!" and titled in words */
+.archive-alert {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--archive-red-edge);
+  border-left-width: 4px;
+  background: var(--archive-red-wash);
+  color: var(--terminal-text-strong);
+}
+
+.archive-alert-title {
+  margin-bottom: 0.2rem !important;
+  color: var(--archive-red);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* decorative fragments: one fixed line, never wraps, so it can never change the height */
+.rec-body-inner .archive-fragments {
+  overflow: hidden;
+  max-width: 100%;
+  color: rgba(192, 138, 62, 0.55);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  white-space: nowrap;
+  text-overflow: clip;
+  user-select: none;
+}
+
+.damaged-software .archive-fragments {
+  color: rgba(130, 160, 196, 0.55);
+  letter-spacing: 0.08em;
+}
+
+.archive-status {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0;
+  padding-left: 0.8rem;
+  border-left: 2px solid var(--archive-amber-edge);
+}
+
+.archive-row dd {
+  color: var(--archive-amber);
+}
+
+.archive-row:nth-child(2) dd {
+  color: var(--terminal-text-strong);
+}
+
+.archive-notes {
+  display: grid;
+  gap: 0.2rem;
+  color: var(--terminal-text-dim);
+}
+
+/* the short interference stage after the expansion (hub.js adds is-glitching for ~0.5 s).
+   An overlay of thin, dim bands that shifts in a few steps: no flashes, no luminance jumps
+   over large areas, no change to any text or to the layout. */
+.rec-kind-damaged .rec-body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rec-kind-damaged.is-glitching .rec-body::after {
+  opacity: 1;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 9px, rgba(214, 92, 78, 0.13) 9px 11px, transparent 11px 23px, rgba(98, 150, 190, 0.1) 23px 24px);
+  animation: archive-interference 520ms steps(4, end) 1 both;
+}
+
+.damaged-software.is-glitching .rec-body::after {
+  background:
+    repeating-linear-gradient(180deg, transparent 0 14px, rgba(130, 160, 196, 0.13) 14px 15px, transparent 15px 31px),
+    linear-gradient(90deg, transparent 0 62%, rgba(214, 92, 78, 0.1) 62% 63%, transparent 63%);
+}
+
+.rec-kind-damaged.is-glitching .rec-title {
+  animation: archive-title-shift 520ms steps(3, end) 1;
+}
+
+@keyframes archive-interference {
+  0% { transform: translateY(0); clip-path: inset(0 0 62% 0); }
+  25% { transform: translateY(6px); clip-path: inset(18% 0 30% 0); }
+  50% { transform: translateY(-4px); clip-path: inset(40% 0 12% 0); }
+  75% { transform: translateY(3px); clip-path: inset(8% 0 48% 0); }
+  100% { transform: translateY(0); clip-path: inset(70% 0 0 0); }
+}
+
+@keyframes archive-title-shift {
+  0%, 100% { transform: translateX(0); }
+  33% { transform: translateX(1px); }
+  66% { transform: translateX(-1px); }
+}
+
+@keyframes archive-edge {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.rec-kind-damaged .rec-title {
+  display: inline-block; /* lets the shift transform apply; inline-block does not change the line */
+}
+
+@media (max-width: 759px) {
+  .session-row,
+  .archive-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rec-item.rec-kind-damaged::before,
+  .rec-kind-damaged.is-glitching .rec-body::after,
+  .rec-kind-damaged.is-glitching .rec-title {
+    animation: none;
+  }
+
+  .rec-kind-damaged.is-glitching .rec-body::after {
+    opacity: 0;
+  }
+}
+
+/* ---- Stage 2I: archive language ---- */
+/* category index (AI, Music, The Lab): the homepage's session-status look, reused */
+.category-index {
+  margin: 0 0 0.35rem;
+}
+
+/* sub-headings inside The Terminal Cathedral production story */
+.story-heading {
+  margin: 0.55rem 0 0;
+  color: var(--terminal-brass-trace);
+  font-size: 0.74rem;
+  font-weight: normal;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.story-close {
+  color: var(--terminal-text-strong);
+}
+
+/* The Lab: an archive classification, deliberately neutral (not an access protocol) */
+.archive-class {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 0.35rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px dashed rgba(138, 150, 165, 0.35);
+  background: rgba(17, 23, 31, 0.5);
+}
+
+.archive-class-title {
+  color: var(--terminal-text-soft);
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ---- Stage 3C: Registrar Observation Protocol (consent panel) ----
+   A compact terminal panel docked at the bottom of the window. Non-modal: the site stays fully usable
+   behind it. It reuses the record look (.obs-record mirrors .rec-item, .obs-toggle mirrors .rec-toggle;
+   separate names so the destination records' code and tests never pick it up). */
+.observation {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  display: grid;
+  gap: 0.75rem;
+  width: min(30rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem); /* the visible area on phones (falls back to vh) */
+  overflow-y: auto;
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid var(--terminal-panel-edge);
+  background: rgba(9, 12, 17, 0.97);
+  box-shadow: inset 3px 0 0 var(--terminal-brass-trace), 0 0.6rem 2rem rgba(0, 0, 0, 0.55);
+  color: var(--terminal-text);
+  font-size: 0.9rem;
+  overscroll-behavior: contain;
+}
+
+.observation[hidden] {
+  display: none;
+}
+
+.observation-registrar {
+  position: relative; /* anchor for the Skip button while the Registrar types */
+  display: grid;
+  gap: 0.35rem;
+  padding-right: 4.2rem; /* room for Skip, so it never covers the text */
+}
+
+.observation-label {
+  margin: 0;
+  color: var(--terminal-brass-trace);
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+}
+
+.observation-text p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.observation-text[hidden] {
+  display: none;
+}
+
+.observation-registrar .tw-skip {
+  top: 0;
+  right: 0;
+}
+
+.obs-record {
+  position: relative;
+  display: grid;
+  border: 1px solid var(--terminal-panel-edge);
+  background: rgba(13, 18, 24, 0.72);
+  box-shadow: inset 3px 0 0 rgba(98, 116, 140, 0.85);
+  transition: border-color 160ms ease;
+}
+
+.obs-record:hover,
+.obs-record:focus-within {
+  border-color: rgba(138, 160, 190, 0.9);
+}
+
+.obs-record .rec-heading {
+  margin: 0;
+  font-size: inherit;
+  letter-spacing: normal;
+}
+
+.obs-toggle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "line state"
+    "sub  state";
+  align-items: center;
+  column-gap: 0.8rem;
+  row-gap: 0.15rem;
+  width: 100%;
+  min-height: 2.75rem; /* 44 px touch target */
+  margin: 0;
+  padding: 0.6rem 0.8rem 0.6rem 0.95rem;
+  border: 0;
+  background: transparent;
+  color: var(--terminal-text-strong);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.obs-toggle:focus-visible {
+  outline: 1px solid var(--terminal-focus);
+  outline-offset: -3px;
+}
+
+.obs-toggle .rec-line {
+  font-size: 0.78rem;
+}
+
+.obs-toggle[aria-expanded="true"] .rec-state::before {
+  content: "[\2212]";
+}
+
+.obs-toggle:hover .rec-state,
+.obs-toggle:focus-visible .rec-state {
+  color: var(--terminal-focus);
+}
+
+.obs-record .rec-body-inner {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  gap: 0.5rem;
+}
+
+/* the choices, the current decision and the privacy link stay pinned to the panel's bottom edge, so YES / NO are
+   visible even when the open personal message makes the panel scroll (Stage 3C review) */
+.observation-actions {
+  position: sticky;
+  bottom: -1rem;
+  z-index: 1;
+  display: grid;
+  gap: 0.6rem;
+  margin: 0 -1rem -1rem;
+  padding: 0.6rem 1rem 1rem;
+  background: rgba(9, 12, 17, 0.98);
+  border-top: 1px solid rgba(66, 79, 98, 0.34);
+}
+
+/* while the panel is open the page keeps room for it, and focus scrolling keeps focused items above it */
+html.observation-open {
+  scroll-padding-bottom: var(--observation-space, 0px);
+}
+
+html.observation-open .site-shell {
+  padding-bottom: var(--observation-space, 0px);
+}
+
+/* the two choices: identical styling and size, side by side; neither is preselected */
+.observation-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.hub .observation-choice {
+  width: 100%;
+  min-height: 2.75rem;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+.hub .observation-choice:focus-visible,
+.observation-close:focus-visible,
+.observation-preferences:focus-visible,
+.observation-privacy:focus-visible {
+  outline: 2px solid var(--terminal-focus);
+  outline-offset: 3px;
+}
+
+.observation-current {
+  margin: 0;
+  color: var(--terminal-text-soft);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+}
+
+.observation-current[hidden] {
+  display: none;
+}
+
+.observation-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.observation-privacy {
+  color: var(--terminal-text-dim);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+}
+
+.observation-privacy:hover {
+  color: var(--terminal-focus);
+}
+
+.observation-close,
+.observation-preferences {
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(98, 116, 140, 0.7);
+  background: rgba(9, 12, 17, 0.92);
+  color: var(--terminal-text-dim);
+  font: inherit;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.observation-close[hidden],
+.observation-preferences[hidden] {
+  display: none;
+}
+
+.observation-close:hover,
+.observation-preferences:hover {
+  border-color: rgba(138, 160, 190, 0.98);
+  color: var(--terminal-focus);
+}
+
+.hub-footer .observation-preferences {
+  margin-top: 0.5rem;
+  min-height: 2.75rem;
+}
+
+@media (max-width: 759px) {
+  .observation {
+    right: 0.5rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    width: auto;
+    max-height: calc(100vh - 1rem);
+    max-height: calc(100dvh - 1rem);
+    padding: 0.8rem 0.8rem 0.9rem;
+    font-size: 0.86rem;
+  }
+
+  .observation-actions {
+    bottom: -0.9rem;
+    margin: 0 -0.8rem -0.9rem;
+    padding: 0.55rem 0.8rem 0.9rem;
+  }
+
+  .hub .observation-choice {
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obs-record {
+    transition: none;
+  }
+}

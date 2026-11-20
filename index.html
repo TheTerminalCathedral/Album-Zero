@@ -6,106 +6,611 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <meta name="theme-color" content="#0d0f10" />
-    <title>The Terminal Cathedral</title>
+    <meta name="theme-color" content="#07090d" />
+    <title>The Terminal Cathedral — Dan Almer Jensen</title>
     <meta
       name="description"
-      content="A public entry point into the world of The Terminal Cathedral."
+      content="Enter the Terminal Cathedral: electronics, AI, software, music, experiments, and the human behind them, Dan Almer Jensen."
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="hub/hub.css" />
   </head>
-  <body>
-    <main class="site-shell">
-      <section
-        class="view-shell welcome-shell"
-        id="welcomeScreen"
-        aria-labelledby="welcomeTitle"
-      >
-        <div class="welcome-panel">
-          <h1 id="welcomeTitle">The Terminal Cathedral</h1>
-          <div class="welcome-copy">
-            <p class="welcome-copy-main">
-              A synthwave concept-album cycle and terminal-style site built as one
-              thing.
-            </p>
-            <p class="welcome-copy-main">
-              Album Zero opens the machine-world: threshold, admission, interpretation, excess, judgment, repair, and return.
-            </p>
-            <p class="welcome-copy-main">
-              Album One follows the Human Element back through the Cathedral after the first passage has changed him.
-            </p>
-            <p class="welcome-copy-main">
-              It started as a real engineering workflow, then turned into a
-              fictional machine-world with its own logic and voices.
-            </p>
-            <p class="welcome-copy-human">
-              It was a fun thing to make, and I hope someone enjoys spending
-              time with it.
-            </p>
-          </div>
-          <p class="welcome-leadin welcome-route">
-            Begin with Album Zero, continue with Album One, or enter the terminal to explore the world
-            behind the albums.
-          </p>
-          <div class="welcome-actions" aria-label="Entry options">
-            <a
-              class="welcome-action welcome-action-primary"
-              id="albumEntryButton"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Begin with Album Zero
-            </a>
-            <a
-              class="welcome-action welcome-action-primary"
-              id="albumOneEntryButton"
-              href="https://distrokid.com/hyperfollow/theterminalcathedral/album-one"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Continue with Album One
-            </a>
-            <button
-              class="welcome-action welcome-action-secondary"
-              id="enterTerminalButton"
-              type="button"
-            >
-              Enter the Terminal
-            </button>
+  <!--
+    PROTOTYPE (Stage 2D layout and copy, Stage 2E typewriter, Stage 2F Registrar-first navigation, Stage 2G all six areas as expandable records, Stage 2H external access terminal and personal archive; local only). Not released.
+    Personal profile links appear only in 06 · The Human.
+    Layout: full-width Registrar Console on top, six-route sidebar on the left, one record on the right.
+    No element may carry the id of a route (electronics, ai, software, music, lab, human, gateway):
+    that would make the browser jump to it on a direct link.
+    All destination copy below is DRAFT for HUMAN review.
+    Canon-grounded sentences are taken from dialogue-data.js and terminal-cathedral/index.html @ a3c35e0;
+    AI Madpakken sentences from its canonical README.md and The_Human_Sandwich_Model.md @ ce47ae2e.
+    The left navigation is the only navigation between destinations: do not add cross-links inside records.
+    Inside a destination, each record's toggle (button.rec-toggle) expands or collapses that record in place (Stage 2G).
+    To add a future project or link, copy one .rec-item or .record-entry inside that destination.
+  -->
+  <body class="is-terminal-active hub">
+    <a class="skip-link" href="#record-display">Skip to the record</a>
+
+    <!-- STAGE3C:BEGIN observation
+         Stage 3C, Registrar Observation Protocol (HUMAN decision and approved copy). Two voices: the Registrar asks,
+         the personal record holds Dan's own note. Shown by hub.js only while no choice has been made (or from
+         OBSERVATION PREFERENCES); without JavaScript nothing is recorded, so nothing is asked. Optional statistics
+         stay off until YES (analytics.js). The choice never changes the visitor's access. -->
+    <section class="observation" id="observation" aria-labelledby="observation-title" hidden>
+      <div class="observation-registrar">
+        <p class="observation-label" id="observation-title">REGISTRAR · OBSERVATION PROTOCOL</p>
+        <div class="observation-text" id="observation-text">
+          <p>Visitor.</p>
+          <p>The system requests authorization to record your passage through this terminal.</p>
+          <p>Your decision will not affect your access.</p>
+          <p>Awaiting HUMAN authorization.</p>
+        </div>
+        <div class="observation-text observation-response" id="observation-response" hidden></div>
+      </div>
+      <article class="obs-record">
+        <h3 class="rec-heading">
+          <button type="button" class="obs-toggle" id="observation-note-toggle" aria-expanded="false" aria-controls="observation-note">
+            <span class="rec-line"><span class="rec-id">PERSONAL MESSAGE</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title">FROM THE CREATOR</span></span>
+            <span class="rec-sub">A note from the human behind the terminal</span>
+            <span class="rec-state" aria-hidden="true"></span>
+          </button>
+        </h3>
+        <div class="rec-body" id="observation-note" role="region" aria-labelledby="observation-note-toggle" hidden>
+          <div class="rec-body-inner">
+            <p>Hi, I'm Dan.</p>
+            <p>I wrote a little statistics script for this website because I thought it would be fun to build.</p>
+            <p>And I just think it's fun to see what people click on. Which pages they visit, which records they open, and how long they stick around.</p>
+            <p>That's really it.</p>
+            <p>There's no advertising company behind this. No marketing profiles. It's my own experiment, using Google Apps Script and a spreadsheet to collect the results.</p>
+            <p>If you're happy to let me see how people use the site, click YES.</p>
+            <p>If not, click NO. You still get the exact same website.</p>
+            <p>Thanks for visiting!</p>
+            <p>— Dan</p>
           </div>
         </div>
-      </section>
+      </article>
+      <div class="observation-actions">
+      <div class="observation-choices" role="group" aria-labelledby="observation-title">
+        <button type="button" class="welcome-action welcome-action-primary observation-choice" data-observation="yes" aria-pressed="false">YES · ALLOW STATS</button>
+        <button type="button" class="welcome-action welcome-action-primary observation-choice" data-observation="no" aria-pressed="false">NO · THANKS</button>
+      </div>
+      <p class="observation-current" id="observation-current" hidden></p>
+      <div class="observation-foot">
+        <a class="observation-privacy" href="privacy/">WHAT GETS RECORDED? · PRIVACY DETAILS</a>
+        <button type="button" class="observation-close" hidden>Close</button>
+      </div>
+      </div>
+    </section>
+    <!-- STAGE3C:END observation -->
 
-      <section
-        class="view-shell terminal-shell"
-        id="terminalShell"
-        aria-labelledby="dialogue-heading"
-        hidden
-      >
-        <div class="dialogue-panel" id="dialoguePanel" tabindex="-1">
+    <main class="site-shell">
+      <div class="view-shell hub-shell">
+        <header class="hub-header">
+          <!-- Stage 2H: the site is an external access terminal connected to the Cathedral, not the Cathedral itself. -->
+          <p class="eyebrow hub-status">
+            The Terminal Cathedral <span class="hub-status-sep" aria-hidden="true">·</span> External access terminal
+            <span class="cursor hub-cursor" aria-hidden="true"></span>
+          </p>
+          <h1 class="hub-title">The Terminal Cathedral</h1>
+        </header>
+
+        <!-- TOP: the Registrar Console, full width. The general introduction below; hub.js types each area's own introduction (hub-data.js) when that area is selected (Stages 2F, 2G). -->
+        <section class="dialogue-panel hub-gateway hub-console" id="console" aria-labelledby="console-heading">
           <div class="panel-heading">
             <p class="eyebrow">Active Exchange</p>
-            <h2 id="dialogue-heading">Registrar Console</h2>
+            <h2 id="console-heading">Registrar Console</h2>
           </div>
-
           <div class="message-block">
-            <p class="speaker-label" id="speakerLabel">Registrar</p>
-            <p class="dialogue-text" id="dialogueText"></p>
+            <p class="speaker-label">Registrar</p>
+            <p class="dialogue-text" id="hubDialogue">External connection acknowledged.
+Standing: Visitor.
+Access level: Limited.
+Designated records are available for inspection.
+Select a route to proceed.</p>
           </div>
+          <p class="sr-only" id="hubLive" aria-live="polite"></p>
+        </section>
 
-          <div class="option-block">
-            <p class="option-heading">Available Responses</p>
-            <div id="optionsContainer" class="options-container"></div>
+        <div class="hub-layout">
+          <!-- LEFT: the six record groups, one component, equal size -->
+          <!-- Stage 2H: the index of the recovered personal archive. The owner line names the archive being inspected, not the visitor. -->
+          <nav class="hub-sidebar gateway-routes" aria-label="User record index">
+            <p class="option-heading">User Record Index</p>
+            <p class="session-owner">Session owner: Dan Almer Jensen</p>
+            <ul class="gateway-list">
+              <li class="gateway-item">
+                <a class="gateway-route" href="#electronics" data-destination="electronics">
+                  <span class="gateway-index" aria-hidden="true">01</span>
+                  <span class="gateway-label">Electronics</span>
+                  <span class="gateway-note">Electronic hardware related entries</span>
+                </a>
+              </li>
+              <li class="gateway-item">
+                <a class="gateway-route" href="#ai" data-destination="ai">
+                  <span class="gateway-index" aria-hidden="true">02</span>
+                  <span class="gateway-label">AI</span>
+                  <span class="gateway-note">Artificial intelligence related entries</span>
+                </a>
+              </li>
+              <li class="gateway-item">
+                <a class="gateway-route" href="#software" data-destination="software">
+                  <span class="gateway-index" aria-hidden="true">03</span>
+                  <span class="gateway-label">Software</span>
+                  <span class="gateway-note">Software development related entries</span>
+                </a>
+              </li>
+              <li class="gateway-item">
+                <a class="gateway-route" href="#music" data-destination="music">
+                  <span class="gateway-index" aria-hidden="true">04</span>
+                  <span class="gateway-label">Music</span>
+                  <span class="gateway-note">Music and audio related entries</span>
+                </a>
+              </li>
+              <li class="gateway-item">
+                <a class="gateway-route" href="#lab" data-destination="lab">
+                  <span class="gateway-index" aria-hidden="true">05</span>
+                  <span class="gateway-label">The Lab</span>
+                  <span class="gateway-note">Experimental and miscellaneous entries</span>
+                </a>
+              </li>
+              <li class="gateway-item">
+                <a class="gateway-route" href="#human" data-destination="human">
+                  <span class="gateway-index" aria-hidden="true">06</span>
+                  <span class="gateway-label">The Human</span>
+                  <span class="gateway-note">Personal identity related entries</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- RIGHT: the record display. One record at a time, switched in place (no scrolling). -->
+          <div class="records" id="record-display" tabindex="-1" aria-label="Record display">
+            <!-- START: shown when no route is selected. Stage 2H: a fictional recovered terminal session (HUMAN draft, Stage 2H order).
+                 Presentation only: nothing is stored, nobody is authenticated, there is no login. -->
+            <section class="record record-start" id="record-start" data-record="start" aria-labelledby="start-heading" tabindex="-1">
+              <p class="eyebrow">Public records · Session recovery</p>
+              <h2 id="start-heading">Session restored</h2>
+              <div class="session-log">
+                <p class="session-line session-line-progress">Resuming last connection to The Terminal Cathedral...</p>
+                <p class="session-line">Session record located.</p>
+                <dl class="session-status">
+                  <div class="session-row"><dt>User on record:</dt><dd>Dan Almer Jensen</dd></div>
+                  <div class="session-row"><dt>Terminal status:</dt><dd class="session-value-online">ONLINE</dd></div>
+                  <div class="session-row"><dt>Access level:</dt><dd>LIMITED</dd></div>
+                  <div class="session-row"><dt>Available record groups:</dt><dd>06</dd></div>
+                  <div class="session-row"><dt>Cathedral access:</dt><dd class="session-value-restricted">RESTRICTED</dd></div>
+                </dl>
+                <p class="session-line session-line-done">Previous session restored.</p>
+              </div>
+            </section>
+
+            <!-- Stage 2G: every destination is an overview of compact records (.rec-item). A record's toggle opens
+                 its body inline (aria-expanded / aria-controls). Bodies are open in this file, so the page reads
+                 without JavaScript; hub.js collapses them. Record texts are the Stage 2E/2F texts, moved, not rewritten.
+                 To add a genuine future project: copy one .rec-item inside its destination, with a new data-item,
+                 toggle id and body id. -->
+
+            <!-- 01 · ELECTRONICS — Stage 2H: a damaged archive. Fiction for the present absence of published electronics
+                 project records: no real incident, no real data loss. Dan's background moved to 06 · The Human.
+                 The fragment strip is decoration (aria-hidden, fixed text, never random); the clean message is real text. -->
+            <section class="record" id="record-electronics" data-record="electronics" aria-labelledby="electronics-heading" tabindex="-1">
+              <p class="eyebrow">01 · Electronics</p>
+              <h2 id="electronics-heading">Electronics</h2>
+              <div class="rec-list">
+                <article class="rec-item rec-kind-damaged damaged-electronics" data-item="archive">
+                  <h3 class="rec-heading">
+                    <button type="button" class="rec-toggle" id="rec-electronics-archive-toggle" aria-expanded="true" aria-controls="rec-electronics-archive">
+                      <span class="rec-line"><span class="rec-id">Record 001</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title" data-glitch="Electronics Archive">Electronics Archive</span></span>
+                      <span class="rec-sub"><span class="rec-flag" aria-hidden="true">!</span> Integrity check failed</span>
+                      <span class="rec-state" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div class="rec-body" id="rec-electronics-archive" role="region" aria-labelledby="rec-electronics-archive-toggle">
+                    <div class="rec-body-inner">
+                      <div class="archive-alert">
+                        <p class="archive-alert-title"><span class="archive-alert-mark" aria-hidden="true">!</span> System alert · Record integrity failure</p>
+                        <p>Electronics records could not be fully restored.</p>
+                        <p>Archive continuity is compromised.</p>
+                        <p>Recovery authorization required.</p>
+                      </div>
+                      <p class="archive-fragments" aria-hidden="true">&#9617;&#9618;&#9619; 0E &#183;&#183; &#9626;&#9630;&#9626; &#183;&#183; &#9617;&#9617; 3F &#9618; &#183;&#183;&#183; &#9619;&#9618;&#9617; 00 &#183;&#183; &#9626;&#9630;</p>
+                      <dl class="archive-status">
+                        <div class="archive-row"><dt>Archive status:</dt><dd>DEGRADED</dd></div>
+                        <div class="archive-row"><dt>Record group:</dt><dd>Electronic hardware</dd></div>
+                        <div class="archive-row"><dt>Recovery state:</dt><dd>INCOMPLETE</dd></div>
+                        <div class="archive-row"><dt>Public inspection:</dt><dd>RESTRICTED</dd></div>
+                      </dl>
+                      <div class="archive-notes">
+                        <p>Available fragments are insufficient to reconstruct the original entries.</p>
+                        <p>System restoration is recommended.</p>
+                        <p>Refer this archive to the Keeper of the Records for recovery authorization.</p>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <!-- 02 · AI — the reference implementation: one genuine project, collapsed by default. -->
+            <section class="record" id="record-ai" data-record="ai" aria-labelledby="ai-heading" tabindex="-1">
+              <p class="eyebrow">02 · AI</p>
+              <h2 id="ai-heading">AI</h2>
+              <div class="record-copy">
+                <!-- Stage 2I (HUMAN approved direction): category level is archive information only. -->
+                <dl class="session-status category-index">
+                  <div class="session-row"><dt>Archive category:</dt><dd>Artificial Intelligence</dd></div>
+                  <div class="session-row"><dt>Available records:</dt><dd>01</dd></div>
+                </dl>
+                <p class="record-lede">Select a record to inspect.</p>
+              </div>
+              <div class="rec-list">
+                <article class="rec-item rec-kind-project" data-item="madpakken">
+                  <h3 class="rec-heading">
+                    <button type="button" class="rec-toggle" id="rec-ai-madpakken-toggle" aria-expanded="true" aria-controls="rec-ai-madpakken">
+                      <span class="rec-line"><span class="rec-id">Project 001</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title">AI Madpakken</span></span>
+                      <span class="rec-sub">The Human Sandwich Model</span>
+                      <span class="rec-state" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div class="rec-body" id="rec-ai-madpakken" role="region" aria-labelledby="rec-ai-madpakken-toggle">
+                    <div class="rec-body-inner">
+                      <!-- Stage 2H: in-universe access framing (HUMAN draft). Narrative only: AI Madpakken is prose, not a connector. -->
+                      <div class="access-class access-direct">
+                        <p class="access-class-title">Access classification · Direct interface</p>
+                        <dl class="access-mode"><dt>Connection mode:</dt><dd>FULL PLUG-IN</dd></dl>
+                        <p>AI-Madpakken provides a framework for direct interaction with The Terminal Cathedral through AI-assisted work.</p>
+                        <p>The human remains the decision authority.</p>
+                        <p>Direct access requires responsibility for what is decided, executed and verified.</p>
+                      </div>
+                      <p class="project-kind">Public project · GitHub · CC BY 4.0</p>
+                      <p>
+                        An openly licensed workflow foundation for doing consequential
+                        work with AI. It exists to answer the questions that decide whether
+                        AI-assisted work can be trusted: who may decide what something
+                        means, how evidence is held to the claims it is used to support,
+                        and how a human stays the authority without becoming the
+                        bottleneck.
+                      </p>
+                      <p>Its core is the <strong>Human Sandwich Model</strong>, with a human in the middle:</p>
+                      <dl class="hsm-list">
+                        <div class="hsm-row">
+                          <dt>COULD</dt>
+                          <dd>An upstream AI model explores what could be done.</dd>
+                        </div>
+                        <div class="hsm-row">
+                          <dt>SHOULD</dt>
+                          <dd>A human decides what should be done.</dd>
+                        </div>
+                        <div class="hsm-row">
+                          <dt>DID</dt>
+                          <dd>A downstream executor does it, and reports what was actually done, with the evidence.</dd>
+                        </div>
+                      </dl>
+                      <blockquote class="hsm-quote">
+                        <p>Reasoning can exist on both sides of the human boundary. Decision authority does not.</p>
+                      </blockquote>
+                      <p>
+                        Around that sit verification, research and assurance methods that
+                        keep the boundary real rather than decorative, where confidence is
+                        attacked rather than accumulated. It is prose, not software: it is
+                        meant to be given to a model as its operating context, and read by
+                        a model before it acts.
+                      </p>
+                      <a class="welcome-action welcome-action-primary record-entry" href="https://github.com/TheTerminalCathedral/AI-Madpakken" target="_blank" rel="noopener noreferrer" data-outbound="ai-madpakken">
+                        <span class="record-entry-label">AI Madpakken on GitHub</span>
+                        <span class="record-entry-note">TheTerminalCathedral/AI-Madpakken</span>
+                        <span class="sr-only">(opens in a new tab)</span>
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <!-- 03 · SOFTWARE — Stage 2H: a damaged archive, same model as Electronics. No software projects are claimed or
+                 invented; the decorative fragment strip is aria-hidden fixed text. -->
+            <section class="record" id="record-software" data-record="software" aria-labelledby="software-heading" tabindex="-1">
+              <p class="eyebrow">03 · Software</p>
+              <h2 id="software-heading">Software</h2>
+              <div class="rec-list">
+                <article class="rec-item rec-kind-damaged damaged-software" data-item="archive">
+                  <h3 class="rec-heading">
+                    <button type="button" class="rec-toggle" id="rec-software-archive-toggle" aria-expanded="true" aria-controls="rec-software-archive">
+                      <span class="rec-line"><span class="rec-id">Record 001</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title" data-glitch="Software Archive">Software Archive</span></span>
+                      <span class="rec-sub"><span class="rec-flag" aria-hidden="true">!</span> Restore recommended</span>
+                      <span class="rec-state" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div class="rec-body" id="rec-software-archive" role="region" aria-labelledby="rec-software-archive-toggle">
+                    <div class="rec-body-inner">
+                      <div class="archive-alert">
+                        <p class="archive-alert-title"><span class="archive-alert-mark" aria-hidden="true">!</span> Integrity warning · Software records</p>
+                        <p>Software-related entries could not be restored.</p>
+                        <p>Record continuity is compromised.</p>
+                        <p>Archive recovery is recommended.</p>
+                        <p>Keeper of the Records review required.</p>
+                      </div>
+                      <p class="archive-fragments" aria-hidden="true">0x00 ?? 0x3F &#9618;&#9618; 0xA7 ?? &#9617;&#9617; 0x00 &#183;&#183; 0x1C ?? &#9618; 0x00</p>
+                      <dl class="archive-status">
+                        <div class="archive-row"><dt>Archive status:</dt><dd>DEGRADED</dd></div>
+                        <div class="archive-row"><dt>Entry group:</dt><dd>Software / Automation / Tools</dd></div>
+                        <div class="archive-row"><dt>Recovery state:</dt><dd>INCOMPLETE</dd></div>
+                        <div class="archive-row"><dt>Inspection status:</dt><dd>LIMITED</dd></div>
+                      </dl>
+                      <div class="archive-notes">
+                        <p>Available fragments do not constitute a complete public record.</p>
+                        <p>Further restoration is required before full inspection may proceed.</p>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <!-- 04 · MUSIC — two genuine projects, two records, one open at a time. -->
+            <section class="record" id="record-music" data-record="music" aria-labelledby="music-heading" tabindex="-1">
+              <p class="eyebrow">04 · Music</p>
+              <h2 id="music-heading">Music &amp; Sound</h2>
+              <div class="record-copy">
+                <!-- Stage 2I (HUMAN approved direction): category level is archive information only. -->
+                <dl class="session-status category-index">
+                  <div class="session-row"><dt>Archive category:</dt><dd>Music &amp; Sound</dd></div>
+                  <div class="session-row"><dt>Available records:</dt><dd>02</dd></div>
+                </dl>
+                <p class="record-lede">Select a record to inspect.</p>
+              </div>
+              <div class="rec-list">
+                <article class="rec-item rec-kind-project music-project music-project-cathedral" data-item="cathedral">
+                  <h3 class="rec-heading">
+                    <button type="button" class="rec-toggle" id="rec-music-cathedral-toggle" aria-expanded="true" aria-controls="rec-music-cathedral">
+                      <span class="rec-line"><span class="rec-id">Project 001</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title">The Terminal Cathedral</span></span>
+                      <span class="rec-sub">AI-assisted synthwave · Human Sandwich Model</span>
+                      <span class="rec-state" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div class="rec-body" id="rec-music-cathedral" role="region" aria-labelledby="rec-music-cathedral-toggle">
+                    <div class="rec-body-inner">
+                      <!-- Stage 2H: in-universe access framing (HUMAN draft). Fiction only: no claim of real safety or security. -->
+                      <div class="access-class access-auditory">
+                        <p class="access-class-title">Access classification · Auditory passage</p>
+                        <dl class="access-mode"><dt>Connection mode:</dt><dd>INDIRECT</dd></dl>
+                        <p>The Cathedral may be experienced through recorded transmissions without establishing direct interaction with its active systems.</p>
+                        <p>An auditory passage offers a more controlled approach.</p>
+                        <p>Two connected transmissions are available.</p>
+                      </div>
+                      <!-- Stage 2I: the real production story (HUMAN-confirmed facts). Third person, as in the other music copy. -->
+                      <div class="record-copy music-story">
+                        <p>
+                          The Terminal Cathedral is a synthwave concept-album project exploring
+                          the experience of working with artificial intelligence through the
+                          Human Sandwich Model.
+                        </p>
+                        <p>Both albums were created using Suno, but their production processes tell two different stories.</p>
+                        <h4 class="story-heading">Album Zero · The experiment</h4>
+                        <p>
+                          The first album emerged from hundreds of AI-generated songs. Material
+                          was explored, selected, repaired through simple edits and eventually
+                          assembled into the first musical experience of The Terminal Cathedral.
+                        </p>
+                        <p>It was a messy, experimental process, full of exploration and unexpected discoveries.</p>
+                        <h4 class="story-heading">Album One · The refinement</h4>
+                        <p>
+                          The second album took a more deliberate approach. It was still created
+                          using Suno, but now with Suno Studio for more direct production and
+                          control over the final result.
+                        </p>
+                        <p>Dan also plays guitar personally, bringing a hands-on musical element into the AI-assisted creative process.</p>
+                        <p class="story-close">Two albums. Two approaches to working with AI. One evolving experience of The Terminal Cathedral.</p>
+                      </div>
+                      <div class="record-entries">
+                        <a class="welcome-action welcome-action-primary record-entry" href="https://distrokid.com/hyperfollow/theterminalcathedral/album-zero/" target="_blank" rel="noopener noreferrer" data-outbound="album-zero">
+                          <span class="record-entry-label">Listen to Album Zero</span>
+                          <span class="record-entry-note">DistroKid</span>
+                          <span class="sr-only">(opens in a new tab)</span>
+                        </a>
+                        <a class="welcome-action welcome-action-primary record-entry" href="https://distrokid.com/hyperfollow/theterminalcathedral/album-one" target="_blank" rel="noopener noreferrer" data-outbound="album-one">
+                          <span class="record-entry-label">Listen to Album One</span>
+                          <span class="record-entry-note">DistroKid</span>
+                          <span class="sr-only">(opens in a new tab)</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="rec-item rec-kind-project music-project music-project-workshop" data-item="workshop">
+                  <h3 class="rec-heading">
+                    <button type="button" class="rec-toggle" id="rec-music-workshop-toggle" aria-expanded="true" aria-controls="rec-music-workshop">
+                      <span class="rec-line"><span class="rec-id">Project 002</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title">Dan's Workshop</span></span>
+                      <span class="rec-sub">A playlist CV · Suno</span>
+                      <span class="rec-state" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div class="rec-body" id="rec-music-workshop" role="region" aria-labelledby="rec-music-workshop-toggle">
+                    <div class="rec-body-inner">
+                      <div class="record-copy">
+                        <p>
+                          A CV, but as a playlist. Instead of another list of skills, Dan's
+                          Workshop is a workshop soundtrack about turning ideas into
+                          electronic devices: design, automation, solder, bring-up, rework,
+                          testing, docs and code, and the craft of making hardware real.
+                        </p>
+                        <p>It is separate from the Terminal Cathedral and its story.</p>
+                      </div>
+                      <div class="record-entries">
+                        <a class="welcome-action welcome-action-primary record-entry" href="https://suno.com/playlist/2546ff98-565f-463c-9349-ee769d66174c" target="_blank" rel="noopener noreferrer" data-outbound="dans-workshop-suno">
+                          <span class="record-entry-label">Listen to Dan's Workshop</span>
+                          <span class="record-entry-note">Suno playlist</span>
+                          <span class="sr-only">(opens in a new tab)</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <!-- 05 · THE LAB -->
+            <section class="record" id="record-lab" data-record="lab" aria-labelledby="lab-heading" tabindex="-1">
+              <p class="eyebrow">05 · The Lab</p>
+              <h2 id="lab-heading">The Lab</h2>
+              <div class="record-copy">
+                <!-- Stage 2I (HUMAN approved direction): category level is archive information only. -->
+                <dl class="session-status category-index">
+                  <div class="session-row"><dt>Archive category:</dt><dd>Experimental Records</dd></div>
+                  <div class="session-row"><dt>Available records:</dt><dd>01</dd></div>
+                </dl>
+                <p class="record-lede">Select a record to inspect.</p>
+              </div>
+              <div class="rec-list">
+                <!-- Future genuine experiments go here as further .rec-item records, once they exist. -->
+                <article class="rec-item rec-kind-project" data-item="console">
+                  <h3 class="rec-heading">
+                    <button type="button" class="rec-toggle" id="rec-lab-console-toggle" aria-expanded="true" aria-controls="rec-lab-console">
+                      <span class="rec-line"><span class="rec-id">Record 001</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title">Original Registrar Console</span></span>
+                      <span class="rec-sub">Preserved interactive sequence</span>
+                      <span class="rec-state" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div class="rec-body" id="rec-lab-console" role="region" aria-labelledby="rec-lab-console-toggle">
+                    <div class="rec-body-inner">
+                      <!-- Stage 2I: archive classification (HUMAN draft). Not an access protocol: neutral styling, no connection mode.
+                           The last sentence is non-canonical draft framing for HUMAN review. -->
+                      <div class="archive-class">
+                        <p class="archive-class-title">Archive classification · Interactive record</p>
+                        <p>An earlier Registrar interface has been preserved within this archive.</p>
+                        <p>The recorded sequence may be accessed and explored through its original terminal environment.</p>
+                        <p>This record is available for inspection only. Opening it does not alter the visitor's current access classification.</p>
+                      </div>
+                      <a class="welcome-action welcome-action-primary record-entry" href="terminal-cathedral/" data-destination-link="registrar_console">
+                        <span class="record-entry-label">Access preserved sequence</span>
+                        <span class="record-entry-note">Original terminal environment</span>
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <!-- 06 · THE HUMAN — Stage 2H: the home of Dan's real background, in four records. Record 001 is HUMAN's draft,
+                 built only from HUMAN-confirmed facts. Personal profile links appear here and nowhere else, one per record;
+                 they open in a new tab (no visible helper text; the screen-reader note stays). -->
+            <section class="record" id="record-human" data-record="human" aria-labelledby="human-heading" tabindex="-1">
+              <p class="eyebrow">06 · The Human</p>
+              <h2 id="human-heading">Dan Almer Jensen</h2>
+              <div class="rec-list">
+                <article class="rec-item rec-kind-info" data-item="identity">
+                  <h3 class="rec-heading">
+                    <button type="button" class="rec-toggle" id="rec-human-identity-toggle" aria-expanded="true" aria-controls="rec-human-identity">
+                      <span class="rec-line"><span class="rec-id">Record 001</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title">Dan Almer Jensen</span></span>
+                      <span class="rec-sub">Identity &amp; professional background</span>
+                      <span class="rec-state" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div class="rec-body" id="rec-human-identity" role="region" aria-labelledby="rec-human-identity-toggle">
+                    <div class="rec-body-inner record-copy">
+                      <p class="record-lede">
+                        Electronics technician by training. Hardware Design Engineer by
+                        profession. Curious about pretty much everything.
+                      </p>
+                      <p>
+                        I trained as an Electronics Operator and an Electronics Technician,
+                        and I've spent around 20 years working with electronics across a
+                        variety of industries.
+                      </p>
+                      <p>
+                        My journey has taken me through safety electronics for railway
+                        systems, consumer audio R&amp;D, military communications equipment
+                        and hardware development.
+                      </p>
+                      <p>Today, I work as a Hardware Design Engineer at Qutron A/S.</p>
+                      <p>
+                        My interests rarely stay within one discipline. I enjoy hardware
+                        design, troubleshooting, prototyping, programming, automation and
+                        exploring how AI can become a useful part of practical engineering.
+                      </p>
+                      <p>
+                        I also make music, experiment with new ideas and occasionally turn
+                        those ideas into something much bigger than originally intended.
+                      </p>
+                      <p>The Terminal Cathedral is where those interests come together.</p>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="rec-item rec-kind-info rec-kind-profile" data-item="linkedin">
+                  <h3 class="rec-heading">
+                    <button type="button" class="rec-toggle" id="rec-human-linkedin-toggle" aria-expanded="true" aria-controls="rec-human-linkedin">
+                      <span class="rec-line"><span class="rec-id">Record 002</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title">LinkedIn</span></span>
+                      <span class="rec-sub">Professional history &amp; connections</span>
+                      <span class="rec-state" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div class="rec-body" id="rec-human-linkedin" role="region" aria-labelledby="rec-human-linkedin-toggle">
+                    <div class="rec-body-inner">
+                      <p>Professional experience, career history and connections.</p>
+                      <a class="welcome-action welcome-action-secondary record-entry" href="https://www.linkedin.com/in/dan-almer-jensen-919b9217a/" target="_blank" rel="noopener noreferrer" data-outbound="linkedin">
+                        <span class="record-entry-label">LinkedIn profile</span>
+                        <span class="record-entry-note">linkedin.com/in/dan-almer-jensen-919b9217a</span>
+                        <span class="sr-only">(opens in a new tab)</span>
+                      </a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="rec-item rec-kind-info rec-kind-profile" data-item="github">
+                  <h3 class="rec-heading">
+                    <button type="button" class="rec-toggle" id="rec-human-github-toggle" aria-expanded="true" aria-controls="rec-human-github">
+                      <span class="rec-line"><span class="rec-id">Record 003</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title">GitHub</span></span>
+                      <span class="rec-sub">Projects &amp; technical work</span>
+                      <span class="rec-state" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div class="rec-body" id="rec-human-github" role="region" aria-labelledby="rec-human-github-toggle">
+                    <div class="rec-body-inner">
+                      <p>Public repositories, technical experiments and projects.</p>
+                      <a class="welcome-action welcome-action-secondary record-entry" href="https://github.com/TheTerminalCathedral" target="_blank" rel="noopener noreferrer" data-outbound="github">
+                        <span class="record-entry-label">GitHub profile</span>
+                        <span class="record-entry-note">github.com/TheTerminalCathedral</span>
+                        <span class="sr-only">(opens in a new tab)</span>
+                      </a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="rec-item rec-kind-info rec-kind-profile" data-item="reddit">
+                  <h3 class="rec-heading">
+                    <button type="button" class="rec-toggle" id="rec-human-reddit-toggle" aria-expanded="true" aria-controls="rec-human-reddit">
+                      <span class="rec-line"><span class="rec-id">Record 004</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title">Reddit</span></span>
+                      <span class="rec-sub">DanDoesElectronics</span>
+                      <span class="rec-state" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div class="rec-body" id="rec-human-reddit" role="region" aria-labelledby="rec-human-reddit-toggle">
+                    <div class="rec-body-inner">
+                      <p>Electronics discussions, troubleshooting and community participation.</p>
+                      <a class="welcome-action welcome-action-secondary record-entry" href="https://www.reddit.com/user/DanDoesElectronics/" target="_blank" rel="noopener noreferrer" data-outbound="reddit">
+                        <span class="record-entry-label">Reddit profile</span>
+                        <span class="record-entry-note">reddit.com/user/DanDoesElectronics</span>
+                        <span class="sr-only">(opens in a new tab)</span>
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
           </div>
         </div>
-      </section>
+
+        <footer class="hub-footer">
+          <p>The Terminal Cathedral · created by Dan Almer Jensen</p>
+          <!-- STAGE3C:BEGIN preferences --><button type="button" class="observation-preferences" id="observation-preferences" hidden>OBSERVATION PREFERENCES</button><!-- STAGE3C:END preferences -->
+        </footer>
+      </div>
     </main>
 
-    <noscript>This page requires JavaScript to render the branching dialogue.</noscript>
-
-    <script src="dialogue-data.js"></script>
+    <script src="hub/hub-data.js"></script>
     <script src="analytics.js"></script>
-    <script src="main.js"></script>
+    <script src="hub/hub.js"></script>
   </body>
 </html>
