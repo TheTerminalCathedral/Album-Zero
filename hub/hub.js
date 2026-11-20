@@ -865,4 +865,161 @@
   if (initial !== "start" && ("#" + initial) !== window.location.hash) {
     window.history.replaceState({ route: initial }, "", urlFor(initial)); // tidy an unsupported hash
   }
+
+  /*
+   * Stage 3C: Registrar Observation Protocol (HUMAN decision, approved copy in index.html).
+   * Shown only while the visitor has made no choice, or when OBSERVATION PREFERENCES reopens it.
+   * The Registrar speaks first (typewriter); the personal record below starts collapsed and expands
+   * with the same component and sequence as every other record (expand to full size, then type).
+   * YES / NO are never typed, never hidden and never wait for an animation. Opening the personal
+   * record does not change anything. The decision is handed to analytics.js, which alone decides
+   * whether anything is sent; this code only presents it. No choice changes the visitor's access.
+   */
+  (function () {
+    var panel = document.getElementById("observation");
+    if (!panel || !analytics || typeof analytics.getConsent !== "function") {
+      return;
+    }
+    var registrar = panel.querySelector(".observation-registrar");
+    var request = document.getElementById("observation-text");
+    var response = document.getElementById("observation-response");
+    var noteEl = panel.querySelector(".obs-record");
+    var note = { el: noteEl, toggle: noteEl.querySelector(".obs-toggle"), body: document.getElementById("observation-note") };
+    note.inner = note.body.querySelector(".rec-body-inner") || note.body;
+    var noteHeading = noteEl.querySelector(".rec-heading");
+    var choices = Array.prototype.slice.call(panel.querySelectorAll("[data-observation]"));
+    var current = document.getElementById("observation-current");
+    var closeButton = panel.querySelector(".observation-close");
+    var preferences = document.getElementById("observation-preferences");
+    var RESPONSES = {
+      yes: ["Authorization received.", "Optional observation enabled.", "Access remains limited.", "Proceed, Visitor."],
+      no: ["Decision acknowledged.", "Optional observation disabled.", "Access remains limited.", "Proceed, Visitor."]
+    };
+
+    function decision() {
+      var c = analytics.getConsent();
+      return c === "granted" ? "yes" : c === "denied" ? "no" : null;
+    }
+
+    function reflect() {
+      var d = decision();
+      choices.forEach(function (b) {
+        b.setAttribute("aria-pressed", b.getAttribute("data-observation") === d ? "true" : "false");
+      });
+      if (d) {
+        current.textContent = "Current decision: " + (d === "yes" ? "YES · ALLOW STATS" : "NO · THANKS") + ".";
+        current.hidden = false;
+      } else {
+        current.hidden = true;
+      }
+    }
+
+    // While the panel is open the page keeps room for it at the bottom (and focus scrolling respects it),
+    // so nothing on the page, including a focused control, is ever stuck underneath (Stage 3C review).
+    function reserve() {
+      var root = document.documentElement;
+      if (panel.hidden) {
+        root.classList.remove("observation-open");
+        root.style.removeProperty("--observation-space");
+        return;
+      }
+      root.style.setProperty("--observation-space", Math.ceil(panel.offsetHeight + 24) + "px");
+      root.classList.add("observation-open");
+    }
+
+    function show(animate, reopened) {
+      finishAll();
+      records2g.setState(note, false);
+      request.hidden = false;
+      response.hidden = true;
+      closeButton.hidden = !reopened;
+      reflect();
+      panel.hidden = false;
+      reserve();
+      if (animate) {
+        // Registrar first, then the personal record's heading; the choices are never part of the reveal
+        typewriter.start([{ root: request, host: registrar }, { root: noteHeading, host: registrar }]);
+      }
+    }
+
+    function hide() {
+      var hadFocus = panel.contains(document.activeElement);
+      finishAll();
+      records2g.setState(note, false);
+      panel.hidden = true;
+      reserve();
+      if (hadFocus && preferences && !preferences.hidden) {
+        preferences.focus({ preventScroll: true });
+      }
+    }
+
+    function choose(yes) {
+      finishAll();
+      var remembered = analytics.setConsent(yes);
+      var lines = RESPONSES[yes ? "yes" : "no"].slice();
+      if (!remembered) {
+        lines.push("This browser does not let the site remember the choice; it applies to this page only.");
+      }
+      response.innerHTML = "";
+      lines.forEach(function (line) {
+        var p = document.createElement("p");
+        p.textContent = line;
+        response.appendChild(p);
+      });
+      request.hidden = true;
+      response.hidden = false;
+      closeButton.hidden = false;
+      reflect();
+      reserve();
+      typewriter.start([{ root: response, host: registrar }]);
+      // announce the Registrar's reply once, through the page's existing polite live region (the visible text
+      // types; the announcement does not wait for it)
+      if (live) {
+        live.textContent = "";
+        window.setTimeout(function () { live.textContent = lines.join(" "); }, 60);
+      }
+    }
+
+    choices.forEach(function (b) {
+      b.addEventListener("click", function () {
+        choose(b.getAttribute("data-observation") === "yes");
+      });
+    });
+
+    note.toggle.addEventListener("click", function () {
+      if (note.toggle.getAttribute("aria-expanded") === "true") {
+        finishAll();
+        records2g.close(note, true, reserve);
+        return;
+      }
+      finishAll();
+      var gate = records2g.open(note, true, reserve);
+      if (gate) {
+        typewriter.start([{ root: note.inner, host: note.body, gate: gate }]);
+      }
+    });
+
+    closeButton.addEventListener("click", hide);
+    window.addEventListener("resize", reserve);
+
+    if (preferences) {
+      preferences.hidden = false;
+      preferences.addEventListener("click", function () {
+        show(true, true);
+        var first = panel.querySelector(".observation-choice[aria-pressed='true']") || choices[0];
+        first.focus({ preventScroll: true });
+      });
+    }
+
+    // another tab of this site changed the decision: keep the panel's state in step
+    window.addEventListener("storage", function () {
+      if (!panel.hidden) {
+        reflect();
+      }
+    });
+
+    if (decision() === null) {
+      show(true, false);
+    }
+  })();
 })();

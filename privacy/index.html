@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Stage 3C: noindex until the PENDING fields below are confirmed by the site owner (release blocker). -->
+    <meta name="robots" content="noindex" />
+    <title>Privacy details · The Terminal Cathedral</title>
+    <meta name="description" content="What the optional visitor statistics on The Terminal Cathedral record, and how to switch them off." />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../hub/hub.css" />
+    <style>
+      .privacy-page { max-width: 46rem; margin: 0 auto; padding: 2rem 1rem 3rem; line-height: 1.65; color: var(--terminal-text); }
+      .privacy-page h1 { margin: 0.2rem 0 1rem; font-size: 1.5rem; color: var(--terminal-text-strong); }
+      .privacy-page h2 { margin: 2rem 0 0.5rem; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terminal-brass-trace); }
+      .privacy-page p, .privacy-page li { max-width: 68ch; }
+      .privacy-page ul { padding-left: 1.2rem; }
+      .privacy-page code { font-size: 0.92em; }
+      .privacy-page a { color: var(--terminal-text-strong); }
+      .privacy-page a:focus-visible { outline: 2px solid var(--terminal-focus); outline-offset: 3px; }
+      .pending { border: 1px dashed var(--archive-amber-edge); color: var(--archive-amber); padding: 0 0.3rem; }
+      .eyebrow { color: var(--terminal-text-soft); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; margin: 0; }
+    </style>
+  </head>
+  <!-- Stage 3C, privacy details (literal, not in-universe). Every statement here is taken from the site's own code
+       (analytics.js, hub/hub.js, main.js) unless it is marked PENDING: those depend on the Google Apps Script collector
+       and its storage, which the site owner has to confirm. This page itself loads no statistics script. -->
+  <body class="is-terminal-active hub">
+    <main class="privacy-page">
+      <p class="eyebrow">The Terminal Cathedral · Privacy details</p>
+      <h1>What gets recorded?</h1>
+
+      <p>This website has an optional visitor-statistics script. It only runs if you choose
+        <strong>YES · ALLOW STATS</strong> in the Registrar's observation request. If you choose
+        <strong>NO · THANKS</strong>, or make no choice, nothing is recorded or sent, and the website works exactly the same.</p>
+
+      <h2>Who runs it, and why</h2>
+      <p>The site and its statistics script are made and run by Dan Almer Jensen, as a personal project. The statistics
+        show which pages people visit, which records they open, which links they follow and how long they stay.
+        They are not used for advertising. No advertising network and no commercial analytics product is used; the script
+        sends its messages to a Google service the site owner set up (see "Where the messages go").</p>
+      <p>Contact about the data: <span class="pending">PENDING: contact method to be confirmed by the site owner</span></p>
+
+      <h2>What is recorded, if you choose YES</h2>
+      <p>One short message is sent when:</p>
+      <ul>
+        <li>a page opens, and when you leave it (with how long the page was visible);</li>
+        <li>you have stayed on a page for 10 seconds;</li>
+        <li>you choose a section, open or close a record, choose a dialogue option in the original Registrar console, or follow a link;</li>
+        <li>a script error occurs on the page (this can include errors caused by browser extensions).</li>
+      </ul>
+      <p>Each message contains:</p>
+      <ul>
+        <li>the page's address, path and title (including any extra parameters in the address you arrived with, such as <code>utm_source</code>);</li>
+        <li>the address of the page you came from, as your browser reports it (for links from other websites usually only the website's name);</li>
+        <li>what you chose: the section, record, dialogue step, option label or link (and the address of an external link);</li>
+        <li>the time, and for "leaving the page" the visible time in milliseconds;</li>
+        <li>your device type, only as "desktop", "tablet" or "mobile", worked out in your browser;</li>
+        <li>a random visit number (see below);</li>
+        <li>the error message, if a script error occurred.</li>
+      </ul>
+      <p>The messages do not contain your name, an email address, an account, or your browser's identification string.</p>
+
+      <h2>The visit number</h2>
+      <p>When statistics are allowed, the page creates a random visit number so the messages from one visit belong together.
+        If you go from the homepage into the original Registrar console, the number is passed along once in that page's
+        address and removed again straight away, so both pages count as one visit. The number is not stored on your device,
+        and a new one is made when you come back or reload a page. It is never created if you choose NO or make no choice.</p>
+
+      <h2>What is stored on your device</h2>
+      <p>Only your choice: one entry in your browser's local storage for this website, named <code>tc_observation</code>,
+        with the value <code>granted</code> or <code>denied</code>. It contains no identifier and no date. It lets both parts of the site
+        follow your choice and keeps the question from appearing again. If your browser does not allow local storage,
+        nothing is stored: statistics stay off, a YES applies only to the page you are on, and the question is asked again next time.</p>
+
+      <h2>Where the messages go</h2>
+      <p>If you choose YES, the messages are sent to a Google Apps Script web app on Google's servers
+        (<code>script.google.com</code>), which the site owner set up to collect the results
+        <span class="pending">PENDING: where the results are stored (which spreadsheet service) and who can access them, to be confirmed by the site owner</span>.
+        As with any request over the internet, Google's servers receive your IP address and browser details in order to
+        deliver each message; Google's own privacy policy describes how Google handles these.</p>
+
+      <h2>How long it is kept</h2>
+      <p><span class="pending">PENDING: retention period to be confirmed by the site owner</span></p>
+
+      <h2>Changing your mind</h2>
+      <p>Use <strong>OBSERVATION PREFERENCES</strong> at the bottom of the homepage to switch statistics on or off at any time.
+        Switching off stops all further messages immediately, on the homepage and in the original Registrar console.
+        Clearing this website's data in your browser also removes your choice, and the question will be asked again.</p>
+      <p>Requests about data that has already been collected:
+        <span class="pending">PENDING: how to request access or deletion, to be confirmed by the site owner</span>.
+        You can also complain to Datatilsynet, the Danish Data Protection Agency.</p>
+
+      <p><a href="../">Back to the terminal</a></p>
+    </main>
+  </body>
+</html>

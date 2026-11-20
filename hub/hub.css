@@ -1280,3 +1280,261 @@ html {
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
+
+/* ---- Stage 3C: Registrar Observation Protocol (consent panel) ----
+   A compact terminal panel docked at the bottom of the window. Non-modal: the site stays fully usable
+   behind it. It reuses the record look (.obs-record mirrors .rec-item, .obs-toggle mirrors .rec-toggle;
+   separate names so the destination records' code and tests never pick it up). */
+.observation {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  display: grid;
+  gap: 0.75rem;
+  width: min(30rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem); /* the visible area on phones (falls back to vh) */
+  overflow-y: auto;
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid var(--terminal-panel-edge);
+  background: rgba(9, 12, 17, 0.97);
+  box-shadow: inset 3px 0 0 var(--terminal-brass-trace), 0 0.6rem 2rem rgba(0, 0, 0, 0.55);
+  color: var(--terminal-text);
+  font-size: 0.9rem;
+  overscroll-behavior: contain;
+}
+
+.observation[hidden] {
+  display: none;
+}
+
+.observation-registrar {
+  position: relative; /* anchor for the Skip button while the Registrar types */
+  display: grid;
+  gap: 0.35rem;
+  padding-right: 4.2rem; /* room for Skip, so it never covers the text */
+}
+
+.observation-label {
+  margin: 0;
+  color: var(--terminal-brass-trace);
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+}
+
+.observation-text p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.observation-text[hidden] {
+  display: none;
+}
+
+.observation-registrar .tw-skip {
+  top: 0;
+  right: 0;
+}
+
+.obs-record {
+  position: relative;
+  display: grid;
+  border: 1px solid var(--terminal-panel-edge);
+  background: rgba(13, 18, 24, 0.72);
+  box-shadow: inset 3px 0 0 rgba(98, 116, 140, 0.85);
+  transition: border-color 160ms ease;
+}
+
+.obs-record:hover,
+.obs-record:focus-within {
+  border-color: rgba(138, 160, 190, 0.9);
+}
+
+.obs-record .rec-heading {
+  margin: 0;
+  font-size: inherit;
+  letter-spacing: normal;
+}
+
+.obs-toggle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "line state"
+    "sub  state";
+  align-items: center;
+  column-gap: 0.8rem;
+  row-gap: 0.15rem;
+  width: 100%;
+  min-height: 2.75rem; /* 44 px touch target */
+  margin: 0;
+  padding: 0.6rem 0.8rem 0.6rem 0.95rem;
+  border: 0;
+  background: transparent;
+  color: var(--terminal-text-strong);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.obs-toggle:focus-visible {
+  outline: 1px solid var(--terminal-focus);
+  outline-offset: -3px;
+}
+
+.obs-toggle .rec-line {
+  font-size: 0.78rem;
+}
+
+.obs-toggle[aria-expanded="true"] .rec-state::before {
+  content: "[\2212]";
+}
+
+.obs-toggle:hover .rec-state,
+.obs-toggle:focus-visible .rec-state {
+  color: var(--terminal-focus);
+}
+
+.obs-record .rec-body-inner {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  gap: 0.5rem;
+}
+
+/* the choices, the current decision and the privacy link stay pinned to the panel's bottom edge, so YES / NO are
+   visible even when the open personal message makes the panel scroll (Stage 3C review) */
+.observation-actions {
+  position: sticky;
+  bottom: -1rem;
+  z-index: 1;
+  display: grid;
+  gap: 0.6rem;
+  margin: 0 -1rem -1rem;
+  padding: 0.6rem 1rem 1rem;
+  background: rgba(9, 12, 17, 0.98);
+  border-top: 1px solid rgba(66, 79, 98, 0.34);
+}
+
+/* while the panel is open the page keeps room for it, and focus scrolling keeps focused items above it */
+html.observation-open {
+  scroll-padding-bottom: var(--observation-space, 0px);
+}
+
+html.observation-open .site-shell {
+  padding-bottom: var(--observation-space, 0px);
+}
+
+/* the two choices: identical styling and size, side by side; neither is preselected */
+.observation-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.hub .observation-choice {
+  width: 100%;
+  min-height: 2.75rem;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+.hub .observation-choice:focus-visible,
+.observation-close:focus-visible,
+.observation-preferences:focus-visible,
+.observation-privacy:focus-visible {
+  outline: 2px solid var(--terminal-focus);
+  outline-offset: 3px;
+}
+
+.observation-current {
+  margin: 0;
+  color: var(--terminal-text-soft);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+}
+
+.observation-current[hidden] {
+  display: none;
+}
+
+.observation-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.observation-privacy {
+  color: var(--terminal-text-dim);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+}
+
+.observation-privacy:hover {
+  color: var(--terminal-focus);
+}
+
+.observation-close,
+.observation-preferences {
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(98, 116, 140, 0.7);
+  background: rgba(9, 12, 17, 0.92);
+  color: var(--terminal-text-dim);
+  font: inherit;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.observation-close[hidden],
+.observation-preferences[hidden] {
+  display: none;
+}
+
+.observation-close:hover,
+.observation-preferences:hover {
+  border-color: rgba(138, 160, 190, 0.98);
+  color: var(--terminal-focus);
+}
+
+.hub-footer .observation-preferences {
+  margin-top: 0.5rem;
+  min-height: 2.75rem;
+}
+
+@media (max-width: 759px) {
+  .observation {
+    right: 0.5rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    width: auto;
+    max-height: calc(100vh - 1rem);
+    max-height: calc(100dvh - 1rem);
+    padding: 0.8rem 0.8rem 0.9rem;
+    font-size: 0.86rem;
+  }
+
+  .observation-actions {
+    bottom: -0.9rem;
+    margin: 0 -0.8rem -0.9rem;
+    padding: 0.55rem 0.8rem 0.9rem;
+  }
+
+  .hub .observation-choice {
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obs-record {
+    transition: none;
+  }
+}

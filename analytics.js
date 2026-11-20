@@ -56,7 +56,15 @@
     }
   }
   const eventLog = [];
-  const visitId = adoptVisitId(carriedVisitId) || createVisitId();
+  // Stage 3C, Registrar Observation Protocol (HUMAN decision): optional statistics run only after the visitor has
+  // chosen YES. The only thing kept on the device is that choice, under one key with the value "granted" or
+  // "denied": no identifier, no timestamp. Before a choice, after NO, and whenever storage is unavailable, nothing
+  // is sent, nothing is logged and no visit_id exists. The same key is read by every page of the site, so the
+  // homepage and the original console always follow the same decision.
+  const CONSENT_KEY = "tc_observation";
+  let consent = readStoredConsent();
+  let visitId = "";
+  let landingSent = false;
   let engagedEventSent = false;
   let visibleTimeMs = 0;
   let visibilityStartedAt = document.visibilityState === "hidden"
@@ -88,6 +96,60 @@
     }
   }
 
+  function readStoredConsent() {
+    try {
+      const stored = window.localStorage.getItem(CONSENT_KEY);
+      return stored === "granted" || stored === "denied" ? stored : null;
+    } catch (error) {
+      return null; // storage unavailable: undecided, so nothing runs
+    }
+  }
+
+  function writeStoredConsent(value) {
+    try {
+      window.localStorage.setItem(CONSENT_KEY, value);
+      return true;
+    } catch (error) {
+      return false; // the choice then holds for this page only
+    }
+  }
+
+  function isGranted() {
+    return consent === "granted";
+  }
+
+  // Runs when consent is (or becomes) granted: one visit_id per page load (the homepage's, when it was carried
+  // here from this site), one landing_page_view per page load, and the engagement check.
+  function startCollecting() {
+    if (!isGranted()) {
+      return;
+    }
+    if (!visitId) {
+      visitId = adoptVisitId(carriedVisitId) || createVisitId();
+    }
+    if (!landingSent) {
+      landingSent = true;
+      trackEvent("landing_page_view");
+    }
+    // visible time counts only from here on: time before YES (or while NO applied) is never reported
+    visibilityStartedAt = document.visibilityState === "hidden" ? null : Date.now();
+    sendEngagedEventIfReady();
+    scheduleEngagementCheck();
+  }
+
+  function applyConsent(value) {
+    if (isGranted()) {
+      updateVisibleTime(); // keep the time that was visible while consent applied
+    }
+    consent = value === "granted" || value === "denied" ? value : null;
+    if (isGranted()) {
+      startCollecting();
+    } else {
+      clearEngagementTimer();
+      visibilityStartedAt = null;
+    }
+  }
+
   function getDeviceType(userAgent) {
     if (!userAgent) {
       return "desktop";
@@ -116,7 +178,7 @@
       utm_medium: searchParams.get("utm_medium") || "",
       utm_campaign: searchParams.get("utm_campaign") || "",
       device_type: getDeviceType(window.navigator.userAgent || ""),
-      visit_id: visitId
+      visit_id: isGranted() ? visitId : "" // never handed out (e.g. to the Lab link) without consent
     };
   }
 
@@ -157,6 +219,10 @@
   }
 
   function trackEvent(eventName, eventDetails) {
+    if (!isGranted()) {
+      return undefined; // no choice yet, or NO: optional statistics are inactive
+    }
+
     if (window.navigator && window.navigator.webdriver) {
       return undefined;
     }
@@ -199,6 +265,11 @@
   }
 
   function updateVisibleTime() {
+    if (!isGranted()) {
+      visibilityStartedAt = null; // no time is counted without consent
+      return;
+    }
+
     if (visibilityStartedAt === null) {
       return;
     }
@@ -209,6 +280,7 @@
 
   function sendEngagedEventIfReady() {
     if (
+      !isGranted() ||
       engagedEventSent ||
       document.visibilityState === "hidden" ||
       visibleTimeMs < config.engagementThresholdMs
@@ -225,6 +297,7 @@
     clearEngagementTimer();
 
     if (
+      !isGranted() ||
       engagedEventSent ||
       document.visibilityState === "hidden" ||
       visibilityStartedAt === null
@@ -270,14 +343,36 @@
       return visibleTimeMs;
     },
     isCollectorConfigured: isCollectorConfigured,
-    trackEvent: trackEvent
+    trackEvent: trackEvent,
+    // Stage 3C consent: "granted", "denied" or null (no choice yet)
+    getConsent: function () {
+      return consent;
+    },
+    // returns true if the choice could be remembered on this device, false if it holds for this page only
+    setConsent: function (granted) {
+      const value = granted ? "granted" : "denied";
+      const stored = writeStoredConsent(value);
+      applyConsent(value);
+      return stored;
+    }
   };
 
   window.TerminalCathedralAnalytics = analyticsApi;
 
-  trackEvent("landing_page_view");
-  scheduleEngagementCheck();
+  startCollecting(); // only if the visitor chose YES earlier; otherwise nothing happens until they do
   document.addEventListener("visibilitychange", handleVisibilityChange);
+  // a page restored from the back/forward cache may have missed a change made meanwhile: read the choice again
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      applyConsent(readStoredConsent());
+    }
+  });
+  // a choice made in another tab of this site applies here too
+  window.addEventListener("storage", function (event) {
+    if (event.key === CONSENT_KEY || event.key === null) {
+      applyConsent(readStoredConsent());
+    }
+  });
 
   window.addEventListener("error", function (event) {
     if (window.TerminalCathedralAnalytics) {
