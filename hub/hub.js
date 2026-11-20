@@ -774,7 +774,29 @@
         node_id: currentRoute,
         option_kind: "record_link"
       });
+      // Stage 3A visit continuity: carry this page's random visit_id to the original console in its address
+      // (?tc_visit=…), so the console's events can be joined to this visit. Nothing is stored on the device; the
+      // console's own code is untouched (main.js never reads the URL). Plain same-tab activation only.
+      var visitId = analytics && typeof analytics.getBasePayload === "function" ? analytics.getBasePayload().visit_id : "";
+      if (visitId) {
+        var target = new URL(link.getAttribute("href"), window.location.href);
+        target.searchParams.set("tc_visit", visitId);
+        link.href = target.href;
+      }
     });
+  });
+
+  // Stage 3A visit duration: the homepage reports session_end on page exit exactly as the original console
+  // (main.js) does: same event name, same total_time_ms (visible time from analytics.js), sent once per pagehide
+  // when any time was visible. node_id is the homepage view open at exit ("" on the start record).
+  window.addEventListener("pagehide", function () {
+    if (!analytics || typeof analytics.getVisibleTimeMs !== "function") {
+      return;
+    }
+    var timeMs = analytics.getVisibleTimeMs();
+    if (timeMs > 0) {
+      track("session_end", { node_id: currentRoute || "", total_time_ms: timeMs });
+    }
   });
 
   Array.prototype.forEach.call(document.querySelectorAll("[data-outbound]"), function (link) {
