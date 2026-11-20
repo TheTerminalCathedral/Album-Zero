@@ -774,21 +774,24 @@
         node_id: currentRoute,
         option_kind: "record_link"
       });
-      // Stage 3A visit continuity: carry this page's random visit_id to the original console in its address
-      // (?tc_visit=…), so the console's events can be joined to this visit. Nothing is stored on the device; the
-      // console's own code is untouched (main.js never reads the URL). Plain same-tab activation only.
+      // Stage 3A/3B visit continuity: carry this page's random visit_id to the original console in its address
+      // (?tc_visit=…); analytics.js there adopts it and removes it again. Nothing is stored on the device; the
+      // console's own code is untouched. Plain same-tab activation only: the link itself is never modified, so a
+      // later "open in new tab" or "copy link" never carries the id (Stage 3B review finding).
       var visitId = analytics && typeof analytics.getBasePayload === "function" ? analytics.getBasePayload().visit_id : "";
       if (visitId) {
         var target = new URL(link.getAttribute("href"), window.location.href);
         target.searchParams.set("tc_visit", visitId);
-        link.href = target.href;
+        event.preventDefault();
+        window.location.assign(target.href);
       }
     });
   });
 
   // Stage 3A visit duration: the homepage reports session_end on page exit exactly as the original console
   // (main.js) does: same event name, same total_time_ms (visible time from analytics.js), sent once per pagehide
-  // when any time was visible. node_id is the homepage view open at exit ("" on the start record).
+  // when any time was visible. node_id is the homepage view open at exit ("start" on the start record, as for the
+  // homepage's other events).
   window.addEventListener("pagehide", function () {
     if (!analytics || typeof analytics.getVisibleTimeMs !== "function") {
       return;

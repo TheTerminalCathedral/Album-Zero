@@ -1,4 +1,9 @@
 (function () {
+  // Stage 3B: initialise once per page, even if this script is included or injected twice.
+  if (window.TerminalCathedralAnalytics) {
+    return;
+  }
+
   const DEFAULT_COLLECTOR_URL =
     "https://script.google.com/macros/s/AKfycbx8-wC0luSvUFQY5P3SXGxLwaaIj5-garaXixwjscf8hmY6j2JgOAhXsus793tI50uL/exec";
   const DEFAULT_CONFIG = {
@@ -15,10 +20,43 @@
         ? runtimeConfig.engagementThresholdMs
         : DEFAULT_CONFIG.engagementThresholdMs
   };
+  // Stage 3B, fail closed: the production collector only ever receives events from the public site itself.
+  // Any other origin (localhost, 127.0.0.1, file://, previews, copies) keeps the in-page event log but sends nothing.
+  const PRODUCTION_ORIGINS = ["https://terminalcathedral.com", "https://www.terminalcathedral.com"];
+  if (isProductionCollector(config.collectorUrl) &&
+      PRODUCTION_ORIGINS.indexOf(window.location.protocol + "//" + window.location.host) === -1) {
+    config.collectorUrl = "";
+  }
+
+  function isProductionCollector(candidate) {
+    if (!candidate) {
+      return false;
+    }
+
+    try {
+      // parsed host, so ports, a trailing dot, user info or another scheme cannot slip past the gate
+      return new URL(candidate, window.location.href).hostname.replace(/\.$/, "").toLowerCase() === "script.google.com";
+    } catch (error) {
+      return true; // unparseable: treat as production and fail closed
+    }
+  }
   const url = new URL(window.location.href);
   const searchParams = url.searchParams;
+  // Stage 3B visit continuity: the homepage passes its random visit_id to the original console as ?tc_visit=.
+  // It is adopted only if it has the exact shape this script generates and the visitor arrived from this site;
+  // otherwise a fresh id is created, as before. The parameter is always removed from the recorded page URLs and
+  // from the address bar, so it is not kept in bookmarks, copied links or later referrers. Nothing is stored.
+  const carriedVisitId = searchParams.get("tc_visit");
+  if (carriedVisitId !== null) {
+    searchParams.delete("tc_visit");
+    try {
+      window.history.replaceState(window.history.state, "", url.href);
+    } catch (error) {
+      // the address bar keeps the parameter; the recorded URLs below are still clean
+    }
+  }
   const eventLog = [];
-  const visitId = createVisitId();
+  const visitId = adoptVisitId(carriedVisitId) || createVisitId();
   let engagedEventSent = false;
   let visibleTimeMs = 0;
   let visibilityStartedAt = document.visibilityState === "hidden"
@@ -32,6 +70,22 @@
     }
 
     return "visit_" + Date.now() + "_" + Math.random().toString(36).slice(2, 10);
+  }
+
+  function adoptVisitId(candidate) {
+    if (!candidate ||
+        !(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(candidate) ||
+          /^visit_\d{1,16}_[0-9a-z]{1,10}$/.test(candidate))) {
+      return "";
+    }
+
+    try {
+      return document.referrer && new URL(document.referrer).origin === window.location.origin
+        ? candidate
+        : "";
+    } catch (error) {
+      return "";
+    }
   }
 
   function getDeviceType(userAgent) {
