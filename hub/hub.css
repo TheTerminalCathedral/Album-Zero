@@ -1538,3 +1538,15 @@ html.observation-open .site-shell {
     transition: none;
   }
 }
+
+/* Stage 3F: boot guard (see index.html <head>). Until hub.js starts the homepage boot sequence, the two texts keep their
+   space but are not drawn, so the complete text never flashes before typing begins. Fail-safe: shown after 3 s. */
+html.tc-boot-pending #hubDialogue,
+html.tc-boot-pending #record-start {
+  visibility: hidden;
+  animation: tc-boot-failsafe 0s linear 3s forwards;
+}
+
+@keyframes tc-boot-failsafe {
+  to { visibility: visible; }
+}

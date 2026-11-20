@@ -14,6 +14,12 @@
     />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="hub/hub.css" />
+    <!-- STAGE3F:BEGIN boot-guard
+         Stage 3F: on a first load or reload of the start view (no hash, not Back/Forward, normal motion) the Registrar introduction and the Session
+         Recovery record are held invisible, at their final size, until hub.js starts the boot sequence (it removes the
+         class at once). hub.css reveals them after 3 s if the scripts never run. Without JavaScript nothing changes. -->
+    <script>(function () { try { var n = window.performance && performance.getEntriesByType ? performance.getEntriesByType("navigation")[0] : null; if (!window.location.hash && !(n && n.type === "back_forward") && !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) { document.documentElement.classList.add("tc-boot-pending"); } } catch (e) {} })();</script>
+    <!-- STAGE3F:END boot-guard -->
   </head>
   <!--
     PROTOTYPE (Stage 2D layout and copy, Stage 2E typewriter, Stage 2F Registrar-first navigation, Stage 2G all six areas as expandable records, Stage 2H external access terminal and personal archive; local only). Not released.

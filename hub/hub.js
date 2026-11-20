@@ -103,6 +103,14 @@
    * Screen readers: transparent text is in the accessibility tree, so the full text is readable
    * at once; revealed elements are aria-busy while typing; nothing is announced per character.
    * Reduced motion: no reveal at all.
+   *
+   * Stage 3F, paced steps (used only by the homepage boot sequence): a step may give
+   *   msPerChar    a fixed time per character instead of the usual 260/s within 0.45–2.6 s;
+   *   linePauseMs  an extra pause after a line break in the text;
+   *   pauseAfter / blockPauseMs  an extra pause after the text of an element matching the selector;
+   *   gapBefore    its own pause before it starts (instead of STEP_GAP_MS);
+   *   busy: false  do not mark it aria-busy (its full text stays available to screen readers).
+   * Steps without these options are timed exactly as before.
    */
   var typewriter = (function () {
     var CHARS_PER_SECOND = 260;   // calm, terminal-like
@@ -156,10 +164,30 @@
           }
           cuts.push(i + 1);
         }
-        var seg = { node: node, text: text, cuts: cuts, wrap: wrap, shown: shown, rest: rest, from: total };
+        var seg = { node: node, text: text, cuts: cuts, wrap: wrap, shown: shown, rest: rest, from: total, parent: wrap.parentElement };
         total += cuts.length;
         return seg;
       });
+      // Stage 3F: a paced step gets a timeline, the time (ms after its start) at which each character appears
+      var times = null;
+      if (target.msPerChar) {
+        times = [];
+        var t = 0;
+        segments.forEach(function (seg) {
+          var prev = 0;
+          seg.cuts.forEach(function (cut) {
+            t += target.msPerChar;
+            times.push(t);
+            if (target.linePauseMs && seg.text.slice(prev, cut).indexOf("\n") !== -1) {
+              t += target.linePauseMs;
+            }
+            prev = cut;
+          });
+          if (target.pauseAfter && target.blockPauseMs && seg.parent && seg.parent.matches(target.pauseAfter)) {
+            t += target.blockPauseMs;
+          }
+        });
+      }
       return {
         root: target.root,
         host: target.host || target.root,
@@ -168,7 +196,11 @@
         segments: segments,
         total: total,
         index: 0,
-        duration: Math.min(MAX_DURATION_MS, Math.max(MIN_DURATION_MS, (total / CHARS_PER_SECOND) * 1000)),
+        duration: times ? (times.length ? times[times.length - 1] : 0)
+          : Math.min(MAX_DURATION_MS, Math.max(MIN_DURATION_MS, (total / CHARS_PER_SECOND) * 1000)),
+        times: times,
+        gapBefore: typeof target.gapBefore === "number" ? target.gapBefore : STEP_GAP_MS,
+        busy: target.busy !== false,
         done: false
       };
     }
@@ -245,7 +277,9 @@
       }
       steps.forEach(function (s, i) {
         s.root.classList.add("tw-typing");
-        s.root.setAttribute("aria-busy", "true");
+        if (s.busy) {
+          s.root.setAttribute("aria-busy", "true");
+        }
         if (i > 0) {
           s.root.classList.add("tw-pending");
         }
@@ -286,12 +320,27 @@
           return; // cancelled: a newer run or a skip has already restored everything
         }
         var step = run.steps[run.current];
+        if (step.times && !step.clocked) {
+          step.clocked = true; // Stage 3F paced step: its clock starts on the first frame actually drawn
+          if (run.current === 0) {
+            run.startTime = now;
+          }
+        }
         if (step.gateOpen && now >= run.startTime) {
           if (step.root.classList.contains("tw-pending")) {
             step.root.classList.remove("tw-pending");
             moveSkip(skip, step.host);
           }
-          var count = Math.min(step.total, Math.ceil(step.total * Math.min(1, (now - run.startTime) / step.duration)));
+          var count;
+          if (step.times) {
+            var elapsed = now - run.startTime; // Stage 3F paced step: every character that is due
+            count = 0;
+            while (count < step.total && step.times[count] <= elapsed) {
+              count += 1;
+            }
+          } else {
+            count = Math.min(step.total, Math.ceil(step.total * Math.min(1, (now - run.startTime) / step.duration)));
+          }
           draw(step, count);
           if (count >= step.total) {
             restore(step);
@@ -300,7 +349,7 @@
               finish();
               return;
             }
-            run.startTime = now + STEP_GAP_MS;
+            run.startTime = now + run.steps[run.current].gapBefore;
           }
         }
         run.frame = window.requestAnimationFrame(tick);
@@ -856,6 +905,51 @@
   if (initial !== "start" && ("#" + initial) !== window.location.hash) {
     window.history.replaceState({ route: initial }, "", urlFor(initial)); // tidy an unsupported hash
   }
+
+  /*
+   * Stage 3F, initial terminal boot sequence (HUMAN decision): when the homepage opens (or is reloaded) on its start
+   * view, the Registrar's introduction types first, then the Session Recovery record, both slower than ordinary
+   * navigation. Deep links, Back/Forward and the back/forward cache never start it. It is the ordinary typewriter
+   * run, so Skip, a click in the display, Escape, any navigation and reduced motion end it exactly as elsewhere.
+   * Both texts are laid out at their final size from the first frame. Nothing is announced and nothing is tracked.
+   */
+  var BOOT = {
+    registrar: { msPerChar: 50, linePauseMs: 220 },
+    recovery: { msPerChar: 30, pauseAfter: "p, h2, dd", blockPauseMs: 90, gapBefore: 400 }
+  };
+  var startRecord = document.getElementById("record-start");
+  // Only a real first load or reload of the plain address: not a Back/Forward that reloads the page (back_forward),
+  // not an address with any hash (#gateway, a mistyped hash: shown complete, as the <head> guard assumes), and not
+  // after the guard's 3 s fail-safe has already shown the texts (very slow script loading).
+  var navEntry = window.performance && performance.getEntriesByType ? performance.getEntriesByType("navigation")[0] : null;
+  var navType = navEntry ? navEntry.type : (window.performance && performance.navigation && performance.navigation.type === 2 ? "back_forward" : "navigate");
+  var bootAllowed = initial === "start" && !window.location.hash && navType !== "back_forward" &&
+    document.documentElement.classList.contains("tc-boot-pending") && performance.now() < 2900;
+  var booting = false;
+  if (bootAllowed && dialogue && startRecord && !reducedMotion.matches) {
+    booting = true;
+    typewriter.start([
+      { root: dialogue, host: messageBlock, msPerChar: BOOT.registrar.msPerChar, linePauseMs: BOOT.registrar.linePauseMs, busy: false },
+      { root: startRecord, host: startRecord, msPerChar: BOOT.recovery.msPerChar, pauseAfter: BOOT.recovery.pauseAfter,
+        blockPauseMs: BOOT.recovery.blockPauseMs, gapBefore: BOOT.recovery.gapBefore, busy: false }
+    ]);
+  }
+  // the guard set in <head> (index.html) kept both texts invisible until this point; the typewriter now owns them
+  document.documentElement.classList.remove("tc-boot-pending");
+  // reduced motion switched on while the boot is still typing: show everything at once
+  if (booting && reducedMotion.addEventListener) {
+    reducedMotion.addEventListener("change", function (event) {
+      if (event.matches && typewriter.isTyping() && currentRoute === "start") {
+        finishAll();
+      }
+    });
+  }
+  // leaving the page mid-sequence: complete it, so a page restored from the back/forward cache is simply complete
+  window.addEventListener("pagehide", function () {
+    if (typewriter.isTyping()) {
+      finishAll();
+    }
+  });
 
   /*
    * Stage 3C: Registrar Observation Protocol (HUMAN decision, approved copy in index.html).
