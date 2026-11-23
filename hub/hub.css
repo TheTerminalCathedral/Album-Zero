@@ -1061,7 +1061,7 @@ html {
   margin: 0;
 }
 
-/* ---- damaged archives (Electronics, Software): readable, controlled, decorative only ---- */
+/* ---- damaged archive (Electronics): readable, controlled, decorative only ---- */
 .rec-item.rec-kind-damaged {
   border-style: dashed;
   border-color: var(--archive-amber-edge);
@@ -1079,12 +1079,6 @@ html {
   background: repeating-linear-gradient(90deg, var(--archive-red-edge) 0 7px, transparent 7px 11px, var(--archive-red-edge) 11px 13px, transparent 13px 22px);
   pointer-events: none;
   animation: archive-edge 2.4s steps(1, end) 2;
-}
-
-.rec-item.damaged-software::before {
-  left: auto;
-  right: 12%;
-  width: 26%;
 }
 
 .rec-item.rec-kind-damaged:hover,
@@ -1146,11 +1140,6 @@ html {
   user-select: none;
 }
 
-.damaged-software .archive-fragments {
-  color: rgba(130, 160, 196, 0.55);
-  letter-spacing: 0.08em;
-}
-
 .archive-status {
   display: grid;
   gap: 0.15rem;
@@ -1189,12 +1178,6 @@ html {
   background:
     repeating-linear-gradient(180deg, transparent 0 9px, rgba(214, 92, 78, 0.13) 9px 11px, transparent 11px 23px, rgba(98, 150, 190, 0.1) 23px 24px);
   animation: archive-interference 520ms steps(4, end) 1 both;
-}
-
-.damaged-software.is-glitching .rec-body::after {
-  background:
-    repeating-linear-gradient(180deg, transparent 0 14px, rgba(130, 160, 196, 0.13) 14px 15px, transparent 15px 31px),
-    linear-gradient(90deg, transparent 0 62%, rgba(214, 92, 78, 0.1) 62% 63%, transparent 63%);
 }
 
 .rec-kind-damaged.is-glitching .rec-title {
