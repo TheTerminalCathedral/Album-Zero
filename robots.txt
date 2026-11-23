@@ -1,0 +1,6 @@
+# The Terminal Cathedral: public records, open for inspection.
+# One rule for every crawler, including Googlebot, Bingbot and OAI-SearchBot.
+User-agent: *
+Allow: /
+
+Sitemap: https://terminalcathedral.com/sitemap.xml

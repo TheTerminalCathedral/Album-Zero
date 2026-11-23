@@ -1533,3 +1533,84 @@ html.tc-boot-pending #record-start {
 @keyframes tc-boot-failsafe {
   to { visibility: visible; }
 }
+
+/* ---- Stage 3H: LinkedIn contact reference, public record index and the static record pages (records/) ---- */
+.record-contact,
+.ref-page a {
+  color: var(--terminal-text-strong);
+  text-underline-offset: 0.2em;
+  overflow-wrap: anywhere;
+}
+
+.record-contact,
+.hub-footer-index a,
+.ref-nav a,
+.ref-foot a {
+  display: inline-block;
+  padding: 0.4rem 0; /* 24 px or more to aim at */
+}
+
+.record-contact:focus-visible,
+.hub-footer-index a:focus-visible,
+.ref-page a:focus-visible {
+  outline: 2px solid var(--terminal-focus);
+  outline-offset: 3px;
+}
+
+.ref-page {
+  --terminal-brass-trace: #b0905f; /* the same brass, lighter: 4.5:1 for reading */
+}
+
+.ref-page .view-shell {
+  --shell-width: 54rem;
+}
+
+.ref-page .ref-nav {
+  color: var(--terminal-text-soft);
+  font-size: 0.78rem;
+}
+
+.ref-nav ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ref-nav li + li::before {
+  content: "/";
+  margin-right: 0.6rem;
+}
+
+.ref-page h1 {
+  margin: 0;
+  color: var(--terminal-text-strong);
+  font-size: 1.35rem;
+}
+
+.ref-page h2 {
+  margin: 0.9rem 0 0;
+  color: var(--terminal-brass-trace);
+  font-size: 0.82rem;
+  font-weight: normal;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ref-page .record-copy p,
+.ref-page .record-copy li {
+  max-width: 68ch;
+}
+
+.ref-page .record-copy ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  line-height: 1.6;
+}
+
+.ref-page .record-copy li + li {
+  margin-top: 0.35rem;
+}

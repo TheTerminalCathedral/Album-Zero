@@ -7,11 +7,69 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <meta name="theme-color" content="#07090d" />
-    <title>The Terminal Cathedral — Dan Almer Jensen</title>
-    <meta
-      name="description"
-      content="Enter the Terminal Cathedral: electronics, AI, software, music, experiments, and the human behind them, Dan Almer Jensen."
-    />
+    <!-- STAGE3H:BEGIN search -->
+    <title>The Terminal Cathedral | Dan Almer Jensen — Electronics, AI &amp; Music</title>
+    <meta name="description" content="Explore electronics, hardware design, AI-assisted projects, the Human Sandwich Model, Theme Park World and synthwave music by Dan Almer Jensen." />
+    <link rel="canonical" href="https://terminalcathedral.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Terminal Cathedral" />
+    <meta property="og:title" content="The Terminal Cathedral | Dan Almer Jensen — Electronics, AI &amp; Music" />
+    <meta property="og:description" content="Explore electronics, hardware design, AI-assisted projects, the Human Sandwich Model, Theme Park World and synthwave music by Dan Almer Jensen." />
+    <meta property="og:url" content="https://terminalcathedral.com/" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="The Terminal Cathedral | Dan Almer Jensen — Electronics, AI &amp; Music" />
+    <meta name="twitter:description" content="Explore electronics, hardware design, AI-assisted projects, the Human Sandwich Model, Theme Park World and synthwave music by Dan Almer Jensen." />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://terminalcathedral.com/#website",
+      "name": "The Terminal Cathedral",
+      "alternateName": "terminalcathedral.com",
+      "url": "https://terminalcathedral.com/",
+      "inLanguage": "en",
+      "creator": {
+        "@id": "https://terminalcathedral.com/records/dan-almer-jensen/#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://terminalcathedral.com/records/dan-almer-jensen/#person",
+      "name": "Dan Almer Jensen",
+      "description": "Tech Polymath",
+      "jobTitle": "Hardware Design Engineer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Qutron A/S"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Copenhagen",
+        "addressCountry": "DK"
+      },
+      "url": "https://terminalcathedral.com/",
+      "mainEntityOfPage": "https://terminalcathedral.com/records/dan-almer-jensen/",
+      "knowsAbout": [
+        "Electronics",
+        "Hardware design",
+        "Programming",
+        "Automation",
+        "Artificial intelligence",
+        "Music"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/dan-almer-jensen-919b9217a/",
+        "https://github.com/TheTerminalCathedral",
+        "https://www.reddit.com/user/DanDoesElectronics/"
+      ]
+    }
+  ]
+}
+    </script>
+    <!-- STAGE3H:END search -->
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="hub/hub.css" />
     <!-- STAGE3F:BEGIN boot-guard
@@ -23,7 +81,7 @@
   </head>
   <!--
     PROTOTYPE (Stage 2D layout and copy, Stage 2E typewriter, Stage 2F Registrar-first navigation, Stage 2G all six areas as expandable records, Stage 2H external access terminal and personal archive; local only). Not released.
-    Personal profile links appear only in 06 · The Human.
+    Personal profile links appear on this page only in 06 · The Human.
     Layout: full-width Registrar Console on top, six-route sidebar on the left, one record on the right.
     No element may carry the id of a route (electronics, ai, software, music, lab, human, gateway):
     that would make the browser jump to it on a direct link.
@@ -36,58 +94,6 @@
   -->
   <body class="is-terminal-active hub">
     <a class="skip-link" href="#record-display">Skip to the record</a>
-
-    <!-- STAGE3C:BEGIN observation
-         Stage 3C, Registrar Observation Protocol (HUMAN decision and approved copy). Two voices: the Registrar asks,
-         the personal record holds Dan's own note. Shown by hub.js only while no choice has been made (or from
-         OBSERVATION PREFERENCES); without JavaScript nothing is recorded, so nothing is asked. Optional statistics
-         stay off until YES (analytics.js). The choice never changes the visitor's access. -->
-    <section class="observation" id="observation" aria-labelledby="observation-title" hidden>
-      <div class="observation-registrar">
-        <p class="observation-label" id="observation-title">REGISTRAR · OBSERVATION PROTOCOL</p>
-        <div class="observation-text" id="observation-text">
-          <p>Visitor.</p>
-          <p>The system requests authorization to record your passage through this terminal.</p>
-          <p>Your decision will not affect your access.</p>
-          <p>Awaiting HUMAN authorization.</p>
-        </div>
-        <div class="observation-text observation-response" id="observation-response" hidden></div>
-      </div>
-      <article class="obs-record">
-        <h3 class="rec-heading">
-          <button type="button" class="obs-toggle" id="observation-note-toggle" aria-expanded="false" aria-controls="observation-note">
-            <span class="rec-line"><span class="rec-id">PERSONAL MESSAGE</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title">FROM THE CREATOR</span></span>
-            <span class="rec-sub">A note from the human behind the terminal</span>
-            <span class="rec-state" aria-hidden="true"></span>
-          </button>
-        </h3>
-        <div class="rec-body" id="observation-note" role="region" aria-labelledby="observation-note-toggle" hidden>
-          <div class="rec-body-inner">
-            <p>Hi, I'm Dan.</p>
-            <p>I wrote a little statistics script for this website because I thought it would be fun to build.</p>
-            <p>And I just think it's fun to see what people click on. Which pages they visit, which records they open, and how long they stick around.</p>
-            <p>That's really it.</p>
-            <p>There's no advertising company behind this. No marketing profiles. It's my own experiment, using Google Apps Script and a spreadsheet to collect the results.</p>
-            <p>If you're happy to let me see how people use the site, click YES.</p>
-            <p>If not, click NO. You still get the exact same website.</p>
-            <p>Thanks for visiting!</p>
-            <p>— Dan</p>
-          </div>
-        </div>
-      </article>
-      <div class="observation-actions">
-      <div class="observation-choices" role="group" aria-labelledby="observation-title">
-        <button type="button" class="welcome-action welcome-action-primary observation-choice" data-observation="yes" aria-pressed="false">YES · ALLOW STATS</button>
-        <button type="button" class="welcome-action welcome-action-primary observation-choice" data-observation="no" aria-pressed="false">NO · THANKS</button>
-      </div>
-      <p class="observation-current" id="observation-current" hidden></p>
-      <div class="observation-foot">
-        <a class="observation-privacy" href="privacy/">WHAT GETS RECORDED? · PRIVACY DETAILS</a>
-        <button type="button" class="observation-close" hidden>Close</button>
-      </div>
-      </div>
-    </section>
-    <!-- STAGE3C:END observation -->
 
     <main class="site-shell">
       <div class="view-shell hub-shell">
@@ -181,6 +187,8 @@ Select a route to proceed.</p>
                 <p class="session-line">Session record located.</p>
                 <dl class="session-status">
                   <div class="session-row"><dt>User on record:</dt><dd>Dan Almer Jensen</dd></div>
+                  <div class="session-row"><dt>Occupation:</dt><dd>Hardware Design Engineer</dd></div>
+                  <div class="session-row"><dt>Profession:</dt><dd>Tech Polymath</dd></div>
                   <div class="session-row"><dt>Terminal status:</dt><dd class="session-value-online">ONLINE</dd></div>
                   <div class="session-row"><dt>Access level:</dt><dd>LIMITED</dd></div>
                   <div class="session-row"><dt>Available record groups:</dt><dd>06</dd></div>
@@ -510,7 +518,7 @@ Select a route to proceed.</p>
             </section>
 
             <!-- 06 · THE HUMAN — Stage 2H: the home of Dan's real background, in four records. Record 001 is HUMAN's draft,
-                 built only from HUMAN-confirmed facts. Personal profile links appear here and nowhere else, one per record;
+                 built only from HUMAN-confirmed facts. On this page, personal profile links appear here only (Stage 3H: LinkedIn also as the contact in Record 001);
                  they open in a new tab (no visible helper text; the screen-reader note stays). -->
             <section class="record" id="record-human" data-record="human" aria-labelledby="human-heading" tabindex="-1">
               <p class="eyebrow">06 · The Human</p>
@@ -530,6 +538,10 @@ Select a route to proceed.</p>
                         Electronics technician by training. Hardware Design Engineer by
                         profession. Curious about pretty much everything.
                       </p>
+                      <dl class="session-status">
+                        <div class="session-row"><dt>Location:</dt><dd>Copenhagen, Denmark</dd></div>
+                      </dl>
+                      <p><a class="record-contact" href="https://www.linkedin.com/in/dan-almer-jensen-919b9217a/" target="_blank" rel="noopener noreferrer">Contact via LinkedIn<span class="sr-only"> (opens in a new tab)</span></a></p>
                       <p>
                         I trained as an Electronics Operator and an Electronics Technician,
                         and I've spent around 20 years working with electronics across a
@@ -621,13 +633,14 @@ Select a route to proceed.</p>
 
         <footer class="hub-footer">
           <p>The Terminal Cathedral · created by Dan Almer Jensen</p>
-          <!-- STAGE3C:BEGIN preferences --><button type="button" class="observation-preferences" id="observation-preferences" hidden>OBSERVATION PREFERENCES</button><!-- STAGE3C:END preferences -->
+          <p class="hub-footer-index"><a href="records/">Public record index</a></p>
         </footer>
       </div>
     </main>
 
     <script src="hub/hub-data.js"></script>
     <script src="analytics.js"></script>
+    <script src="hub/observation-panel.js"></script>
     <script src="hub/hub.js"></script>
   </body>
 </html>

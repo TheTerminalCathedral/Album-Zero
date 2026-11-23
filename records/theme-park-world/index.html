@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#07090d" />
+    <title>Theme Park World on Windows 11 | Unofficial Compatibility Mod</title>
+    <meta name="description" content="How a childhood favourite led to an unofficial, AI-assisted Windows 11 wrapper mod for Theme Park World (Sim Theme Park): what it does, what it needs and its limits." />
+    <link rel="canonical" href="https://terminalcathedral.com/records/theme-park-world/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="The Terminal Cathedral" />
+    <meta property="og:title" content="Theme Park World on Windows 11 | Unofficial Compatibility Mod" />
+    <meta property="og:description" content="How a childhood favourite led to an unofficial, AI-assisted Windows 11 wrapper mod for Theme Park World (Sim Theme Park): what it does, what it needs and its limits." />
+    <meta property="og:url" content="https://terminalcathedral.com/records/theme-park-world/" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Theme Park World on Windows 11 | Unofficial Compatibility Mod" />
+    <meta name="twitter:description" content="How a childhood favourite led to an unofficial, AI-assisted Windows 11 wrapper mod for Theme Park World (Sim Theme Park): what it does, what it needs and its limits." />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://terminalcathedral.com/records/theme-park-world/#page",
+      "url": "https://terminalcathedral.com/records/theme-park-world/",
+      "isPartOf": {
+        "@id": "https://terminalcathedral.com/#website"
+      },
+      "inLanguage": "en",
+      "mainEntity": {
+        "@id": "https://terminalcathedral.com/records/theme-park-world/#work"
+      },
+      "name": "Theme Park World on Windows 11"
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://terminalcathedral.com/records/theme-park-world/#work",
+      "name": "Theme Park World Windows 11 mod",
+      "description": "Unofficial beta wrapper mod that lets an existing copy of Theme Park World (Sim Theme Park) run on Windows 11 in a resizable window. Contains no game files.",
+      "creator": {
+        "@id": "https://terminalcathedral.com/records/dan-almer-jensen/#person"
+      },
+      "codeRepository": "https://github.com/TheTerminalCathedral/theme-park-world-win11",
+      "runtimePlatform": "Windows 11",
+      "isBasedOn": "https://github.com/elishacloud/dxwrapper",
+      "url": "https://terminalcathedral.com/records/theme-park-world/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://terminalcathedral.com/records/dan-almer-jensen/#person",
+      "name": "Dan Almer Jensen",
+      "url": "https://terminalcathedral.com/"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://terminalcathedral.com/#website",
+      "name": "The Terminal Cathedral",
+      "url": "https://terminalcathedral.com/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "The Terminal Cathedral",
+          "item": "https://terminalcathedral.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Public record index",
+          "item": "https://terminalcathedral.com/records/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Theme Park World",
+          "item": "https://terminalcathedral.com/records/theme-park-world/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../hub/hub.css" />
+  </head>
+  <!-- Stage 3H: a static public archive record. No script runs on this page. -->
+  <body class="is-terminal-active hub ref-page">
+    <a class="skip-link" href="#reference">Skip to the record</a>
+    <main class="site-shell">
+      <div class="view-shell hub-shell">
+        <nav class="ref-nav" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../../">The Terminal Cathedral</a></li>
+            <li><a href="../../records/">Public record index</a></li>
+            <li aria-current="page">Theme Park World</li>
+          </ol>
+        </nav>
+        <article class="record" id="reference" tabindex="-1">
+          <p class="eyebrow">Public record · Software compatibility</p>
+          <h1>Theme Park World on Windows 11</h1>
+          <div class="record-copy">
+            <dl class="session-status">
+              <div class="session-row"><dt>Project by:</dt><dd>Dan Almer Jensen</dd></div>
+              <div class="session-row"><dt>Status:</dt><dd>Beta 1</dd></div>
+              <div class="session-row"><dt>Tested on:</dt><dd>One Windows 11 PC, English 2.0</dd></div>
+            </dl>
+            <p class="record-lede">An unofficial wrapper mod for the 1999 game Theme Park World, also sold as Sim Theme Park, made with AI under human direction. It contains no game files.</p>
+            <h2>Why it was started</h2>
+            <p>Theme Park World was Dan's favourite game as a kid. Dan wanted to play it again and couldn't get it to run on Windows 11, so Dan tried the <a href="../ai-madpakken/">Human Sandwich Model</a> on the problem. Together with AI, Dan worked through possible solutions and got the game running again.</p>
+            <h2>What the mod does</h2>
+            <ul>
+              <li>Runs the game's Direct3D through Direct3D 9</li>
+              <li>Gives the game a real window that can be moved, resized at 4:3 and minimized</li>
+              <li>Keeps the mouse in the window; Ctrl+Alt frees it</li>
+              <li>Limits the game to 30 frames per second, because it ran too fast at 60</li>
+              <li>Avoids crashes seen at the screen edge and when entering a park (the second fix has had limited retesting)</li>
+            </ul>
+            <h2>What it needs</h2>
+            <p>Your own copy of the game, and that copy must already start on your PC. The original discs use SafeDisc copy protection, which Windows 10 and 11 do not support. The mod does not remove or work around copy protection.</p>
+            <h2>Limits</h2>
+            <p>It was made for and tested on one PC, and the release setup was tested for a short session only. The game can freeze, especially at the lowest game speed, and the cause is unknown. Other PCs may need changes, and success is not guaranteed. Back up the game and your saves.</p>
+            <p>The project is not affiliated with EA or Bullfrog, and it is not an official patch.</p>
+            <h2>Source</h2>
+            <p>Instructions, source changes and the beta release: <a href="https://github.com/TheTerminalCathedral/theme-park-world-win11" rel="noopener">TheTerminalCathedral/theme-park-world-win11 on GitHub</a>. It builds on <a href="https://github.com/elishacloud/dxwrapper" rel="noopener">dxwrapper</a>.</p>
+            <h2>Related records</h2>
+            <ul>
+              <li><a href="../../records/field-note-theme-park-world/">Field note 001: what the Theme Park World wrapper changes</a></li>
+              <li><a href="../../records/ai-madpakken/">AI Madpakken and the Human Sandwich Model</a></li>
+              <li><a href="../../records/dan-almer-jensen/">Dan Almer Jensen</a></li>
+            </ul>
+          </div>
+        </article>
+        <footer class="hub-footer ref-foot">
+          <p>The Terminal Cathedral · created by Dan Almer Jensen</p>
+          <p><a href="../../">Return to the terminal</a></p>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

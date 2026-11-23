@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#07090d" />
+    <title>Field Note 001: Theme Park World Wrapper on Windows 11</title>
+    <meta name="description" content="A short technical note on the Theme Park World Windows 11 wrapper: how the DLL chain works, which changes were tried for which symptoms on one PC, and what remains open." />
+    <link rel="canonical" href="https://terminalcathedral.com/records/field-note-theme-park-world/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="The Terminal Cathedral" />
+    <meta property="og:title" content="Field Note 001: Theme Park World Wrapper on Windows 11" />
+    <meta property="og:description" content="A short technical note on the Theme Park World Windows 11 wrapper: how the DLL chain works, which changes were tried for which symptoms on one PC, and what remains open." />
+    <meta property="og:url" content="https://terminalcathedral.com/records/field-note-theme-park-world/" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Field Note 001: Theme Park World Wrapper on Windows 11" />
+    <meta name="twitter:description" content="A short technical note on the Theme Park World Windows 11 wrapper: how the DLL chain works, which changes were tried for which symptoms on one PC, and what remains open." />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://terminalcathedral.com/records/field-note-theme-park-world/#note",
+      "headline": "What the Theme Park World wrapper changes",
+      "isBasedOn": "https://github.com/TheTerminalCathedral/theme-park-world-win11",
+      "about": {
+        "@id": "https://terminalcathedral.com/records/theme-park-world/#work"
+      },
+      "url": "https://terminalcathedral.com/records/field-note-theme-park-world/",
+      "mainEntityOfPage": "https://terminalcathedral.com/records/field-note-theme-park-world/",
+      "isPartOf": {
+        "@id": "https://terminalcathedral.com/#website"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://terminalcathedral.com/records/theme-park-world/#work",
+      "name": "Theme Park World Windows 11 mod",
+      "description": "Unofficial beta wrapper mod that lets an existing copy of Theme Park World (Sim Theme Park) run on Windows 11 in a resizable window. Contains no game files.",
+      "creator": {
+        "@id": "https://terminalcathedral.com/records/dan-almer-jensen/#person"
+      },
+      "codeRepository": "https://github.com/TheTerminalCathedral/theme-park-world-win11",
+      "runtimePlatform": "Windows 11",
+      "isBasedOn": "https://github.com/elishacloud/dxwrapper",
+      "url": "https://terminalcathedral.com/records/theme-park-world/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://terminalcathedral.com/records/dan-almer-jensen/#person",
+      "name": "Dan Almer Jensen",
+      "url": "https://terminalcathedral.com/"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://terminalcathedral.com/#website",
+      "name": "The Terminal Cathedral",
+      "url": "https://terminalcathedral.com/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "The Terminal Cathedral",
+          "item": "https://terminalcathedral.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Public record index",
+          "item": "https://terminalcathedral.com/records/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Field note 001",
+          "item": "https://terminalcathedral.com/records/field-note-theme-park-world/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../hub/hub.css" />
+  </head>
+  <!-- Stage 3H: a static public archive record. No script runs on this page. -->
+  <body class="is-terminal-active hub ref-page">
+    <a class="skip-link" href="#reference">Skip to the record</a>
+    <main class="site-shell">
+      <div class="view-shell hub-shell">
+        <nav class="ref-nav" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../../">The Terminal Cathedral</a></li>
+            <li><a href="../../records/">Public record index</a></li>
+            <li aria-current="page">Field note 001</li>
+          </ol>
+        </nav>
+        <article class="record" id="reference" tabindex="-1">
+          <p class="eyebrow">Technical field notes · 001</p>
+          <h1>What the Theme Park World wrapper changes</h1>
+          <div class="record-copy">
+            <dl class="session-status">
+              <div class="session-row"><dt>Subject:</dt><dd>Windows 11 compatibility</dd></div>
+              <div class="session-row"><dt>Evidence:</dt><dd>One PC, English 2.0</dd></div>
+              <div class="session-row"><dt>Status:</dt><dd>Open problems remain</dd></div>
+            </dl>
+            <p class="record-lede">Theme Park World uses DirectDraw and Direct3D calls from the Direct3D 6/7 era. This note sums up how the project's wrapper handles them on Windows 11, and what is still unsolved.</p>
+            <h2>The chain</h2>
+            <p>The game loads ddraw.dll, which loads a modified dxwrapper.dll. That runs the game on Direct3D 9, with settings from dxwrapper.ini. No game files are changed, except one optional resolution setting.</p>
+            <h2>Symptoms and changes</h2>
+            <ul>
+              <li><strong>Too fast:</strong> game speed appears to follow the frame rate. LimitPerFrameFPS = 30 slows it down.</li>
+              <li><strong>Tiny or misplaced picture:</strong> DPI scaling is a likely cause. The high-DPI override is set to Application in the file's Properties window.</li>
+              <li><strong>Blocky software look:</strong> the game had fallen back from Direct3D. It was seen together with the byte at offset 4 of save\Config.tcf being 00 instead of 01. The first thing to try is choosing Direct3D in the game.</li>
+              <li><strong>Closes at the screen edge:</strong> a zero-size cursor copy failed. The wrapper now skips it.</li>
+              <li><strong>Crash entering a park:</strong> surface and texture links without multisampling. Changed, with limited retesting.</li>
+              <li><strong>Square next to the cursor:</strong> seen with DdrawSkipRenderTargetReadback = 2. The value 1 avoids it.</li>
+            </ul>
+            <h2>Still open</h2>
+            <p>The picture can freeze. It was seen at 60 frames per second and at the lowest game speed, and the cause is unknown.</p>
+            <h2>Method</h2>
+            <p>Change one thing at a time, in a copy of the game folder, with a way back. A result counts when the human saw it and the log does not contradict it. The work followed the <a href="../ai-madpakken/">Human Sandwich Model</a>.</p>
+            <h2>Source</h2>
+            <p>The project's own files hold the details: <a href="https://github.com/TheTerminalCathedral/theme-park-world-win11/blob/main/PROJECT.md" rel="noopener">PROJECT.md</a>, <a href="https://github.com/TheTerminalCathedral/theme-park-world-win11/blob/main/TROUBLESHOOTING.md" rel="noopener">TROUBLESHOOTING.md</a> and <a href="https://github.com/TheTerminalCathedral/theme-park-world-win11/blob/main/INSTALL.md" rel="noopener">INSTALL.md</a>.</p>
+            <h2>Related records</h2>
+            <ul>
+              <li><a href="../../records/theme-park-world/">Theme Park World on Windows 11</a></li>
+              <li><a href="../../records/ai-madpakken/">AI Madpakken and the Human Sandwich Model</a></li>
+            </ul>
+          </div>
+        </article>
+        <footer class="hub-footer ref-foot">
+          <p>The Terminal Cathedral · created by Dan Almer Jensen</p>
+          <p><a href="../../">Return to the terminal</a></p>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>
