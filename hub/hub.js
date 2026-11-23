@@ -952,7 +952,7 @@
   });
 
   /*
-   * Stage 3C: Registrar Observation Protocol (HUMAN decision, approved copy in index.html).
+   * Stage 3C: Registrar Observation Protocol (HUMAN decision, approved copy in hub/observation-panel.js).
    * Shown only while the visitor has made no choice, or when OBSERVATION PREFERENCES reopens it.
    * The Registrar speaks first (typewriter); the personal record below starts collapsed and expands
    * with the same component and sequence as every other record (expand to full size, then type).

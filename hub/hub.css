@@ -1542,6 +1542,7 @@ html.tc-boot-pending #record-start {
   overflow-wrap: anywhere;
 }
 
+.record-contact,
 .hub-footer-index a,
 .ref-nav a,
 .ref-foot a {

@@ -7,7 +7,7 @@
 - [Dan Almer Jensen](https://terminalcathedral.com/records/dan-almer-jensen/): background and profiles
 - [AI Madpakken and the Human Sandwich Model](https://terminalcathedral.com/records/ai-madpakken/): an openly licensed (CC BY 4.0) written workflow for work with AI, where AI explores (COULD), a human decides (SHOULD) and an executor reports (DID). Not software.
 - [Theme Park World on Windows 11](https://terminalcathedral.com/records/theme-park-world/): an unofficial beta wrapper mod. It needs a copy of the game that already starts, and was tested on one PC.
-- [Album Zero and Album One](https://terminalcathedral.com/records/the-terminal-cathedral/): AI-assisted synthwave concept albums made with Suno and Suno Studio
+- [Album Zero and Album One](https://terminalcathedral.com/records/the-terminal-cathedral/): AI-assisted synthwave concept albums made with Suno (Album One with Suno Studio)
 - [Field note 001](https://terminalcathedral.com/records/field-note-theme-park-world/): how the Theme Park World wrapper works
 
 ## Sources
