@@ -47,8 +47,8 @@ window.CATHEDRAL_HUB = {
     },
     software: {
       intro: {
-        canon: "draft", // Stage 2H: HUMAN draft (damaged archive)
-        text: "Software-related records requested.\nThis sector contains software, automation and system-adjacent entries.\nArchive integrity appears unstable.\nProceed with caution."
+        canon: "draft", // Stage 3G: HUMAN recommended wording (one project record)
+        text: "Software records requested.\nOne project record is available for inspection.\nSelect a record to proceed."
       }
     },
     music: {
