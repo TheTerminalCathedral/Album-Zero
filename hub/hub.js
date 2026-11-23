@@ -961,8 +961,8 @@
    * whether anything is sent; this code only presents it. No choice changes the visitor's access.
    */
   (function () {
-    var panel = document.getElementById("observation");
-    if (!panel || !analytics || typeof analytics.getConsent !== "function") {
+    var markup = window.CATHEDRAL_OBSERVATION;
+    if (!markup || !analytics || typeof analytics.getConsent !== "function") {
       return;
     }
     // Stage 3D fallback: while statistics are switched off (no aggregate collector configured in analytics.js)
@@ -970,6 +970,15 @@
     if (typeof analytics.isAvailable !== "function" || !analytics.isAvailable()) {
       return;
     }
+    // Stage 3H: the approved markup (hub/observation-panel.js) enters the document only here, once it is needed.
+    var shell = document.querySelector(".site-shell");
+    var footer = document.querySelector(".hub-footer");
+    if (!shell || !footer) {
+      return;
+    }
+    shell.insertAdjacentHTML("beforebegin", markup.panel);
+    footer.insertAdjacentHTML("beforeend", markup.preferences);
+    var panel = document.getElementById("observation");
     var registrar = panel.querySelector(".observation-registrar");
     var request = document.getElementById("observation-text");
     var response = document.getElementById("observation-response");
