@@ -1,9 +1,9 @@
 /*
- * Cathedral Gateway — PROTOTYPE (Stage 2A; content 2B; in-place navigation 2C; six routes 2D;
+ * Cathedral Gateway — PROTOTYPE (Stage 2A; content 2B; in-place navigation 2C; six routes 2D, seven since 3I;
  * typewriter reveal 2E; Registrar-first navigation 2F; all six areas with expandable records 2G).
  *
  * Three levels (HUMAN decisions, Stages 2F and 2G):
- *   1. the six sidebar buttons select an area;
+ *   1. the seven sidebar buttons select an area;
  *   2. the Registrar Console introduces the area (hub-data.js "areas"), typed first;
  *   3. the area's overview shows compact, collapsed records (.rec-item). Opening one expands it
  *      inline to its full height, and only then types its text. It can be collapsed again.
@@ -18,7 +18,7 @@
  * Sequence on opening a record: (A) the container expands to its full measured height, a short
  * animation; (B) only after that, its text types into its final positions. The text is already
  * laid out (transparent) during (A), so (B) moves nothing. Stage 2H: a damaged archive
- * (Electronics, Software) runs a short decorative interference stage between (A) and (B).
+ * (Electronics, Mechanical) runs a short decorative interference stage between (A) and (B).
  *
  * Skip / reveal all: the Skip button, a click in the record display (not on a record toggle),
  * Escape, or selecting the current area again. It completes any expansion or collapse at once
@@ -489,7 +489,7 @@
   })();
 
   /*
-   * Damaged archives (HUMAN decision, Stage 2H): Electronics and Software (.rec-kind-damaged).
+   * Damaged archives (HUMAN decision, Stage 2H): Electronics and Mechanical (.rec-kind-damaged).
    * One extra, short stage between the expansion and the typing: the record is already at its
    * final size, its text laid out and transparent, and a decorative interference overlay
    * (CSS, hub.css "is-glitching") runs for GLITCH_MS. Nothing in the layout or in the

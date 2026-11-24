@@ -1,5 +1,5 @@
 /*
- * Cathedral Gateway — Registrar data (PROTOTYPE, Stage 2D; area introductions 2F; all six areas 2G; external terminal 2H)
+ * Cathedral Gateway — Registrar data (PROTOTYPE, Stage 2D; area introductions 2F; all six areas 2G, seven since 3I; external terminal 2H)
  *
  * HUMAN decisions, Stages 2F and 2G: the Registrar speaks first. A deliberate selection of an
  * area makes the Registrar type that area's introduction; only then does the area's overview
@@ -15,7 +15,7 @@
  * The console reserves room for the longest introduction (Stage 2H: five lines, the general one),
  * so a longer introduction makes the console taller for every area.
  *
- * Destination labels (Electronics, AI, Software, Music, The Lab, The Human) are HUMAN's
+ * Destination labels (Electronics, AI, Software, Mechanical, Music, The Lab, The Human) are HUMAN's
  * functional labels. They are NOT approved Cathedral lore.
  *
  * The general introduction is also written into index.html, so the page reads correctly
@@ -51,6 +51,12 @@ window.CATHEDRAL_HUB = {
         text: "Software records requested.\nOne project record is available for inspection.\nSelect a record to proceed."
       }
     },
+    mechanical: {
+      intro: {
+        canon: "draft", // Stage 3I: HUMAN suggested wording (damaged archive)
+        text: "Mechanical records requested.\nArchive integrity is compromised.\nAvailable fragments may be inspected."
+      }
+    },
     music: {
       intro: {
         canon: "draft", // Stage 2H: HUMAN suggested draft (general; no access class at category level)
@@ -72,5 +78,5 @@ window.CATHEDRAL_HUB = {
   },
 
   // Route ids, in the approved order. "#ai" (the Stage 2A–2C combined "AI & Software" route) now opens AI.
-  routes: ["electronics", "ai", "software", "music", "lab", "human"]
+  routes: ["electronics", "ai", "software", "mechanical", "music", "lab", "human"]
 };
