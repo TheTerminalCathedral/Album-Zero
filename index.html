@@ -55,6 +55,8 @@
       "knowsAbout": [
         "Electronics",
         "Hardware design",
+        "Mechanical CAD design",
+        "3D printing",
         "Programming",
         "Automation",
         "Artificial intelligence",
@@ -81,9 +83,9 @@
   </head>
   <!--
     PROTOTYPE (Stage 2D layout and copy, Stage 2E typewriter, Stage 2F Registrar-first navigation, Stage 2G all six areas as expandable records, Stage 2H external access terminal and personal archive; local only). Not released.
-    Personal profile links appear on this page only in 06 · The Human.
-    Layout: full-width Registrar Console on top, six-route sidebar on the left, one record on the right.
-    No element may carry the id of a route (electronics, ai, software, music, lab, human, gateway):
+    Personal profile links appear on this page only in 07 · The Human.
+    Layout: full-width Registrar Console on top, seven-route sidebar on the left, one record on the right.
+    No element may carry the id of a route (electronics, ai, software, mechanical, music, lab, human, gateway):
     that would make the browser jump to it on a direct link.
     All destination copy below is DRAFT for HUMAN review.
     Canon-grounded sentences are taken from dialogue-data.js and terminal-cathedral/index.html @ a3c35e0;
@@ -124,7 +126,7 @@ Select a route to proceed.</p>
         </section>
 
         <div class="hub-layout">
-          <!-- LEFT: the six record groups, one component, equal size -->
+          <!-- LEFT: the seven record groups, one component, equal size -->
           <!-- Stage 2H: the index of the recovered personal archive. The owner line names the archive being inspected, not the visitor. -->
           <nav class="hub-sidebar gateway-routes" aria-label="User record index">
             <p class="option-heading">User Record Index</p>
@@ -152,22 +154,29 @@ Select a route to proceed.</p>
                 </a>
               </li>
               <li class="gateway-item">
-                <a class="gateway-route" href="#music" data-destination="music">
+                <a class="gateway-route" href="#mechanical" data-destination="mechanical">
                   <span class="gateway-index" aria-hidden="true">04</span>
+                  <span class="gateway-label">Mechanical</span>
+                  <span class="gateway-note">Mechanical design and 3D printing related entries</span>
+                </a>
+              </li>
+              <li class="gateway-item">
+                <a class="gateway-route" href="#music" data-destination="music">
+                  <span class="gateway-index" aria-hidden="true">05</span>
                   <span class="gateway-label">Music</span>
                   <span class="gateway-note">Music and audio related entries</span>
                 </a>
               </li>
               <li class="gateway-item">
                 <a class="gateway-route" href="#lab" data-destination="lab">
-                  <span class="gateway-index" aria-hidden="true">05</span>
+                  <span class="gateway-index" aria-hidden="true">06</span>
                   <span class="gateway-label">The Lab</span>
                   <span class="gateway-note">Experimental and miscellaneous entries</span>
                 </a>
               </li>
               <li class="gateway-item">
                 <a class="gateway-route" href="#human" data-destination="human">
-                  <span class="gateway-index" aria-hidden="true">06</span>
+                  <span class="gateway-index" aria-hidden="true">07</span>
                   <span class="gateway-label">The Human</span>
                   <span class="gateway-note">Personal identity related entries</span>
                 </a>
@@ -187,11 +196,11 @@ Select a route to proceed.</p>
                 <p class="session-line">Session record located.</p>
                 <dl class="session-status">
                   <div class="session-row"><dt>User on record:</dt><dd>Dan Almer Jensen</dd></div>
-                  <div class="session-row"><dt>Occupation:</dt><dd>Hardware Design Engineer</dd></div>
-                  <div class="session-row"><dt>Profession:</dt><dd>Tech Polymath</dd></div>
+                  <div class="session-row"><dt>Assigned Role:</dt><dd>Hardware Design Engineer</dd></div>
+                  <div class="session-row"><dt>Self-Designation:</dt><dd>Tech Polymath</dd></div>
                   <div class="session-row"><dt>Terminal status:</dt><dd class="session-value-online">ONLINE</dd></div>
                   <div class="session-row"><dt>Access level:</dt><dd>LIMITED</dd></div>
-                  <div class="session-row"><dt>Available record groups:</dt><dd>06</dd></div>
+                  <div class="session-row"><dt>Available record groups:</dt><dd>07</dd></div>
                   <div class="session-row"><dt>Cathedral access:</dt><dd class="session-value-restricted">RESTRICTED</dd></div>
                 </dl>
                 <p class="session-line session-line-done">Previous session restored.</p>
@@ -205,7 +214,7 @@ Select a route to proceed.</p>
                  toggle id and body id. -->
 
             <!-- 01 · ELECTRONICS — Stage 2H: a damaged archive. Fiction for the present absence of published electronics
-                 project records: no real incident, no real data loss. Dan's background moved to 06 · The Human.
+                 project records: no real incident, no real data loss. Dan's background moved to The Human (now 07).
                  The fragment strip is decoration (aria-hidden, fixed text, never random); the clean message is real text. -->
             <section class="record" id="record-electronics" data-record="electronics" aria-labelledby="electronics-heading" tabindex="-1">
               <p class="eyebrow">01 · Electronics</p>
@@ -372,9 +381,50 @@ Select a route to proceed.</p>
               </div>
             </section>
 
-            <!-- 04 · MUSIC — two genuine projects, two records, one open at a time. -->
+            <!-- 04 · MECHANICAL — Stage 3I (HUMAN decision): a damaged archive, the same component as 01 · Electronics. Fiction for the present
+                 absence of published mechanical project records: no real incident, no real data loss, no invented projects.
+                 Only the category wording differs from Electronics. -->
+            <section class="record" id="record-mechanical" data-record="mechanical" aria-labelledby="mechanical-heading" tabindex="-1">
+              <p class="eyebrow">04 · Mechanical</p>
+              <h2 id="mechanical-heading">Mechanical</h2>
+              <div class="rec-list">
+                <article class="rec-item rec-kind-damaged damaged-mechanical" data-item="archive">
+                  <h3 class="rec-heading">
+                    <button type="button" class="rec-toggle" id="rec-mechanical-archive-toggle" aria-expanded="true" aria-controls="rec-mechanical-archive">
+                      <span class="rec-line"><span class="rec-id">Record 001</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title" data-glitch="Mechanical Archive">Mechanical Archive</span></span>
+                      <span class="rec-sub"><span class="rec-flag" aria-hidden="true">!</span> Integrity check failed</span>
+                      <span class="rec-state" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div class="rec-body" id="rec-mechanical-archive" role="region" aria-labelledby="rec-mechanical-archive-toggle">
+                    <div class="rec-body-inner">
+                      <div class="archive-alert">
+                        <p class="archive-alert-title"><span class="archive-alert-mark" aria-hidden="true">!</span> System alert · Record integrity failure</p>
+                        <p>Mechanical records could not be fully restored.</p>
+                        <p>Archive continuity is compromised.</p>
+                        <p>Recovery authorization required.</p>
+                      </div>
+                      <p class="archive-fragments" aria-hidden="true">&#9617;&#9618;&#9619; 0E &#183;&#183; &#9626;&#9630;&#9626; &#183;&#183; &#9617;&#9617; 3F &#9618; &#183;&#183;&#183; &#9619;&#9618;&#9617; 00 &#183;&#183; &#9626;&#9630;</p>
+                      <dl class="archive-status">
+                        <div class="archive-row"><dt>Archive status:</dt><dd>DEGRADED</dd></div>
+                        <div class="archive-row"><dt>Record group:</dt><dd>Mechanical design &amp; 3D printing</dd></div>
+                        <div class="archive-row"><dt>Recovery state:</dt><dd>INCOMPLETE</dd></div>
+                        <div class="archive-row"><dt>Public inspection:</dt><dd>RESTRICTED</dd></div>
+                      </dl>
+                      <div class="archive-notes">
+                        <p>Available fragments are insufficient to reconstruct the original entries.</p>
+                        <p>System restoration is recommended.</p>
+                        <p>Refer this archive to the Keeper of the Records for recovery authorization.</p>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <!-- 05 · MUSIC — two genuine projects, two records, one open at a time. -->
             <section class="record" id="record-music" data-record="music" aria-labelledby="music-heading" tabindex="-1">
-              <p class="eyebrow">04 · Music</p>
+              <p class="eyebrow">05 · Music</p>
               <h2 id="music-heading">Music &amp; Sound</h2>
               <div class="record-copy">
                 <!-- Stage 2I (HUMAN approved direction): category level is archive information only. -->
@@ -403,28 +453,39 @@ Select a route to proceed.</p>
                         <p>An auditory passage offers a more controlled approach.</p>
                         <p>Two connected transmissions are available.</p>
                       </div>
-                      <!-- Stage 2I: the real production story (HUMAN-confirmed facts). Third person, as in the other music copy. -->
+                      <!-- Stage 3I: the real creation and production story, in Dan's own voice (HUMAN-confirmed facts and copy). -->
                       <div class="record-copy music-story">
                         <p>
-                          The Terminal Cathedral is a synthwave concept-album project exploring
-                          the experience of working with artificial intelligence through the
-                          Human Sandwich Model.
+                          When I started developing the story of The Terminal Cathedral, I
+                          needed a place for that story to unfold. So I began building a
+                          universe around it.
+                        </p>
+                        <p>
+                          What started as a setting gradually grew into an extensive world of
+                          its own, with a lot of lore and worldbuilding — probably far more
+                          detailed and elaborate than two synthwave albums ever needed.
+                        </p>
+                        <p>It's still a work in progress, and I keep finding new corners of it to explore.</p>
+                        <p>
+                          The albums are one way to experience that universe, while also
+                          reflecting my own experiences of working with AI through the Human
+                          Sandwich Model.
                         </p>
                         <p>Both albums were created using Suno, but their production processes tell two different stories.</p>
                         <h4 class="story-heading">Album Zero · The experiment</h4>
                         <p>
-                          The first album emerged from hundreds of AI-generated songs. Material
-                          was explored, selected, repaired through simple edits and eventually
-                          assembled into the first musical experience of The Terminal Cathedral.
+                          For Album Zero, I generated hundreds of songs using Suno. I explored
+                          the material, selected what worked, made simple edits and gradually
+                          assembled the first musical experience of The Terminal Cathedral.
                         </p>
                         <p>It was a messy, experimental process, full of exploration and unexpected discoveries.</p>
                         <h4 class="story-heading">Album One · The refinement</h4>
                         <p>
-                          The second album took a more deliberate approach. It was still created
-                          using Suno, but now with Suno Studio for more direct production and
-                          control over the final result.
+                          With Album One, I took a more deliberate approach. I still used Suno,
+                          but worked in Suno Studio to shape the production more directly and
+                          have more control over the final result.
                         </p>
-                        <p>Dan also plays guitar personally, bringing a hands-on musical element into the AI-assisted creative process.</p>
+                        <p>I also play guitar myself. It's one way I bring something directly human into the AI-assisted creative process.</p>
                         <p class="story-close">Two albums. Two approaches to working with AI. One evolving experience of The Terminal Cathedral.</p>
                       </div>
                       <div class="record-entries">
@@ -460,7 +521,6 @@ Select a route to proceed.</p>
                           electronic devices: design, automation, solder, bring-up, rework,
                           testing, docs and code, and the craft of making hardware real.
                         </p>
-                        <p>It is separate from the Terminal Cathedral and its story.</p>
                       </div>
                       <div class="record-entries">
                         <a class="welcome-action welcome-action-primary record-entry" href="https://suno.com/playlist/2546ff98-565f-463c-9349-ee769d66174c" target="_blank" rel="noopener noreferrer" data-outbound="dans-workshop-suno">
@@ -475,9 +535,9 @@ Select a route to proceed.</p>
               </div>
             </section>
 
-            <!-- 05 · THE LAB -->
+            <!-- 06 · THE LAB -->
             <section class="record" id="record-lab" data-record="lab" aria-labelledby="lab-heading" tabindex="-1">
-              <p class="eyebrow">05 · The Lab</p>
+              <p class="eyebrow">06 · The Lab</p>
               <h2 id="lab-heading">The Lab</h2>
               <div class="record-copy">
                 <!-- Stage 2I (HUMAN approved direction): category level is archive information only. -->
@@ -517,11 +577,11 @@ Select a route to proceed.</p>
               </div>
             </section>
 
-            <!-- 06 · THE HUMAN — Stage 2H: the home of Dan's real background, in four records. Record 001 is HUMAN's draft,
+            <!-- 07 · THE HUMAN — Stage 2H: the home of Dan's real background, in four records. Record 001 is HUMAN's draft,
                  built only from HUMAN-confirmed facts. On this page, personal profile links appear here only (Stage 3H: LinkedIn also as the contact in Record 001);
                  they open in a new tab (no visible helper text; the screen-reader note stays). -->
             <section class="record" id="record-human" data-record="human" aria-labelledby="human-heading" tabindex="-1">
-              <p class="eyebrow">06 · The Human</p>
+              <p class="eyebrow">07 · The Human</p>
               <h2 id="human-heading">Dan Almer Jensen</h2>
               <div class="rec-list">
                 <article class="rec-item rec-kind-info" data-item="identity">
@@ -555,8 +615,9 @@ Select a route to proceed.</p>
                       <p>Today, I work as a Hardware Design Engineer at Qutron A/S.</p>
                       <p>
                         My interests rarely stay within one discipline. I enjoy hardware
-                        design, troubleshooting, prototyping, programming, automation and
-                        exploring how AI can become a useful part of practical engineering.
+                        design, troubleshooting, prototyping, mechanical CAD design, 3D
+                        printing, programming, automation and exploring how AI can become a
+                        useful part of practical engineering.
                       </p>
                       <p>
                         I also make music, experiment with new ideas and occasionally turn

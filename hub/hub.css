@@ -1614,3 +1614,15 @@ html.tc-boot-pending #record-start {
 .ref-page .record-copy li + li {
   margin-top: 0.35rem;
 }
+
+/* ---- Stage 3I: seven routes. Slightly tighter sidebar rows, so all seven still fit the first desktop screen ---- */
+@media (min-width: 760px) {
+  .gateway-list {
+    gap: 0.4rem;
+  }
+
+  .gateway-route {
+    padding-top: 0.42rem;
+    padding-bottom: 0.45rem;
+  }
+}
