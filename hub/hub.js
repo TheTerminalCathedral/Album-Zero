@@ -127,8 +127,8 @@
             return NodeFilter.FILTER_REJECT; // layout whitespace between elements stays untouched
           }
           var parent = node.parentElement;
-          if (!parent || parent.closest(".sr-only, .tw-skip, [hidden]")) {
-            return NodeFilter.FILTER_REJECT; // invisible, collapsed, or our own control
+          if (!parent || parent.closest(".sr-only, .tw-skip, .tw-still, [hidden]")) {
+            return NodeFilter.FILTER_REJECT; // invisible, collapsed, our own control, or shown at once (Stage 3J media)
           }
           return NodeFilter.FILTER_ACCEPT;
         }

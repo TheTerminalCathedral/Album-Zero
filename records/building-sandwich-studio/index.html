@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#07090d" />
+    <title>Building Sandwich Studio: AI Development Case Study | Dan Almer Jensen</title>
+    <meta name="description" content="A technical case study by Dan Almer Jensen on building Sandwich Studio with human-directed AI agents: decisions, defects and lessons. PDF and audio." />
+    <link rel="canonical" href="https://terminalcathedral.com/records/building-sandwich-studio/" />
+    <meta name="author" content="Dan Almer Jensen" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="The Terminal Cathedral" />
+    <meta property="og:title" content="Building Sandwich Studio: AI Development Case Study | Dan Almer Jensen" />
+    <meta property="og:description" content="A technical case study by Dan Almer Jensen on building Sandwich Studio with human-directed AI agents: decisions, defects and lessons. PDF and audio." />
+    <meta property="og:url" content="https://terminalcathedral.com/records/building-sandwich-studio/" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Building Sandwich Studio: AI Development Case Study | Dan Almer Jensen" />
+    <meta name="twitter:description" content="A technical case study by Dan Almer Jensen on building Sandwich Studio with human-directed AI agents: decisions, defects and lessons. PDF and audio." />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://terminalcathedral.com/records/building-sandwich-studio/#article",
+      "headline": "Building Sandwich Studio",
+      "description": "A documented engineering case study of how Sandwich Studio was developed using AI-Madpakken and the Human Sandwich Model.",
+      "author": {
+        "@id": "https://terminalcathedral.com/records/dan-almer-jensen/#person"
+      },
+      "url": "https://terminalcathedral.com/records/building-sandwich-studio/",
+      "mainEntityOfPage": "https://terminalcathedral.com/records/building-sandwich-studio/",
+      "isPartOf": {
+        "@id": "https://terminalcathedral.com/#website"
+      },
+      "inLanguage": "en",
+      "about": {
+        "@id": "https://terminalcathedral.com/records/ai-madpakken/#work"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "name": "Building Sandwich Studio (PDF)",
+        "contentUrl": "https://terminalcathedral.com/assets/documents/building-sandwich-studio-case-study.pdf",
+        "encodingFormat": "application/pdf"
+      },
+      "audio": {
+        "@type": "AudioObject",
+        "name": "Governing AI with the Human Sandwich Model",
+        "description": "AI-generated discussion based on the published case study. Not a recorded interview with the creator.",
+        "contentUrl": "https://terminalcathedral.com/assets/audio/governing-ai-with-the-human-sandwich-model.m4a",
+        "encodingFormat": "audio/mp4",
+        "duration": "PT15M2S"
+      }
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://terminalcathedral.com/records/ai-madpakken/#work",
+      "name": "AI Madpakken",
+      "creator": {
+        "@id": "https://terminalcathedral.com/records/dan-almer-jensen/#person"
+      },
+      "url": "https://terminalcathedral.com/records/ai-madpakken/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://terminalcathedral.com/records/dan-almer-jensen/#person",
+      "name": "Dan Almer Jensen",
+      "url": "https://terminalcathedral.com/"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://terminalcathedral.com/#website",
+      "name": "The Terminal Cathedral",
+      "url": "https://terminalcathedral.com/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "The Terminal Cathedral",
+          "item": "https://terminalcathedral.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Public record index",
+          "item": "https://terminalcathedral.com/records/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Building Sandwich Studio",
+          "item": "https://terminalcathedral.com/records/building-sandwich-studio/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../hub/hub.css" />
+  </head>
+  <!-- Stage 3J: a static public archive record. No script runs on this page. -->
+  <body class="is-terminal-active hub ref-page">
+    <a class="skip-link" href="#reference">Skip to the record</a>
+    <main class="site-shell">
+      <div class="view-shell hub-shell">
+        <nav class="ref-nav" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../../">The Terminal Cathedral</a></li>
+            <li><a href="../../records/">Public record index</a></li>
+            <li aria-current="page">Building Sandwich Studio</li>
+          </ol>
+        </nav>
+        <article class="record" id="reference" tabindex="-1">
+          <p class="eyebrow">The Lab · Case Study 001</p>
+          <h1>Building Sandwich Studio</h1>
+          <div class="record-copy">
+            <p class="pub-subtitle">Human Decisions, AI Implementation, and the Bugs Between</p>
+            <p class="project-kind">Technical Case Study · Human–AI Collaboration · Software Engineering</p>
+            <dl class="session-status">
+              <div class="session-row"><dt>Author:</dt><dd>Dan Almer Jensen</dd></div>
+              <div class="session-row"><dt>Document dated:</dt><dd>25 November 2026</dd></div>
+              <div class="session-row"><dt>Form:</dt><dd>PDF, 12 pages, with an audio briefing</dd></div>
+            </dl>
+            <p class="record-lede">A documented engineering case study exploring how Sandwich Studio was developed using AI-Madpakken and the Human Sandwich Model, with particular attention to human decision-making, agent-assisted implementation, software reliability and lessons from real development failures.</p>
+            <div class="record-entries tw-still">
+              <a class="welcome-action welcome-action-primary record-entry" href="../../assets/documents/building-sandwich-studio-case-study.pdf" target="_blank" rel="noopener noreferrer">
+                <span class="record-entry-label">Read PDF</span>
+                <span class="record-entry-note">PDF · 12 pages · new tab</span>
+              </a>
+              <a class="welcome-action record-entry" href="../../assets/documents/building-sandwich-studio-case-study.pdf" download="Building_Sandwich_Studio_Case_Study.pdf">
+                <span class="record-entry-label">Download PDF</span>
+                <span class="record-entry-note">PDF · 128 KB</span>
+              </a>
+            </div>
+            <h2>Summary</h2>
+            <p>Sandwich Studio is a creator-directed workspace for structured comic production: story and character references, artwork handling, editable lettering, revisions, previews and explicit review states. It began as an attempt to tell a comic story with AI-generated images that stay consistent from page to page, and became a much larger engineering project.</p>
+            <p>The case study asks what it takes to keep a human in control while AI agents help to build and operate creative software. The workspace was designed so that a person can work in the browser interface or instruct an agent to carry out the same relevant operations. Carrying out an edit and approving it are kept as separate steps.</p>
+            <h2>What it covers</h2>
+            <ul>
+              <li><strong>Roles and decisions:</strong> AI explores options, the human decides and AI agents implement, following the <a href="../ai-madpakken/">Human Sandwich Model</a>.</li>
+              <li><strong>Agent access:</strong> how a shared set of actions lets a person and an agent operate the same workspace.</li>
+              <li><strong>Reliability:</strong> blank artwork, interrupted writes, unsafe pending changes and an approval step that had to be redesigned, including defects that earlier passing tests had missed.</li>
+              <li><strong>Agent trials:</strong> a session that started in the wrong project, the human correction, and the separate approval that followed.</li>
+              <li><strong>Lessons:</strong> delegation as a system-design problem, negative testing, and how too many procedural steps can hide the decisions that matter.</li>
+            </ul>
+            <h2>How to read it</h2>
+            <p>This is one documented case. It is not proof that this workflow is better than others. Test counts and technical outcomes in the document are attributed to the project's own records. This page offers the publication, not the software.</p>
+            <h2>Listen</h2>
+            <section class="media-block tw-still" aria-labelledby="media-audio-briefing-001">
+              <p class="media-class">Technical publication · Audio briefing 001</p>
+              <h3 class="media-title" id="media-audio-briefing-001">Governing AI with the Human Sandwich Model</h3>
+              <p>A discussion of how human direction, AI-assisted implementation, engineering verification and practical software-development challenges came together during the development of Sandwich Studio.</p>
+              <p class="media-label">AI-generated audio discussion</p>
+              <audio class="media-audio" controls preload="none" aria-label="Governing AI with the Human Sandwich Model">
+                <source src="../../assets/audio/governing-ai-with-the-human-sandwich-model.m4a" type="audio/mp4" />
+                Your browser cannot play this audio here. Use the download below.
+              </audio>
+              <p class="media-note">AI-generated discussion based on the published case study. Not a recorded interview with the creator.</p>
+              <a class="welcome-action record-entry" href="../../assets/audio/governing-ai-with-the-human-sandwich-model.m4a" download="Governing_AI_with_the_Human_Sandwich_Model.m4a">
+                <span class="record-entry-label">Download audio</span>
+                <span class="record-entry-note">M4A · 15 min · 11.0 MB</span>
+              </a>
+            </section>
+            <h2>Method and source</h2>
+            <p>The method is public: <a href="https://github.com/TheTerminalCathedral/AI-Madpakken" rel="noopener">AI Madpakken on GitHub</a>.</p>
+            <h2>Related records</h2>
+            <ul>
+              <li><a href="../../records/ai-madpakken/">AI Madpakken and the Human Sandwich Model</a></li>
+              <li><a href="../../records/dan-almer-jensen/">Dan Almer Jensen</a></li>
+            </ul>
+          </div>
+        </article>
+        <footer class="hub-footer ref-foot">
+          <p>The Terminal Cathedral · created by Dan Almer Jensen</p>
+          <p><a href="../../">Return to the terminal</a></p>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>
