@@ -500,6 +500,23 @@ Select a route to proceed.</p>
                           <span class="sr-only">(opens in a new tab)</span>
                         </a>
                       </div>
+                      <!-- Stage 3J: supplementary audio, after both albums. -->
+                      <section class="media-block tw-still" aria-labelledby="media-behind-the-albums">
+                        <p class="media-class">Music archive · Supplementary transmission</p>
+                        <h4 class="media-title" id="media-behind-the-albums">Behind the Albums</h4>
+                        <p class="media-sub">How AI Workflows Built The Terminal Cathedral</p>
+                        <p>Explore the story behind Album Zero and Album One: how real human–AI collaboration developed into a fictional machine-world mythology, and how that mythology shaped the music.</p>
+                        <p class="media-label">AI-generated audio discussion · English · 19 min</p>
+                        <audio class="media-audio" controls preload="none" aria-label="How AI Workflows Built The Terminal Cathedral">
+                          <source src="assets/audio/how-ai-workflows-built-the-terminal-cathedral.m4a" type="audio/mp4" />
+                          Your browser cannot play this audio here. Use the download below.
+                        </audio>
+                        <p class="media-note">Created with NotebookLM from creator-provided background material. This is an AI-generated discussion, not a recorded interview.</p>
+                        <a class="welcome-action record-entry" href="assets/audio/how-ai-workflows-built-the-terminal-cathedral.m4a" download="How_AI_Workflows_Built_The_Terminal_Cathedral.m4a">
+                          <span class="record-entry-label">Download audio<span class="sr-only">: How AI Workflows Built The Terminal Cathedral</span></span>
+                          <span class="record-entry-note">M4A · 13.9 MB</span>
+                        </a>
+                      </section>
                     </div>
                   </div>
                 </article>
@@ -543,7 +560,7 @@ Select a route to proceed.</p>
                 <!-- Stage 2I (HUMAN approved direction): category level is archive information only. -->
                 <dl class="session-status category-index">
                   <div class="session-row"><dt>Archive category:</dt><dd>Experimental Records</dd></div>
-                  <div class="session-row"><dt>Available records:</dt><dd>01</dd></div>
+                  <div class="session-row"><dt>Available records:</dt><dd>02</dd></div>
                 </dl>
                 <p class="record-lede">Select a record to inspect.</p>
               </div>
@@ -571,6 +588,54 @@ Select a route to proceed.</p>
                         <span class="record-entry-label">Access preserved sequence</span>
                         <span class="record-entry-note">Original terminal environment</span>
                       </a>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Stage 3J: a genuine technical publication. Plain professional wording: no access protocol, no fiction. -->
+                <article class="rec-item rec-kind-project" data-item="case-study-001">
+                  <h3 class="rec-heading">
+                    <button type="button" class="rec-toggle" id="rec-lab-case-study-001-toggle" aria-expanded="true" aria-controls="rec-lab-case-study-001">
+                      <span class="rec-line"><span class="rec-id">Case Study 001</span><span class="rec-sep" aria-hidden="true"> · </span><span class="rec-title">Building Sandwich Studio</span></span>
+                      <span class="rec-sub">Human Decisions, AI Implementation, and the Bugs Between</span>
+                      <span class="rec-state" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div class="rec-body" id="rec-lab-case-study-001" role="region" aria-labelledby="rec-lab-case-study-001-toggle">
+                    <div class="rec-body-inner">
+                      <p class="project-kind">Technical Case Study · Human–AI Collaboration · Software Engineering</p>
+                      <p>By Dan Almer Jensen</p>
+                      <p>A documented engineering case study exploring how Sandwich Studio was developed using AI-Madpakken and the Human Sandwich Model, with particular attention to human decision-making, agent-assisted implementation, software reliability and lessons from real development failures.</p>
+                      <div class="record-entries tw-still">
+                        <a class="welcome-action welcome-action-primary record-entry" href="assets/documents/building-sandwich-studio-case-study.pdf" target="_blank" rel="noopener">
+                          <span class="record-entry-label">Read PDF</span>
+                          <span class="record-entry-note">PDF · 12 pages</span>
+                          <span class="sr-only">(opens in a new tab)</span>
+                        </a>
+                        <a class="welcome-action record-entry" href="assets/documents/building-sandwich-studio-case-study.pdf" download="Building_Sandwich_Studio_Case_Study.pdf">
+                          <span class="record-entry-label">Download PDF</span>
+                          <span class="record-entry-note">PDF · 128 KB</span>
+                        </a>
+                      </div>
+                      <a class="welcome-action record-entry tw-still" href="records/building-sandwich-studio/">
+                        <span class="record-entry-label">Publication page</span>
+                        <span class="record-entry-note">Summary, links and sources</span>
+                      </a>
+                      <section class="media-block tw-still" aria-labelledby="media-audio-briefing-001">
+                        <p class="media-class">Technical publication · Audio briefing 001</p>
+                        <h4 class="media-title" id="media-audio-briefing-001">Governing AI with the Human Sandwich Model</h4>
+                        <p>A discussion of how human direction, AI-assisted implementation, engineering verification and practical software-development challenges came together during the development of Sandwich Studio.</p>
+                        <p class="media-label">AI-generated audio discussion · 15 min</p>
+                        <audio class="media-audio" controls preload="none" aria-label="Governing AI with the Human Sandwich Model">
+                          <source src="assets/audio/governing-ai-with-the-human-sandwich-model.m4a" type="audio/mp4" />
+                          Your browser cannot play this audio here. Use the download below.
+                        </audio>
+                        <p class="media-note">AI-generated discussion based on the published case study. Not a recorded interview with the creator.</p>
+                        <a class="welcome-action record-entry" href="assets/audio/governing-ai-with-the-human-sandwich-model.m4a" download="Governing_AI_with_the_Human_Sandwich_Model.m4a">
+                          <span class="record-entry-label">Download audio<span class="sr-only">: Governing AI with the Human Sandwich Model</span></span>
+                          <span class="record-entry-note">M4A · 11.0 MB</span>
+                        </a>
+                      </section>
                     </div>
                   </div>
                 </article>
@@ -703,5 +768,6 @@ Select a route to proceed.</p>
     <script src="analytics.js"></script>
     <script src="hub/observation-panel.js"></script>
     <script src="hub/hub.js"></script>
+    <script src="hub/audio.js"></script>
   </body>
 </html>

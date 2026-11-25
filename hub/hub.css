@@ -1626,3 +1626,86 @@ html.tc-boot-pending #record-start {
     padding-bottom: 0.45rem;
   }
 }
+
+/* ---- Stage 3J: audio transmissions and publication actions (homepage records and the case study page) ---- */
+.media-block {
+  display: grid;
+  gap: 0.55rem;
+  min-width: 0;
+  margin-top: 0.6rem;
+  padding: 0.9rem 0.95rem 1rem;
+  border: 1px solid rgba(138, 111, 70, 0.45);
+  border-left-width: 3px;
+  background: rgba(138, 111, 70, 0.06);
+  line-height: 1.6;
+}
+
+.media-block p,
+.ref-page .record-copy .media-block p {
+  margin: 0;
+  max-width: 62ch;
+  overflow-wrap: anywhere;
+}
+
+.media-block .media-class,
+.media-block .media-label {
+  color: #b0905f;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+}
+
+.media-block .media-class {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.media-block .media-title,
+.ref-page .media-block .media-title {
+  margin: 0;
+  color: var(--terminal-text-strong);
+  font-size: 1.02rem;
+  font-weight: normal;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.media-block .media-sub {
+  color: var(--terminal-text-strong);
+}
+
+.media-block .media-note {
+  color: var(--terminal-text-soft);
+  font-size: 0.82rem;
+}
+
+.media-audio {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 54px;
+  color-scheme: dark;
+}
+
+@media (max-width: 759px) {
+  .media-block {
+    padding: 0.8rem 0.6rem;
+  }
+
+  .media-audio {
+    width: calc(100% + 0.7rem);
+    margin: 0 -0.35rem;
+  }
+}
+
+.media-audio:focus-visible {
+  outline: 2px solid var(--terminal-focus);
+  outline-offset: 3px;
+}
+
+.ref-page a.welcome-action {
+  text-decoration: none;
+}
+
+.ref-page .pub-subtitle {
+  color: var(--terminal-text-strong);
+}
