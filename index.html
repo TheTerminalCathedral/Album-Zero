@@ -772,7 +772,7 @@ Select a route to proceed.</p>
     </main>
 
     <!-- Stage 3K: fictional in-universe confirmation for the header script; not a real security warning. -->
-    <dialog class="breach-dialog" id="breach-dialog" aria-labelledby="breach-title" aria-describedby="breach-file">
+    <dialog class="breach-dialog" id="breach-dialog" aria-labelledby="breach-title" aria-describedby="breach-file breach-question">
       <p class="breach-eyebrow">EXTERNAL TERMINAL · SECURITY WARNING</p>
       <h2 class="breach-title" id="breach-title">UNREGISTERED SCRIPT DETECTED</h2>
       <dl class="breach-file" id="breach-file">
@@ -781,7 +781,7 @@ Select a route to proceed.</p>
         <div><dt>TYPE:</dt> <dd>UNAUTHORIZED INTRUSION UTILITY</dd></div>
         <div class="breach-auth"><dt>AUTHORIZATION:</dt> <dd>NOT VERIFIED</dd></div>
       </dl>
-      <p class="breach-question">Execute this unauthorized utility?</p>
+      <p class="breach-question" id="breach-question">Execute this unauthorized utility?</p>
       <div class="breach-actions">
         <button type="button" class="breach-btn" id="breach-cancel">[ CANCEL ]</button>
         <a class="breach-btn breach-execute" href="archive-probe/">[ EXECUTE ]</a>

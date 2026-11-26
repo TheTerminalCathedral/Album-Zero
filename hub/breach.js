@@ -24,9 +24,16 @@
   cancel.addEventListener("click", function () {
     dialog.close();
   });
-  // a click or tap on the dimmed backdrop (the dialog element itself, outside its content) cancels as well
+  // a click or tap on the dimmed backdrop, outside the box, cancels as well (not one on the box's own padding)
   dialog.addEventListener("click", function (event) {
-    if (event.target === dialog) {
+    var r = dialog.getBoundingClientRect();
+    if (event.target === dialog && (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom)) {
+      dialog.close();
+    }
+  });
+  // Back after EXECUTE may restore this page from the back/forward cache: show it without the dialog
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted && dialog.open) {
       dialog.close();
     }
   });

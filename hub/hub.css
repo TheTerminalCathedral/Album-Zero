@@ -1771,8 +1771,9 @@ html.tc-boot-pending #record-start {
   outline-offset: 3px;
 }
 
-/* narrow screens: the eyebrow keeps its row; the script drops to its own short line, with a compact name */
-@media (max-width: 559px) {
+/* below 800 px the eyebrow and the full name no longer share one line: the eyebrow keeps its row, and the script
+   drops to its own short line with a compact name */
+@media (max-width: 799px) {
   .hub-header {
     grid-template-columns: minmax(0, 1fr);
   }
