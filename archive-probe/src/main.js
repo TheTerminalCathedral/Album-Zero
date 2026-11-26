@@ -1132,4 +1132,9 @@ class BreachToolApp {
   }
 }
 
-window.__ARCHIVE_PROBE__ = new BreachToolApp();
+// Stage 3K (website integration): the app object is no longer a public debug interface. Automated tests set
+// window.__ARCHIVE_PROBE_TEST__ = true before the page loads (for example with CDP addScriptToEvaluateOnNewDocument).
+const app = new BreachToolApp();
+if (window.__ARCHIVE_PROBE_TEST__ === true) {
+  window.__ARCHIVE_PROBE__ = app;
+}

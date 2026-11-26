@@ -31,6 +31,13 @@
       dialog.close();
     }
   });
+  // Escape belongs to the dialog while it is open: the browser still closes it, but the page's own Escape handler
+  // (hub.js: finish the typing at once) does not also run behind it
+  dialog.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      event.stopPropagation();
+    }
+  });
   // Back after EXECUTE may restore this page from the back/forward cache: show it without the dialog
   window.addEventListener("pageshow", function (event) {
     if (event.persisted && dialog.open) {
