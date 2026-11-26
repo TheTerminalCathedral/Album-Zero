@@ -1709,3 +1709,187 @@ html.tc-boot-pending #record-start {
 .ref-page .pub-subtitle {
   color: var(--terminal-text-strong);
 }
+
+/* ---- Stage 3K: the overlooked local script in the header, and its confirmation dialog ---- */
+.hub-header {
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 1rem;
+  align-items: baseline;
+}
+
+.hub-header > .hub-title {
+  grid-column: 1 / -1;
+}
+
+.hub-script {
+  --script-dim: #9c7f55; /* muted bronze: 4.8:1 or more on the page background */
+  justify-self: end;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45em;
+  /* a 24 px tall touch target, with negative margins so it takes no more room than the eyebrow text */
+  min-height: 1.5rem;
+  margin: -0.4rem -0.25rem -0.05rem;
+  padding: 0.4rem 0.25rem 0.4rem;
+  border: 0;
+  background: none;
+  color: var(--script-dim);
+  font: inherit;
+  font-size: 0.69rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.hub-script[hidden] {
+  display: none;
+}
+
+.hub-script-icon {
+  align-self: center;
+  flex: none;
+}
+
+.hub-script-run {
+  color: var(--archive-amber);
+  letter-spacing: 0.1em;
+}
+
+.hub-script:hover .hub-script-name,
+.hub-script:focus-visible .hub-script-name {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.hub-script:hover,
+.hub-script:focus-visible {
+  color: var(--archive-amber);
+}
+
+.hub-script:focus-visible {
+  outline: 2px solid var(--terminal-focus);
+  outline-offset: 3px;
+}
+
+/* narrow screens: the eyebrow keeps its row; the script drops to its own short line, with a compact name */
+@media (max-width: 559px) {
+  .hub-header {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hub-script {
+    justify-self: start;
+    margin: -0.55rem -0.25rem -0.15rem;
+  }
+
+  .hub-script-pre {
+    display: none;
+  }
+}
+
+.breach-dialog {
+  width: min(30rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+  padding: 1.1rem 1.2rem 1rem;
+  border: 1px solid var(--archive-amber-edge);
+  border-radius: 4px;
+  background: var(--terminal-panel-bg);
+  color: var(--terminal-text);
+  font-family: var(--font-stack);
+  font-size: 0.86rem;
+  box-shadow: 0 18px 48px var(--shadow-deep);
+}
+
+.breach-dialog::backdrop {
+  background: rgba(3, 5, 8, 0.72);
+}
+
+.breach-eyebrow {
+  margin: 0 0 0.7rem;
+  color: var(--terminal-text-soft);
+  font-size: 0.69rem;
+  letter-spacing: 0.18em;
+}
+
+.breach-title {
+  margin: 0 0 0.9rem;
+  color: var(--archive-red);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+}
+
+.breach-file {
+  margin: 0 0 0.9rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.breach-file div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5em;
+}
+
+.breach-file dt {
+  color: var(--terminal-text-soft);
+}
+
+.breach-file dd {
+  margin: 0;
+  color: var(--terminal-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.breach-file .breach-auth {
+  margin-top: 0.55rem;
+}
+
+.breach-file .breach-auth dd {
+  color: var(--archive-red);
+}
+
+.breach-question {
+  margin: 0 0 1rem;
+  color: var(--terminal-text-strong);
+}
+
+.breach-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.breach-btn {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.9rem;
+  border: 1px solid var(--terminal-panel-edge);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--terminal-button-text);
+  font: inherit;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.breach-execute {
+  border-color: var(--archive-amber-edge);
+  color: var(--archive-amber);
+}
+
+.breach-btn:hover {
+  border-color: var(--terminal-text-soft);
+}
+
+.breach-execute:hover {
+  border-color: var(--archive-amber);
+}
+
+.breach-btn:focus-visible {
+  outline: 2px solid var(--terminal-focus);
+  outline-offset: 3px;
+}

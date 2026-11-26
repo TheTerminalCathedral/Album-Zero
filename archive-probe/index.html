@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAJ_CATHEDRAL_BREACH_TOOL</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <!-- SCREEN 1: BOOT / SPLASH SEQUENCE -->
+  <section class="overlay-screen" id="screen-boot" aria-label="Module Initialization">
+    <div class="boot-card">
+      <div class="boot-header">
+        <span class="boot-dot" aria-hidden="true"></span>
+        <span>LOCAL EXECUTION LOADER // TTY-0</span>
+      </div>
+      <pre class="boot-output" id="boot-output" aria-live="polite"></pre>
+      <div class="boot-error" id="boot-error" hidden role="alert">
+        <p id="boot-error-msg">MODULE INITIALIZATION FAILED.</p>
+        <button type="button" class="btn-primary" id="btn-boot-retry">RETRY INITIALIZATION</button>
+      </div>
+      <div class="boot-footer">
+        <span class="boot-hint" id="boot-hint">PRESS ANY KEY OR TAP TO SKIP</span>
+        <button type="button" class="btn-chip" id="btn-boot-skip">SKIP &gt;&gt;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 2: MAIN MENU -->
+  <section class="overlay-screen" id="screen-menu" hidden aria-label="Main Menu">
+    <div class="menu-card">
+      <div class="menu-meta-top">
+        <span>FILE: DAJ_CATHEDRAL_BREACH_TOOL.wasm</span>
+        <span>AUTH: NOT VERIFIED</span>
+      </div>
+      <h1 class="menu-title">DAJ_CATHEDRAL_BREACH_TOOL</h1>
+      <p class="menu-subtitle">EXPERIMENTAL UNAUTHORIZED ACCESS UTILITY</p>
+      <div class="menu-meta-sub">
+        AUTHOR: DAN ALMER JENSEN &nbsp;·&nbsp; TARGET: THE TERMINAL CATHEDRAL
+      </div>
+      <p class="menu-intro">
+        Recover vulnerability signatures. Return to the Local Node to analyze them.
+        Compile stronger modules to penetrate deeper security layers.
+      </p>
+
+      <!-- Post-Termination Notice -->
+      <div class="terminated-banner" id="menu-terminated-banner" hidden>
+        <div class="terminated-banner-title">SESSION TERMINATED BY REGISTRAR</div>
+        <p class="terminated-banner-text">
+          Unauthorized gateway connection closed. You may launch a new session or exit to the external archive.
+        </p>
+      </div>
+
+      <!-- Saved Session Summary -->
+      <div class="save-summary" id="menu-save-summary" hidden></div>
+
+      <!-- Primary Menu Actions -->
+      <nav class="menu-nav" id="menu-nav" aria-label="Tool Menu">
+        <button type="button" class="menu-btn menu-btn-primary" id="btn-menu-start">
+          START INTRUSION
+        </button>
+        <button type="button" class="menu-btn" id="btn-menu-new" hidden>
+          NEW SESSION (RESET SAVE)
+        </button>
+        <button type="button" class="menu-btn" id="btn-menu-settings">SETTINGS</button>
+        <button type="button" class="menu-btn" id="btn-menu-controls">CONTROLS</button>
+        <button type="button" class="menu-btn" id="btn-menu-about">ABOUT / FILE INFO</button>
+        <a class="menu-btn menu-btn-exit" id="btn-menu-exit" href="https://terminalcathedral.com/">
+          EXIT TO ARCHIVE
+        </a>
+      </nav>
+
+      <!-- Explicit New Session Confirmation inside Menu -->
+      <div class="reset-confirm" id="menu-new-confirm" hidden>
+        <p>Start a fresh session? Existing compiled modules, Exploit Library SIGS, and cleared routes will be erased.</p>
+        <div class="action-row">
+          <button type="button" class="btn-danger" id="btn-menu-new-confirm">CONFIRM NEW SESSION</button>
+          <button type="button" class="btn-chip" id="btn-menu-new-cancel">CANCEL</button>
+        </div>
+      </div>
+
+      <div class="menu-footer">
+        UNREGISTERED EXTERNAL ARCHIVE ARTIFACT · LOCAL BROWSER EXECUTION ONLY
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 3: GAMEPLAY SHELL -->
+  <div class="app-shell" id="app-shell" hidden>
+    <!-- Top Terminal Header -->
+    <header class="top-bar">
+      <div class="brand">
+        <div class="brand-row">
+          <span class="brand-tag">DAJ_CATHEDRAL_BREACH_TOOL</span>
+          <span class="alert-badge level-0" id="hud-alert-badge">STATUS: UNDETECTED</span>
+        </div>
+        <span class="brand-sub" id="hud-layer">LOCAL NODE · ACCESS DEPTH: 000 · 0x040B</span>
+      </div>
+      <div class="top-actions">
+        <button type="button" class="btn-chip" id="btn-upgrades" title="Module Compiler (U)">COMPILER</button>
+        <button type="button" class="btn-chip" id="btn-settings" title="Settings">SETTINGS</button>
+        <button type="button" class="btn-chip" id="btn-menu-return" title="Return to Main Menu">MENU</button>
+        <button type="button" class="btn-chip" id="btn-pause" title="Pause (P)">PAUSE</button>
+      </div>
+    </header>
+
+    <!-- Compact Telemetry HUD -->
+    <section class="hud-bar" aria-label="Probe Telemetry">
+      <div class="energy-box">
+        <div class="energy-head">
+          <span>POWER CELL</span>
+          <span id="hud-energy-text">70 / 70 E</span>
+        </div>
+        <div class="energy-track" id="energy-track">
+          <div class="energy-fill" id="hud-energy-fill"></div>
+          <div class="recall-marker" id="hud-recall-marker" title="15% Safe Disconnect Threshold"></div>
+        </div>
+      </div>
+
+      <div class="stat-pill" id="hud-cargo-pill">
+        <span class="stat-label">EXPLOIT BUFFER</span>
+        <span class="stat-val amber" id="hud-carried">0 / 60 SIGS</span>
+      </div>
+
+      <div class="stat-pill">
+        <span class="stat-label">EXPLOIT LIBRARY</span>
+        <span class="stat-val cyan" id="hud-banked">0 SIGS</span>
+      </div>
+
+      <div class="stat-pill hide-xs">
+        <span class="stat-label">MODULES</span>
+        <span class="stat-val" id="hud-rig">B1 · P1 · R1 · E1</span>
+      </div>
+    </section>
+
+    <!-- Main Viewport (Canvas + Non-Blocking Registrar Broadcast + Desktop Sidebar) -->
+    <main class="main-stage">
+      <div class="canvas-wrap" id="canvas-wrap">
+        <canvas id="game-canvas" aria-label="Archive security layer grid"></canvas>
+        <div class="scanlines" aria-hidden="true"></div>
+        <div class="glitch-veil" id="glitch-veil" aria-hidden="true"></div>
+
+        <!-- Non-blocking Registrar Escalation Announcement -->
+        <aside class="registrar-banner" id="registrar-banner" hidden role="status" aria-live="assertive">
+          <div class="registrar-head">
+            <span id="registrar-header">REGISTRAR // NOTICE</span>
+            <button type="button" class="registrar-dismiss" id="btn-registrar-dismiss" aria-label="Dismiss notice">×</button>
+          </div>
+          <pre class="registrar-body" id="registrar-body"></pre>
+        </aside>
+
+        <div class="status-toast" id="status-log" role="status" aria-live="polite">
+          [LOCAL NODE] RECOVER VULNERABILITY SIGNATURES. RETURN TO LOCAL NODE TO ANALYZE SIGS &amp; COMPILE MODULES.
+        </div>
+      </div>
+
+      <!-- Desktop Side Panel (Module Compiler + Legend + Quick Actions) -->
+      <aside class="side-panel" id="side-panel" aria-label="Module Compiler">
+        <div class="panel-section">
+          <div class="panel-title">
+            <span>MODULE COMPILER // LOCAL NODE</span>
+            <span class="dock-pill" id="dock-status">CONNECTED</span>
+          </div>
+          <div class="upgrade-list" id="upgrade-list"></div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-title"><span>PROBE ACTIONS</span></div>
+          <div class="action-row">
+            <button type="button" class="btn-action" id="btn-scan-side">RECON PULSE [SPACE]</button>
+            <button type="button" class="btn-action" id="btn-recall-side">SAFE DISCONNECT [R]</button>
+          </div>
+          <p class="hint-text" id="recall-hint">Safe Disconnect costs 15% power &amp; transfers 100% of buffer.</p>
+        </div>
+
+        <div class="panel-section legend-section">
+          <div class="panel-title"><span>SIGNATURE LEGEND</span></div>
+          <ul class="legend-list">
+            <li><span class="swatch swatch-shard"></span> Perimeter Flaw (+10 SIGS)</li>
+            <li><span class="swatch swatch-cipher"></span> Cipher Leak (+25 SIGS, L2)</li>
+            <li><span class="swatch swatch-core"></span> Core Exploit (+60 SIGS, L3)</li>
+            <li><span class="swatch swatch-relay"></span> Power Relay (+18/22 E)</li>
+            <li><span class="swatch swatch-hazard"></span> Corrupt Fault (-12/16 E)</li>
+            <li><span class="swatch swatch-gate"></span> Cathedral Gateway (Depth 045)</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Touch / Mobile Controls -->
+    <footer class="touch-controls" id="touch-controls" aria-label="Touch Controls">
+      <div class="dpad">
+        <button type="button" class="dpad-btn dpad-up" data-dir="0" aria-label="Move Up">▲</button>
+        <button type="button" class="dpad-btn dpad-left" data-dir="3" aria-label="Move Left">◀</button>
+        <button type="button" class="dpad-btn dpad-down" data-dir="2" aria-label="Move Down">▼</button>
+        <button type="button" class="dpad-btn dpad-right" data-dir="1" aria-label="Move Right">▶</button>
+      </div>
+      <div class="touch-actions">
+        <button type="button" class="touch-act-btn" id="btn-scan-touch">
+          <span>RECON</span>
+          <small id="touch-scan-sub">LV 2 REQ</small>
+        </button>
+        <button type="button" class="touch-act-btn" id="btn-recall-touch">
+          <span>DISCONNECT</span>
+          <small id="touch-recall-sub">10 E</small>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- MODAL: Mobile Module Compiler Drawer -->
+  <div class="modal-backdrop" id="modal-upgrades" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="upgrades-modal-title">
+      <div class="modal-head">
+        <h2 id="upgrades-modal-title">MODULE COMPILER // LOCAL NODE</h2>
+        <button type="button" class="btn-chip" data-close="modal-upgrades">CLOSE</button>
+      </div>
+      <p class="modal-note" id="modal-dock-note">Connect to Local Node (Row 0 or Safe Disconnect) to compile upgraded modules.</p>
+      <div class="upgrade-list" id="upgrade-list-modal"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: Settings -->
+  <div class="modal-backdrop" id="modal-settings" hidden>
+    <div class="modal-card modal-narrow" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+      <div class="modal-head">
+        <h2 id="settings-title">SETTINGS</h2>
+        <button type="button" class="btn-chip" data-close="modal-settings">CLOSE</button>
+      </div>
+      <div class="settings-list">
+        <label class="setting-row">
+          <span>Synthesized Audio (SFX)</span>
+          <input type="checkbox" id="opt-audio" />
+        </label>
+        <label class="setting-row">
+          <span>Screen Shake &amp; Rumble</span>
+          <input type="checkbox" id="opt-shake" />
+        </label>
+        <label class="setting-row">
+          <span>Reduced Motion</span>
+          <input type="checkbox" id="opt-reduced-motion" />
+        </label>
+        <label class="setting-row">
+          <span>Skip Boot Sequence on Launch</span>
+          <input type="checkbox" id="opt-skip-boot" />
+        </label>
+      </div>
+      <div class="modal-actions-col">
+        <button type="button" class="btn-chip" id="btn-replay-boot">REPLAY BOOT SEQUENCE</button>
+        <button type="button" class="btn-chip" id="btn-settings-controls">VIEW CONTROLS</button>
+        <button type="button" class="btn-danger" id="btn-settings-reset-req">RESET SAVE DATA</button>
+      </div>
+      <div class="reset-confirm" id="settings-reset-confirm" hidden>
+        <p>Erase local progress, compiled modules, Exploit Library SIGS, milestones, and cleared routes? This cannot be undone.</p>
+        <div class="action-row">
+          <button type="button" class="btn-danger" id="btn-settings-reset-confirm">CONFIRM RESET</button>
+          <button type="button" class="btn-chip" id="btn-settings-reset-cancel">CANCEL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: About / File Info -->
+  <div class="modal-backdrop" id="modal-about" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="about-title">
+      <div class="modal-head">
+        <h2 id="about-title">ABOUT // FILE INFO</h2>
+        <button type="button" class="btn-chip" data-close="modal-about">CLOSE</button>
+      </div>
+      <div class="about-body">
+        <dl class="meta-table">
+          <dt>UTILITY</dt><dd>DAJ_CATHEDRAL_BREACH_TOOL</dd>
+          <dt>FILE</dt><dd>DAJ_CATHEDRAL_BREACH_TOOL.wasm</dd>
+          <dt>AUTHOR</dt><dd>Dan Almer Jensen</dd>
+          <dt>CLASSIFICATION</dt><dd>Unauthorized intrusion utility</dd>
+          <dt>TARGET</dt><dd>The Terminal Cathedral (Access Layers)</dd>
+          <dt>DISTRIBUTION</dt><dd>Unregistered / external archive artifact</dd>
+          <dt>AUTHORIZATION</dt><dd class="text-red">Not verified</dd>
+        </dl>
+        <p class="about-note">
+          An experimental, homemade intrusion tool left behind inside the external archive terminal.
+          Built to test whether the Cathedral's access restrictions could be bypassed. Execution is
+          local and purely fictional — no network requests or real security operations occur.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Pause -->
+  <div class="modal-backdrop" id="modal-pause" hidden>
+    <div class="modal-card modal-narrow" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+      <div class="modal-head">
+        <h2 id="pause-title">SESSION PAUSED</h2>
+      </div>
+      <div class="stats-grid" id="pause-stats"></div>
+      <div class="modal-actions-col">
+        <button type="button" class="btn-primary" id="btn-resume">RESUME SESSION</button>
+        <button type="button" class="btn-chip" id="btn-pause-settings">SETTINGS</button>
+        <button type="button" class="btn-chip" id="btn-pause-menu">RETURN TO MAIN MENU</button>
+        <button type="button" class="btn-danger" id="btn-reset-request">RESET SAVE DATA</button>
+      </div>
+      <div class="reset-confirm" id="reset-confirm" hidden>
+        <p>Erase local progress, compiled modules, Exploit Library SIGS, and cleared routes? This cannot be undone.</p>
+        <div class="action-row">
+          <button type="button" class="btn-danger" id="btn-reset-confirm">CONFIRM RESET</button>
+          <button type="button" class="btn-chip" id="btn-reset-cancel">CANCEL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Controls / Manual -->
+  <div class="modal-backdrop" id="modal-help" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="help-title">
+      <div class="modal-head">
+        <h2 id="help-title">CONTROLS // OPERATOR MANUAL</h2>
+        <button type="button" class="btn-chip" data-close="modal-help">CLOSE</button>
+      </div>
+      <div class="help-body">
+        <p><strong>Objective:</strong> Recover vulnerability signatures (SIGS). Return to the Local Node (Row 0) to analyze them into your Exploit Library. Compile stronger modules to penetrate deeper security layers and reach the Cathedral Gateway at Access Depth 045.</p>
+        <ul>
+          <li><strong>Desktop Movement / Breach:</strong> Arrow Keys or WASD. Move directly into adjacent security blocks to breach them.</li>
+          <li><strong>Smartphone / Touch:</strong> Hold directional D-Pad buttons to move and breach; tap <strong>RECON</strong>, <strong>DISCONNECT</strong>, or <strong>COMPILER</strong>.</li>
+          <li><strong>Power Cell &amp; Exploit Buffer:</strong> Moving costs 1 E; breaching costs 2 E. Collected SIGS fill your Exploit Buffer until analyzed at the Local Node (which also recharges your Power Cell to 100%). A full buffer leaves signature nodes intact until you deposit.</li>
+          <li><strong>Safe Disconnect [R]:</strong> Costs 15% of Power Cell capacity (marked on the bar) to return to Local Node with 100% of buffered SIGS analyzed.</li>
+          <li><strong>Failsafe Eject:</strong> Depleting your Power Cell automatically ejects the probe to Local Node, salvaging 65% of buffered SIGS while preserving your Exploit Library, compiled modules, and cleared routes.</li>
+          <li><strong>Recon Pulse [SPACE]:</strong> Unlocked at Recon Module Lv 2 (costs 5 E, requires &gt;5 E underground). Detects nearby vulnerability signatures, relays, and (at Lv 3+) corrupt faults.</li>
+          <li><strong>Shortcuts:</strong> Pause [P / ESC] · Audio [M] · Module Compiler [U]</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Final Gateway — THE IMPOSSIBLE LOGIN & FORCED TERMINATION -->
+  <div class="modal-backdrop" id="modal-ending" hidden>
+    <div class="modal-card ending-card" role="dialog" aria-modal="true" aria-labelledby="ending-title">
+      <div class="modal-head">
+        <h2 id="ending-title">CATHEDRAL GATEWAY // REGISTRAR RESPONSE</h2>
+        <button type="button" class="btn-chip" id="btn-ending-skip">SKIP</button>
+      </div>
+      <div class="terminal-transcript" id="ending-transcript" aria-live="polite"></div>
+      <div class="ending-actions" id="ending-actions" hidden>
+        <button type="button" class="btn-primary" id="btn-ending-eject">RETURN TO MAIN MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

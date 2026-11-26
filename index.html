@@ -105,6 +105,12 @@
             The Terminal Cathedral <span class="hub-status-sep" aria-hidden="true">·</span> External access terminal
             <span class="cursor hub-cursor" aria-hidden="true"></span>
           </p>
+          <!-- Stage 3K: an overlooked local script (HUMAN-approved easter egg). hub/breach.js shows it and opens #breach-dialog. -->
+          <button type="button" class="hub-script" id="breach-run" aria-haspopup="dialog" aria-label="DAJ_CATHEDRAL_BREACH_TOOL.wasm [ RUN ]" hidden>
+            <svg class="hub-script-icon" viewBox="0 0 12 14" width="10" height="12" aria-hidden="true" focusable="false"><path d="M1 .5h6.5L11 4v9.5H1z M7.5 .5V4H11" fill="none" stroke="currentColor"/><path d="M4.2 7 2.9 8.6l1.3 1.6 M7.8 7l1.3 1.6-1.3 1.6" fill="none" stroke="currentColor"/></svg>
+            <span class="hub-script-name"><span class="hub-script-pre">DAJ_CATHEDRAL_</span>BREACH_TOOL.wasm</span>
+            <span class="hub-script-run">[ RUN ]</span>
+          </button>
           <h1 class="hub-title">The Terminal Cathedral</h1>
         </header>
 
@@ -765,10 +771,27 @@ Select a route to proceed.</p>
       </div>
     </main>
 
+    <!-- Stage 3K: fictional in-universe confirmation for the header script; not a real security warning. -->
+    <dialog class="breach-dialog" id="breach-dialog" aria-labelledby="breach-title" aria-describedby="breach-file">
+      <p class="breach-eyebrow">EXTERNAL TERMINAL · SECURITY WARNING</p>
+      <h2 class="breach-title" id="breach-title">UNREGISTERED SCRIPT DETECTED</h2>
+      <dl class="breach-file" id="breach-file">
+        <div><dt>FILE:</dt> <dd>DAJ_CATHEDRAL_BREACH_TOOL.wasm</dd></div>
+        <div><dt>AUTHOR:</dt> <dd>DAN ALMER JENSEN</dd></div>
+        <div><dt>TYPE:</dt> <dd>UNAUTHORIZED INTRUSION UTILITY</dd></div>
+        <div class="breach-auth"><dt>AUTHORIZATION:</dt> <dd>NOT VERIFIED</dd></div>
+      </dl>
+      <p class="breach-question">Execute this unauthorized utility?</p>
+      <div class="breach-actions">
+        <button type="button" class="breach-btn" id="breach-cancel">[ CANCEL ]</button>
+        <a class="breach-btn breach-execute" href="archive-probe/">[ EXECUTE ]</a>
+      </div>
+    </dialog>
     <script src="hub/hub-data.js"></script>
     <script src="analytics.js"></script>
     <script src="hub/observation-panel.js"></script>
     <script src="hub/hub.js"></script>
     <script src="hub/audio.js"></script>
+    <script src="hub/breach.js"></script>
   </body>
 </html>
