@@ -1,0 +1,26 @@
+DAJ_CATHEDRAL_BREACH_TOOL: rebuilding the WebAssembly core
+==========================================================
+
+The game's simulation core, ../archive_core.wasm, is assembled by hand, with no
+compiler and no dependencies, by the two scripts in this folder:
+
+  wasm-emitter.mjs  a minimal WebAssembly binary writer
+  build-core.mjs    the core itself, written instruction by instruction
+
+Both are development tools. The game page never loads them.
+
+Rebuild, from the repository root, with Node.js 18 or later (checked with Node 24):
+
+  node archive-probe/src/wasm/build-core.mjs
+
+This overwrites ../archive_core.wasm (4,068 bytes) and its base64 copy
+../archive_core_b64.js (the fallback used when the .wasm file cannot be fetched),
+and checks the result with WebAssembly.validate(). The rebuild is byte-for-byte
+reproducible. Expected SHA-256:
+
+  archive_core.wasm     c933de798795f1b3a62206f560be964adb16571e5994bb962c98f2e2b4bd4567
+  archive_core_b64.js   0d67701851e22c5728da0293a539bf6eb345ff2323b11d4346fe42bb08269ad2
+
+Source: the game was developed by Gemini (Layer 2) on the local branch
+feature/gemini-archive-game, commit 157f328fb61ec48f7fd3a6d207e0f2b9bdda5595.
+These two scripts are byte-identical to that commit.
